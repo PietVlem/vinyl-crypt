@@ -9,7 +9,7 @@ export const authGuard: CanActivateFn = (
   const router = inject(Router);
   const errorHandler = inject(ErrorHandler);
 
-  const authenticated = true;
+  const authenticated = false;
 
   if(!authenticated) {
     errorHandler.handleError(new Error('Unauthorized'));
