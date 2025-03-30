@@ -1,29 +1,32 @@
 {
-  "name": "server",
-  "version": "1.0.0",
-  "description": "vinyl crypt server",
-  "license": "ISC",
-  "author": "Pieter Vleminckx",
-  "type": "commonjs",
-  "main": "./src/index.ts",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon",
-    "serve": "node dist/main.js"
-  },
-  "dependencies": {
-    "@trpc/server": "^11.0.0",
-    "@types/cors": "^2.8.17",
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.7",
-    "express": "^4.21.2",
-    "zod": "^3.24.2"
-  },
-  "devDependencies": {
-    "@types/express": "^5.0.1",
-    "@types/node": "^22.13.12",
-    "nodemon": "^3.1.9",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.8.2"
-  }
+    "name": "vv-server",
+    "version": "1.0.0",
+    "description": "vinyl crypt server",
+    "main": "./src/index.ts",
+    "type": "commonjs",
+    "scripts": {
+        "start": "node src/main.ts",
+        "dev": "nodemon"
+    },
+    "keywords": [],
+    "author": "Pieter Vleminckx",
+    "license": "ISC",
+    "dependencies": {
+        "@trpc/server": "^11.0.1",
+        "cors": "^2.8.5",
+        "dotenv": "^10.0.0",
+        "express": "^4.17.1",
+        "express-oauth2-jwt-bearer": "^1.1.0",
+        "helmet": "^4.6.0",
+        "nocache": "^3.0.1"
+    },
+    "devDependencies": {
+        "@types/cors": "^2.8.17",
+        "@types/express": "^5.0.1",
+        "@types/node": "^22.13.14",
+        "nodemon": "^3.1.9",
+        "prettier": "^2.4.1",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.8.2"
+    }
 }

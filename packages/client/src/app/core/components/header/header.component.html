@@ -71,23 +71,32 @@
           <!-- Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
           <a
             class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:border-gray-300 hover:text-gray-700"
-            routerLink="/login"
+            routerLink="/public"
             routerLinkActive="text-indigo-700 border-b-2 !border-indigo-500"
             ariaCurrentWhenActive="page"
-            >Login</a
+            >public</a
           >
-          <a
-            class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:border-gray-300 hover:text-gray-700"
-            routerLink="/dashboard"
-            routerLinkActive="text-indigo-700 border-b-2 !border-indigo-500"
-            ariaCurrentWhenActive="page"
-            >Dashboard</a
-          >
+          @if(isAuthenticated()) {
+            <a
+              class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:border-gray-300 hover:text-gray-700"
+              routerLink="/protected"
+              routerLinkActive="text-indigo-700 border-b-2 !border-indigo-500"
+              ariaCurrentWhenActive="page"
+              >protected</a
+            >
+          }
         </div>
       </div>
       <div
         class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0"
       >
+        @if(isAuthenticated()) {
+          <app-logout-button/>
+        } @else {
+          <app-signup-button/>
+          <app-login-button/>
+        }
+        
         <button
           type="button"
           class="relative p-1 text-gray-400 bg-white rounded-full hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
@@ -183,32 +192,32 @@
   </div>
 
   @if(mainMenuIsOpen()) {
-  <div class="sm:hidden" id="mobile-menu">
-    <div class="pt-2 pb-4 space-y-1">
-      <a
-        class="block py-2 pl-3 pr-4 text-base font-medium text-gray-500 border-l-4 border-transparent hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700"
-        routerLink="/"
-        routerLinkActive="text-indigo-700 border-l-4 !border-indigo-500 bg-indigo-50"
-        ariaCurrentWhenActive="page"
-        >Home</a
-      >
+    <div class="sm:hidden" id="mobile-menu">
+      <div class="pt-2 pb-4 space-y-1">
+        <a
+          class="block py-2 pl-3 pr-4 text-base font-medium !text-gray-500 border-l-4 border-transparent hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700"
+          routerLink="/"
+          routerLinkActive="text-indigo-700 border-l-4 !border-indigo-500 bg-indigo-50"
+          ariaCurrentWhenActive="page"
+          >Home</a
+        >
 
-      <a
-        class="block py-2 pl-3 pr-4 text-base font-medium text-gray-500 border-l-4 border-transparent hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700"
-        routerLink="/dashboard"
-        routerLinkActive="text-indigo-700 border-l-4 !border-indigo-500 bg-indigo-50"
-        ariaCurrentWhenActive="page"
-        >Dashboard</a
-      >
+        <a
+          class="block py-2 pl-3 pr-4 text-base font-medium text-gray-500 border-l-4 border-transparent hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700"
+          routerLink="/dashboard"
+          routerLinkActive="text-indigo-700 border-l-4 !border-indigo-500 bg-indigo-50"
+          ariaCurrentWhenActive="page"
+          >Dashboard</a
+        >
 
-      <a
-        class="block py-2 pl-3 pr-4 text-base font-medium text-gray-500 border-l-4 border-transparent hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700"
-        routerLink="/login"
-        routerLinkActive="text-indigo-700 border-l-4 !border-indigo-500 bg-indigo-50"
-        ariaCurrentWhenActive="page"
-        >Login</a
-      >
+        <a
+          class="block py-2 pl-3 pr-4 text-base font-medium text-gray-500! border-l-4 border-transparent hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700"
+          routerLink="/login"
+          routerLinkActive="text-indigo-700 border-l-4 !border-indigo-500 bg-indigo-50"
+          ariaCurrentWhenActive="page"
+          >Login</a
+        >
+      </div>
     </div>
-  </div>
   }
 </nav>

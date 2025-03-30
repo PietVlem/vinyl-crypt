@@ -1,17 +1,17 @@
 {
-  "name": "vinyl-crypt",
+  "name": "vinyl-vault",
   "version": "1.0.0",
-  "description": "Platform for vinyl lovers",
+  "description": "Tool for vinyl lovers",
+  "license": "ISC",
+  "author": "Pieter Vleminckx",
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "npm start --workspace=client & npm run start --workspace=server"
+    "dev": "npm start --w=vv-client & npm run dev --w=vv-server"
   },
   "workspaces": [
     "./packages/client",
     "./packages/server"
-  ],
-  "license": "ISC",
-  "author": "Pieter Vleminckx"
+  ]
 }

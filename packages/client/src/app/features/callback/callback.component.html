@@ -1,0 +1,23 @@
+@if(error()){
+  <app-layout-base>
+    <div class="content-layout">
+      <h1 id="page-title" class="content__title">Error</h1>
+      <div class="content__body">
+        <p id="page-description">
+          <span>{{ error()?.message }}</span>
+        </p>
+      </div>
+    </div>
+  </app-layout-base>
+} @else {
+  <app-layout-base>
+    <div class="content-layout">
+      <h1 id="page-title" class="content__title">Callback</h1>
+      <div class="content__body">
+        <p id="page-description">
+          <span>Callback page</span>
+        </p>
+      </div>
+    </div>
+  </app-layout-base>
+}
