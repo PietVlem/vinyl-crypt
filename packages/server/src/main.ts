@@ -2,14 +2,15 @@ import * as trpcExpress from '@trpc/server/adapters/express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import express, { NextFunction, Request, Response } from 'express';
-
-import { messagesRouter } from './messages/messages.router';
-import { errorHandler } from './middleware/error.middleware';
-import { notFoundHandler } from './middleware/not-found.middleware';
-import { appRouter } from './router';
-
 import helmet from 'helmet';
 import nocache from 'nocache';
+
+import { messagesRouter } from './api/messages/messages.router';
+import { errorHandler } from './middleware/error.middleware';
+import { notFoundHandler } from './middleware/not-found.middleware';
+
+import { createContext } from './trpc/context';
+import { appRouter } from './trpc/router';
 
 dotenv.config();
 
@@ -63,11 +64,6 @@ app.use(
 
 app.use("/api", apiRouter);
 apiRouter.use("/messages", messagesRouter);
-
-const createContext = ({
-  req, res
-}: trpcExpress.CreateExpressContextOptions) => ({})
-type Context = Awaited<ReturnType<typeof createContext>>
 
 app.use('/trpc', trpcExpress.createExpressMiddleware({ 
   router: appRouter, 

@@ -15,7 +15,7 @@ export class PublicComponent implements OnInit {
   message = {};
 
   ngOnInit(): void {
-    this.helloWorldService.helloWorld();
+    this.helloWorldService.public();
     
     this.messageService.getPublicResource().subscribe((response) => {
       const { data, error } = response;

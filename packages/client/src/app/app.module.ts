@@ -11,22 +11,22 @@ import { SharedModule } from './shared';
     declarations: [AppComponent],
     bootstrap: [AppComponent],
     imports: [
-        BrowserModule,
-        AppRoutingModule,
-        SharedModule,
-        AuthModule.forRoot({
-          ...env.auth0,
-          httpInterceptor: {
-            allowedList: [
-              `${env.api.serverUrl}/api/messages/admin`, 
-              `${env.api.serverUrl}/api/messages/protected`
-            ],
-          },
-        }),
+      BrowserModule,
+      AppRoutingModule,
+      SharedModule,
+      AuthModule.forRoot({
+        ...env.auth0,
+        httpInterceptor: {
+          allowedList: [
+            `${env.api.serverUrl}/api/messages/admin`, 
+            `${env.api.serverUrl}/api/messages/protected`
+          ],
+        },
+      }),
     ],
     providers: [
-        AuthHttpInterceptor,
-        provideHttpClient(withInterceptors([authHttpInterceptorFn]))
+      AuthHttpInterceptor,
+      provideHttpClient(withInterceptors([authHttpInterceptorFn]))
     ]
 })
 export class AppModule {}

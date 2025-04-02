@@ -1,5 +1,5 @@
 import express from "express";
-import { checkRequiredPermissions, validateAccessToken } from "../middleware/auth0.middleware";
+import { validateAccessToken } from "../../middleware/auth0.middleware";
 import { getProtectedMessage, getPublicMessage } from "./messages.service";
 
 export const messagesRouter = express.Router();
