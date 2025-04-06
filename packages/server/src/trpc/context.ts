@@ -1,5 +1,6 @@
 import { CreateExpressContextOptions } from '@trpc/server/adapters/express';
 import { validateAccessToken } from '../middleware/auth0.middleware';
+import { prisma } from '../prisma/prismaClient';
 
 export const createContext = async ({ req, res }: CreateExpressContextOptions) => {
   async function getUserFromHeader() {
@@ -7,13 +8,15 @@ export const createContext = async ({ req, res }: CreateExpressContextOptions) =
       await validateAccessToken(req, res, () => {});
 
       const { auth } = req;
-
       if(!auth) return null
 
-      return {
-        id: auth.payload?.sub,
-      };
+      return await prisma.user.findUnique({
+        where: {
+          auth0Id: auth?.payload?.sub,
+        },
+      })
     }
+
     return null;
   }
 
@@ -23,4 +26,5 @@ export const createContext = async ({ req, res }: CreateExpressContextOptions) =
     user,
   };
 }
+
 type Context = Awaited<ReturnType<typeof createContext>>

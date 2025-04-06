@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { UserApiService } from '@app/api';
@@ -11,7 +11,7 @@ import { BaseLayoutComponent } from '@layouts/base/base.component';
   standalone: true,
   imports: [BaseLayoutComponent],
 })
-export class CallbackComponent implements OnInit {
+export class CallbackComponent {
   private auth = inject(AuthService);
   private userApi = inject(UserApiService);
   private router = inject(Router);

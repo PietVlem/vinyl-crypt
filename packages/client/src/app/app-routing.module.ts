@@ -11,10 +11,6 @@ const routes: Routes = [
     loadComponent: () => import('@features/home/home.component').then(c => c.HomeComponent)
   },
   {
-    path: 'public',
-    loadComponent: () => import('@features/public/public.component').then(c => c.PublicComponent),
-  },
-  {
     path: 'dashboard',
     loadComponent: () => import('@features/dashboard/dashboard.component').then(c => c.DashboardComponent),
     canActivate: [AuthGuard],
