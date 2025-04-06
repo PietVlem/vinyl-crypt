@@ -8,5 +8,15 @@ export default [
         code: 401,
         title: 'Unauthorized',
         description: 'You are not authorized to access this page.',
-    }
+    },
+    {
+        code: 403,
+        title: 'Forbidden',
+        description: 'You do not have permission to access this page.',
+    },
+    {
+        code: 500,
+        title: 'Internal Server Error',
+        description: 'An unexpected error occurred. Please try again later.',
+    },
 ]

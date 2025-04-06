@@ -9,8 +9,8 @@ const routes: Routes = [
     loadComponent: () => import('@features/home/home.component').then(c => c.HomeComponent)
   },
   {
-    path: 'profile',
-    loadComponent: () => import('@features/profile/profile.component').then(c => c.ProfileComponent),
+    path: 'settings/profile',
+    loadComponent: () => import('@features/settings/profile/profile.component').then(c => c.ProfileComponent),
     canActivate: [AuthGuard],
   },
   {
@@ -24,10 +24,7 @@ const routes: Routes = [
   },
   {
     path: 'callback',
-    loadChildren: () =>
-      import('./features/callback/callback.module').then(
-        (m) => m.CallbackModule
-      ),
+    loadComponent: () => import('@features/callback/callback.component').then(c => c.CallbackComponent),
   },
   {
     path: 'error',

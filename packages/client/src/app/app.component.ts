@@ -9,5 +9,4 @@ import { AuthService } from '@auth0/auth0-angular';
 export class AppComponent {
   private auth = inject(AuthService);
   isAuth0Loading$ = this.auth.isLoading$;
-
 }
