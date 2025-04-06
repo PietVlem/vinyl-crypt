@@ -14,10 +14,84 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  email     String   @unique
+  id        String            @id @default(uuid())
+  email     String            @unique
   name      String?
-  auth0Id   String   @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  auth0Id   String            @unique
+  vinyls    VinylRecord[]
+  wishlist  Wishlist[]
+  shares    CollectionShare[]
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+}
+
+model VinylRecord {
+  id           String     @id @default(uuid())
+  title        String
+  year         Int
+  genre        String?
+  style        String?
+  condition    String?
+  coverImage   String?
+  purchaseDate DateTime?
+  recordColor  String?
+  userId       String
+  user         User       @relation(fields: [userId], references: [id])
+  artistId     String
+  artist       Artist     @relation(fields: [artistId], references: [id])
+  tracks       Track[]
+  Wishlist     Wishlist[]
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+}
+
+model Track {
+  id           String      @id @default(uuid())
+  side         String
+  title        String
+  mixedBy      String?
+  engineeredBy String?
+  writtenBy    String?
+  vinylId      String
+  vinyl        VinylRecord @relation(fields: [vinylId], references: [id])
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+}
+
+model Artist {
+  id        String        @id @default(uuid())
+  name      String        @unique
+  bio       String?
+  genre     String?
+  country   String?
+  birthDate DateTime?
+  deathDate DateTime?
+  albums    VinylRecord[]
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+}
+
+model Wishlist {
+  id      String      @id @default(uuid())
+  userId  String
+  vinylId String
+  user    User        @relation(fields: [userId], references: [id])
+  vinyls  VinylRecord @relation(fields: [vinylId], references: [id])
+}
+
+model CollectionShare {
+  id         String    @id @default(uuid())
+  userId     String
+  shareToken String    @unique
+  password   String?
+  shareType  ShareType
+  user       User      @relation(fields: [userId], references: [id])
+  createdAt  DateTime  @default(now())
+  expiresAt  DateTime?
+}
+
+enum ShareType {
+  wishlist
+  collection
+  both
 }

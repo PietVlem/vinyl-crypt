@@ -14,7 +14,7 @@ export class SignupButtonComponent {
   handleSignUp(): void {
     this.auth.loginWithRedirect({
       appState: {
-        target: '/settings/profile',
+        target: '/callback',
       },
       authorizationParams: {
         prompt: 'login',

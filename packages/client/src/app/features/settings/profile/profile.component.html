@@ -1,21 +1,20 @@
-<app-layout-base>
-  <div class="content-layout">
-    <h1 id="page-title" class="content__title">Profile Page</h1>
-    <div class="content__body">
-      <p id="page-description">
-        <span>
-          You can use the <strong>ID Token</strong> to get the profile
-          information of an authenticated user.
-        </span>
-        <span>
-          <strong>Only authenticated users can access this page.</strong>
-        </span>
-      </p>
-      <ng-container *ngIf="user$ | async as user">
-        <pre class="code-snippet__body">
+<div class="content-layout">
+  <h1 id="page-title" class="content__title">Profile Page</h1>
+  <div class="content__body">
+    <p id="page-description">
+      <span>
+        You can use the <strong>ID Token</strong> to get the profile information
+        of an authenticated user.
+      </span>
+      <span>
+        <strong>Only authenticated users can access this page.</strong>
+      </span>
+    </p>
+    <ng-container *ngIf="user$ | async as user">
+      <pre class="code-snippet__body">
           {{ user | json }}
-        </pre>
-      </ng-container>
-    </div>
+        </pre
+      >
+    </ng-container>
   </div>
-</app-layout-base>
+</div>

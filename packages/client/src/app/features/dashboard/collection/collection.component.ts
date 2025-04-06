@@ -1,15 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 import { HelloWorldService, MessageService } from '@app/core';
-import { BaseLayoutComponent } from '@layouts/base/base.component';
 
 @Component({
     selector: 'app-protected',
-    templateUrl: './protected.component.html',
-    imports: [BaseLayoutComponent, CommonModule],
+    templateUrl: './collection.component.html',
+    imports: [CommonModule],
     standalone: true
 })
-export class ProtectedComponent implements OnInit {
+export class CollectionComponent implements OnInit {
   private messageService = inject(MessageService)
   helloWorldService = inject(HelloWorldService);
 

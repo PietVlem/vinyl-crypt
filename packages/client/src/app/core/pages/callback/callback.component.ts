@@ -33,9 +33,8 @@ export class CallbackComponent implements OnInit {
             this.router.navigate(['/settings/profile']);
             return
           }
-
-          this.router.navigate(['/error'], { queryParams: { errorCode: 500 } });
         }
+        this.router.navigate(['/error'], { queryParams: { errorCode: 500 } });
       },
       error: (err) => { 
         this.router.navigate(['/error'], { queryParams: { errorCode: 500 } });
