@@ -3,7 +3,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { UserApiService } from '@app/api';
 import { AuthService } from '@auth0/auth0-angular';
-import { BaseLayoutComponent } from '@layouts/base/base.component';
+import { BaseLayoutComponent } from '@layouts';
 
 @Component({
   selector: 'app-callback',

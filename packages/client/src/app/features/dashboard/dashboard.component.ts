@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { BaseLayoutComponent } from '@layouts/base/base.component';
+import { BaseLayoutComponent } from '@layouts';
 
 @Component({
   selector: 'app-dashboard',

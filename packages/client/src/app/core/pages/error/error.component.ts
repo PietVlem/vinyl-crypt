@@ -1,6 +1,6 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BaseLayoutComponent } from "@layouts/base/base.component";
+import { BaseLayoutComponent } from "@layouts";
 import ERROR_DATA from './errorData';
 
 @Component({

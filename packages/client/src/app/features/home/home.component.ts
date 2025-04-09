@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { HelloWorldService, MessageService } from '@app/core';
-import { BaseLayoutComponent } from '@layouts/base/base.component';
+import { BaseLayoutComponent } from '@layouts';
 
 @Component({
     selector: 'app-home',

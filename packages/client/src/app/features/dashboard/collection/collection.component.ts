@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
-import { HelloWorldService, MessageService } from '@app/core';
+import { DrawerService, HelloWorldService, MessageService } from '@app/core';
 
 @Component({
     selector: 'app-protected',
@@ -10,7 +10,8 @@ import { HelloWorldService, MessageService } from '@app/core';
 })
 export class CollectionComponent implements OnInit {
   private messageService = inject(MessageService)
-  helloWorldService = inject(HelloWorldService);
+  private helloWorldService = inject(HelloWorldService);
+  private drawerService = inject(DrawerService);
 
   message = {};
 
@@ -28,5 +29,9 @@ export class CollectionComponent implements OnInit {
         this.message = error;
       }
     });
+  }
+
+  OpenAddRecordDrawer() {
+    this.drawerService.show()
   }
 }

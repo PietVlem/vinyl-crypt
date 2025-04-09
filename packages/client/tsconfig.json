@@ -28,7 +28,8 @@
       "@app/shared": ["app/shared/index.ts"],
       "@core/*": ["app/core/*"],
       "@features/*": ["app/features/*"],
-      "@layouts/*": ["app/shared/layouts/*"],
+      "@layouts": ["app/shared/layouts/index.ts"],
+      "@components": ["app/shared/components/index.ts"],
       "@components/*": ["app/shared/components/*"],
     }
   },
