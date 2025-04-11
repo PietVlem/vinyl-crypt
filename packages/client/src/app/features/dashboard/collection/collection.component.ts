@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 import { DrawerService, HelloWorldService, MessageService } from '@app/core';
+import { CreateFormComponent } from './create-form/create-form.component';
 
 @Component({
     selector: 'app-protected',
@@ -32,6 +33,6 @@ export class CollectionComponent implements OnInit {
   }
 
   OpenAddRecordDrawer() {
-    this.drawerService.show()
+    this.drawerService.show(CreateFormComponent, {})
   }
 }
