@@ -1,33 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
-import { HelloWorldService, MessageService } from '@app/core';
-import { BaseLayoutComponent } from '@layouts';
+import { Component } from '@angular/core';
+import { BaseComponent } from '@layouts';
 
 @Component({
     selector: 'app-home',
     templateUrl: './home.component.html',
-    imports: [BaseLayoutComponent, CommonModule],
+    imports: [BaseComponent, CommonModule],
     standalone: true,
 })
 export class HomeComponent {
-    private messageService = inject(MessageService)
-    private helloWorldService = inject(HelloWorldService);
-
-    message = signal({});
-
-    ngOnInit(): void {
-        this.helloWorldService.public();
-
-        this.messageService.getPublicResource().subscribe((response) => {
-            const { data, error } = response;
-
-            if (data) {
-                this.message.set(data)
-            }
-
-            if (error) {
-                this.message.set(error)
-            }
-        });
-    }
 }

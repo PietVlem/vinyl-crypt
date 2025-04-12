@@ -7,6 +7,6 @@ import { FooterComponent, HeaderComponent } from '@core/components/index';
   templateUrl: './base.component.html',
   standalone: true,
 })
-export class BaseLayoutComponent {
+export class BaseComponent {
 
 }

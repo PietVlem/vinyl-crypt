@@ -3,8 +3,7 @@ import { Component, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '@auth0/auth0-angular';
-import { LoginButtonComponent } from '@components/buttons/login-button.component';
-import { SignupButtonComponent } from '@components/buttons/signup-button.component';
+import { LoginButtonComponent, SignupButtonComponent } from '@components';
 
 @Component({
   selector: 'app-header',

@@ -5,10 +5,6 @@ import express, { NextFunction, Request, Response } from 'express';
 import helmet from 'helmet';
 import nocache from 'nocache';
 
-import { messagesRouter } from './api/messages/messages.router';
-import { errorHandler } from './middleware/error.middleware';
-import { notFoundHandler } from './middleware/not-found.middleware';
-
 import { createContext } from './trpc/context';
 import { appRouter } from './trpc/router';
 
@@ -24,7 +20,6 @@ const PORT = parseInt(process.env.PORT, 10);
 const CLIENT_ORIGIN_URL = process.env.CLIENT_ORIGIN_URL;
 
 const app = express();
-const apiRouter = express.Router();
 
 app.use(express.json());
 app.set("json spaces", 2);
@@ -62,16 +57,10 @@ app.use(
   })
 );
 
-app.use("/api", apiRouter);
-apiRouter.use("/messages", messagesRouter);
-
 app.use('/trpc', trpcExpress.createExpressMiddleware({ 
   router: appRouter, 
   createContext
 }));
-
-app.use(errorHandler);
-app.use(notFoundHandler);
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);

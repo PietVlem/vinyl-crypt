@@ -18,12 +18,6 @@ import { SharedModule } from './shared';
       SharedModule,
       AuthModule.forRoot({
         ...env.auth0,
-        httpInterceptor: {
-          allowedList: [
-            `${env.api.serverUrl}/api/messages/admin`, 
-            `${env.api.serverUrl}/api/messages/protected`
-          ],
-        },
       }),
     ],
     providers: [

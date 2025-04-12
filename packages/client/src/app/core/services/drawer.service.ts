@@ -2,7 +2,13 @@ import { ComponentPortal, ComponentType, Portal } from '@angular/cdk/portal';
 import { ComponentRef, Injectable, InjectionToken, Injector, signal } from '@angular/core';
 import { Subject } from 'rxjs';
 
-export const CONTEXT_TOKEN = new InjectionToken('DRAWER_DATA')
+export const DRAWER_CONTEXT_TOKEN = new InjectionToken('DRAWER_DATA')
+
+export interface DrawerContext {
+  data?: {
+    [key: string]: any;
+  }
+}
 
 @Injectable({
   providedIn: 'root'
@@ -14,10 +20,10 @@ export class DrawerService {
 
   getPortal = () => this.componentPortal.asObservable();
 
-  show = (Component: ComponentType<unknown>, data: any) => {
+  show = (Component: ComponentType<unknown>, ctx: DrawerContext) => {
     const injector = Injector.create({
       providers: [
-        { provide: CONTEXT_TOKEN, useValue: data }
+        { provide: DRAWER_CONTEXT_TOKEN, useValue: ctx }
       ]
     })
 

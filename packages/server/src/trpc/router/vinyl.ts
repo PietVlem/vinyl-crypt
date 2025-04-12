@@ -4,7 +4,7 @@ import { prisma } from '../../prisma/prismaClient';
 import { protectedProcedure } from '../middleware';
 import { trpc } from '../trpc';
 
-export const userRouter = trpc.router({
+export const vinylRouter = trpc.router({
     get: protectedProcedure.query(async ({ ctx }) => {
         const { user } = ctx
 
@@ -26,10 +26,13 @@ export const userRouter = trpc.router({
             coverImage: z.string().optional(),
             purchaseDate: z.string().optional(),
             recordColor: z.string().optional(),
-            artistId: z.string(),
+            artistId: z.string().optional(),
+            notes: z.string().optional(),
         })
     ).mutation(async ({ input, ctx }) => {
         const { user } = ctx
+
+        console.log("HERE")
 
         /* TODO: create tracks in db */
 

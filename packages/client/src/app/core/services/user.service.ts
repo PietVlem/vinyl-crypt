@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { UserApiService } from '@app/api';
+import { UserApiService } from '@api';
 import { AuthService } from "@auth0/auth0-angular";
 
 @Injectable({

@@ -23,14 +23,12 @@
       "dom"
     ],
     "paths": {
-      "@app/api" : ["app/api/index.ts"],
-      "@app/core": ["app/core/index.ts"],
-      "@app/shared": ["app/shared/index.ts"],
+      "@shared/*": ["app/shared/*"],
       "@core/*": ["app/core/*"],
       "@features/*": ["app/features/*"],
+      "@api" : ["app/api/index.ts"],
       "@layouts": ["app/shared/layouts/index.ts"],
       "@components": ["app/shared/components/index.ts"],
-      "@components/*": ["app/shared/components/*"],
     }
   },
   "angularCompilerOptions": {

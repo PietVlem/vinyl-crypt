@@ -1,15 +1,15 @@
 import { Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
-import { UserApiService } from '@app/api';
+import { UserApiService } from '@api';
 import { AuthService } from '@auth0/auth0-angular';
-import { BaseLayoutComponent } from '@layouts';
+import { BaseComponent } from '@layouts';
 
 @Component({
   selector: 'app-callback',
   templateUrl: './callback.component.html',
   standalone: true,
-  imports: [BaseLayoutComponent],
+  imports: [BaseComponent],
 })
 export class CallbackComponent {
   private auth = inject(AuthService);
