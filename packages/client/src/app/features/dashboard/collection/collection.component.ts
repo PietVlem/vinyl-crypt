@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
-import { VinylRecordApiService } from '@api';
+import { Component, inject } from '@angular/core';
 import { DrawerService } from '@core/services';
+import { VinylRecordService } from '@features/dashboard/data-access';
 import { CreateFormComponent } from './create-form/create-form.component';
 
 @Component({
@@ -10,19 +10,11 @@ import { CreateFormComponent } from './create-form/create-form.component';
   imports: [CommonModule],
   standalone: true
 })
-export class CollectionComponent implements OnInit {
-  private vinylRecordApi = inject(VinylRecordApiService)
+export class CollectionComponent {
   private drawerService = inject(DrawerService)
+  private vinylRecordService = inject(VinylRecordService)
 
-  ngOnInit(): void {
-    try {
-      this.vinylRecordApi.getVinylRecords().then((response) => {
-        console.log({response})
-      })
-    } catch (error) {
-      console.error('Error fetching vinyl records:', error)
-    }
-  }
+  vinylRecords = this.vinylRecordService.getVinylRecords()
 
   OpenAddRecordDrawer = () => this.drawerService.show(CreateFormComponent, {})
 }
