@@ -21,11 +21,11 @@
     </div>
   </div>
 
-  @if(vinylRecords.isLoading()) {
+  @if(vinylRecordsQuery.isLoading()) {
     loading...
   } @else {
     <pre>
-      {{ vinylRecords.data() | json }}
+      {{ vinylRecordsQuery.data() | json }}
     </pre>
   }
 </div>

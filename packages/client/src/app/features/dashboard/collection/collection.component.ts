@@ -14,7 +14,7 @@ export class CollectionComponent {
   private drawerService = inject(DrawerService)
   private vinylRecordService = inject(VinylRecordService)
 
-  vinylRecords = this.vinylRecordService.getVinylRecords()
+  vinylRecordsQuery = this.vinylRecordService.getVinylRecords()
 
   OpenAddRecordDrawer = () => this.drawerService.show(CreateFormComponent, {})
 }
