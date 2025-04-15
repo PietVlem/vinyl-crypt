@@ -7,7 +7,6 @@ import { LoginButtonComponent, SignupButtonComponent } from '@components';
 
 @Component({
   selector: 'app-header',
-  standalone: true,
   imports: [RouterLink, RouterLinkActive, LoginButtonComponent, SignupButtonComponent, CommonModule],
   templateUrl: './header.component.html',
 })

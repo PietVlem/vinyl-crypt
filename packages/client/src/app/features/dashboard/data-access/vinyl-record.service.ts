@@ -18,11 +18,12 @@ export class VinylRecordService {
     queryFn: () => this.vinylRecordApiService.getVinylRecords(),
   }))
 
-  createVinylRecord = () => injectMutation(() => ({
+  createVinylRecord = (successCallback: () => void) => injectMutation(() => ({
     mutationFn: (vinylRecord: any) => 
       this.vinylRecordApiService.createVinylRecord(vinylRecord),
     onSuccess: () => {
       this.queryClient.invalidateQueries({ queryKey: ['vinylRecords'] })
+      successCallback()
     },
   }))
 }

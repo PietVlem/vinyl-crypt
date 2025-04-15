@@ -32,8 +32,6 @@ export const vinylRouter = trpc.router({
     ).mutation(async ({ input, ctx }) => {
         const { user } = ctx
 
-        console.log("HERE")
-
         /* TODO: create tracks in db */
 
         const record = await prisma.vinylRecord.create({

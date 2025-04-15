@@ -8,7 +8,6 @@ import { CreateFormComponent } from './create-form/create-form.component';
   selector: 'app-protected',
   templateUrl: './collection.component.html',
   imports: [CommonModule],
-  standalone: true
 })
 export class CollectionComponent {
   private drawerService = inject(DrawerService)

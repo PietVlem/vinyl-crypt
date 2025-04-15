@@ -5,7 +5,6 @@ import ERROR_DATA from './errorData';
 
 @Component({
   selector: 'app-error',
-  standalone: true,
   imports: [BaseComponent],
   templateUrl: './error.component.html',
 })

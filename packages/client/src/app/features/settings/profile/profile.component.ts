@@ -6,7 +6,6 @@ import { AuthService } from '@auth0/auth0-angular';
     selector: 'app-profile',
     templateUrl: './profile.component.html',
     imports: [CommonModule],
-    standalone: true
 })
 export class ProfileComponent {
   private auth = inject(AuthService)

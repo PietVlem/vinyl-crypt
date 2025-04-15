@@ -11,9 +11,13 @@ import { DrawerBaseComponent } from '@layouts';
   templateUrl: './create-form.component.html',
 })
 export class CreateFormComponent {
-  private drawerData = inject(DRAWER_CONTEXT_TOKEN);
-  private vinylRecordService = inject(VinylRecordService);
-  public drawerService = inject(DrawerService);
+  private drawerData = inject(DRAWER_CONTEXT_TOKEN)
+  private vinylRecordService = inject(VinylRecordService)
+  public drawerService = inject(DrawerService)
+
+  createVinylRecordMutation = this.vinylRecordService.createVinylRecord(
+    () => this.drawerService.hide()
+  )
 
   vinylCreationForm = new FormGroup({
     title: new FormControl<string>(''),
@@ -21,12 +25,9 @@ export class CreateFormComponent {
     notes: new FormControl<string>(''),
   });
 
-  createVinylRecordMutation = this.vinylRecordService.createVinylRecord();
-
   addVinyl = () => {
     const { title, year, notes } = this.vinylCreationForm.value;
     if (!title || !year || !notes) return
     this.createVinylRecordMutation.mutate(this.vinylCreationForm.value)
-    this.drawerService.hide();
   }
 }

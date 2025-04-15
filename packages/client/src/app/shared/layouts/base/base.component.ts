@@ -5,7 +5,6 @@ import { FooterComponent, HeaderComponent } from '@core/components/index';
   selector: 'app-layout-base',
   imports: [HeaderComponent, FooterComponent],
   templateUrl: './base.component.html',
-  standalone: true,
 })
 export class BaseComponent {
 

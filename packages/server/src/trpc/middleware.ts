@@ -12,10 +12,11 @@ export const router = t.router;
 export const protectedProcedure = publicProcedure.use(async (opts) => {
   const { ctx } = opts;
 
-  console.log('ctx', ctx);
-
   if (!ctx.user) {
-    throw new TRPCError({ code: 'UNAUTHORIZED' });
+    throw new TRPCError({ 
+      code: 'UNAUTHORIZED',
+      message: "You don't have access to this resource.",
+    });
   }
 
   return opts.next({

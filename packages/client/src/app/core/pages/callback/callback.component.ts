@@ -8,7 +8,6 @@ import { BaseComponent } from '@layouts';
 @Component({
   selector: 'app-callback',
   templateUrl: './callback.component.html',
-  standalone: true,
   imports: [BaseComponent],
 })
 export class CallbackComponent {

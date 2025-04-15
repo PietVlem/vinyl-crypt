@@ -6,7 +6,6 @@ import { BaseComponent } from '@layouts';
     selector: 'app-home',
     templateUrl: './home.component.html',
     imports: [BaseComponent, CommonModule],
-    standalone: true,
 })
 export class HomeComponent {
 }
