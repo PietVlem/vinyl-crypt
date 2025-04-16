@@ -5,7 +5,7 @@
         <!-- Mobile menu button -->
         <button
           type="button"
-          class="relative inline-flex items-center justify-center p-2 text-gray-400 rounded-md hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+          class="relative inline-flex items-center justify-center p-2 text-gray-400 rounded-md hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-slate-500"
           aria-controls="mobile-menu"
           aria-expanded="false"
           (click)="toggleMainMenu()"
@@ -62,18 +62,18 @@
           <a routerLink="/">
             <img
               class="h-8 w-auto"
-              src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
+              src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=slate&shade=600"
               alt=""
             />
           </a>
         </div>
         <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
-          <!-- Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
+          <!-- Current: "border-slate-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
           @if(isAuthenticated()) {
           <a
             class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 !border-b-2 border-transparent hover:border-gray-300 hover:text-gray-700"
             routerLink="/dashboard"
-            routerLinkActive="text-indigo-700 border-b-2 !border-indigo-500"
+            routerLinkActive="text-slate-700 border-b-2 !border-slate-500"
             ariaCurrentWhenActive="page"
           >Dashboard</a>
           }
@@ -88,7 +88,7 @@
             <div>
               <button
                 type="button"
-                class="relative flex text-sm bg-white rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                class="relative flex text-sm bg-white rounded-full focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2"
                 id="user-menu-button"
                 aria-expanded="false"
                 aria-haspopup="true"
@@ -114,7 +114,7 @@
               <!-- Active: "bg-gray-100 outline-none", Not Active: "" -->
               <a
                 routerLink="/settings/profile"
-                class="block px-4 py-2 text-sm text-gray-700 hover:cursor-pointer hover:bg-indigo-500 w-full hover:text-white text-left"
+                class="block px-4 py-2 text-sm text-gray-700 hover:cursor-pointer hover:bg-slate-700 w-full hover:text-white text-left"
                 role="menuitem"
                 tabindex="-1"
                 id="user-menu-item-0"
@@ -122,7 +122,7 @@
               >
               <button
                 (click)="handleLogout()"
-                class="px-4 py-2 text-sm text-gray-700 hover:cursor-pointer hover:bg-indigo-500 w-full hover:text-white text-left"
+                class="px-4 py-2 text-sm text-gray-700 hover:cursor-pointer hover:bg-slate-700 w-full hover:text-white text-left"
                 role="menuitem"
                 tabindex="-1"
                 id="user-menu-item-2"
@@ -144,7 +144,7 @@
       <a
         class="block py-2 pl-3 pr-4 text-base font-medium !text-gray-500 border-l-4 border-transparent hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700"
         routerLink="/"
-        routerLinkActive="text-indigo-700 border-l-4 !border-indigo-500 bg-indigo-50"
+        routerLinkActive="text-slate-700 border-l-4 !border-slate-500 bg-slate-50"
         ariaCurrentWhenActive="page"
         >Home</a
       >
@@ -152,7 +152,7 @@
       <a
         class="block py-2 pl-3 pr-4 text-base font-medium text-gray-500 border-l-4 border-transparent hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700"
         routerLink="/dashboard"
-        routerLinkActive="text-indigo-700 border-l-4 !border-indigo-500 bg-indigo-50"
+        routerLinkActive="text-slate-700 border-l-4 !border-slate-500 bg-slate-50"
         ariaCurrentWhenActive="page"
         >Dashboard</a
       >
@@ -160,7 +160,7 @@
       <a
         class="block py-2 pl-3 pr-4 text-base font-medium text-gray-500! border-l-4 border-transparent hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700"
         routerLink="/login"
-        routerLinkActive="text-indigo-700 border-l-4 !border-indigo-500 bg-indigo-50"
+        routerLinkActive="text-slate-700 border-l-4 !border-slate-500 bg-slate-50"
         ariaCurrentWhenActive="page"
         >Login</a
       >
