@@ -5,6 +5,7 @@ export const dashboardRoutePaths = {
 export const dashboardRoutes = [
     {
         path: dashboardRoutePaths.COLLECTION,
-        loadComponent: () => import('@features/dashboard/collection/collection.component').then(c => c.CollectionComponent),
+        loadComponent: () => 
+            import('@features/dashboard/pages/collection/collection.component').then(c => c.CollectionComponent),
     }
 ]

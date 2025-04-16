@@ -20,7 +20,7 @@ export const vinylRouter = trpc.router({
         z.object({
             title: z.string(),
             year: z.number(),
-            genre: z.string().optional(),
+            genreId: z.string().optional(),
             style: z.string().optional(),
             condition: z.string().optional(),
             coverImage: z.string().optional(),

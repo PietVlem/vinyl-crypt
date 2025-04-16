@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { DrawerService } from '@core/services';
 import { VinylRecordService } from '@features/dashboard/data-access';
-import { CreateFormComponent } from './create-form/create-form.component';
+import { CreateFormComponent } from '../../components/create-form/create-form.component';
 
 @Component({
   selector: 'app-protected',
