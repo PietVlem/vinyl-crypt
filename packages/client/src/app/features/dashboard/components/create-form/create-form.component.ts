@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { DRAWER_CONTEXT_TOKEN, DrawerService } from '@core/services';
+import { DrawerService } from '@core/services';
 import { GenreService, VinylRecordService } from '@features/dashboard/data-access';
 import { DrawerBaseComponent } from '@layouts';
 
@@ -16,7 +16,6 @@ export class CreateFormComponent {
   public drawerService = inject(DrawerService)
 
   genresQuery = this.genreService.getGenres()
-
   createVinylRecordMutation = this.vinylRecordService.createVinylRecord(
     () => this.drawerService.hide()
   )
@@ -25,6 +24,7 @@ export class CreateFormComponent {
     title: new FormControl<string>(''),
     year: new FormControl<number>(0),
     genreId: new FormControl<string>(''),
+    condition: new FormControl<string>(''),
     notes: new FormControl<string>(''),
   });
 

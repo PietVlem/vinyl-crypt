@@ -32,7 +32,7 @@ model VinylRecord {
   genreId      String?
   genre        Genre?     @relation(fields: [genreId], references: [id])
   style        String?
-  condition    String?
+  condition    Condition?
   coverImage   String?
   purchaseDate DateTime?
   recordColor  String?
@@ -102,4 +102,13 @@ enum ShareType {
   wishlist
   collection
   both
+}
+
+enum Condition {
+  mint
+  near_mint
+  very_good
+  good
+  fair
+  poor
 }
