@@ -26,4 +26,12 @@ export class VinylRecordService {
       successCallback()
     },
   }))
+
+  deleteVinylRecords = () => injectMutation(() => ({
+    mutationFn: (vinylRecord: any) => 
+      this.vinylRecordApiService.deleteVinylRecords(vinylRecord),
+    onSuccess: () => {
+      this.queryClient.invalidateQueries({ queryKey: ['vinylRecords'] })
+    },
+  }))
 }

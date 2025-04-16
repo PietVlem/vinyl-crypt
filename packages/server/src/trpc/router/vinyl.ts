@@ -21,6 +21,10 @@ export const vinylRouter = trpc.router({
         const records = await prisma.vinylRecord.findMany({
             where: {
                 userId: user.id,
+            },
+            include: {
+                artist: true,
+                genre: true,
             }
         })
 

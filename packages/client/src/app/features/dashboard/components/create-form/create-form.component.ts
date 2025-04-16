@@ -1,9 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Component, computed, inject } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Condition } from '@core/models';
 import { DrawerService } from '@core/services';
 import { GenreService, VinylRecordService } from '@features/dashboard/data-access';
 import { DrawerBaseComponent } from '@layouts';
+import { releaseYearValidator, urlValidator } from '@shared/utils/validators';
 
 @Component({
   selector: 'app-create-form',
@@ -20,17 +22,19 @@ export class CreateFormComponent {
     () => this.drawerService.hide()
   )
 
+  conditionOptions = computed(() => 
+    Object.entries(Condition).map(([key, value]) => ({ key, value }))
+  )
+
   vinylCreationForm = new FormGroup({
-    title: new FormControl<string>(''),
-    year: new FormControl<number>(0),
+    title: new FormControl<string>('', [Validators.required]),
+    year: new FormControl<number>(0, releaseYearValidator),
     genreId: new FormControl<string>(''),
-    condition: new FormControl<string>(''),
+    condition: new FormControl<Condition>(Condition.Mint),
+    coverImage: new FormControl<string>('', urlValidator),
     notes: new FormControl<string>(''),
   });
 
-  addVinyl = () => {
-    const { title, year, notes } = this.vinylCreationForm.value;
-    if (!title || !year || !notes) return
+  addVinyl = () => 
     this.createVinylRecordMutation.mutate(this.vinylCreationForm.value)
-  }
 }
