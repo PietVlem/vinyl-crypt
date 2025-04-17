@@ -31,7 +31,8 @@ model VinylRecord {
   year         Int
   genreId      String?
   genre        Genre?     @relation(fields: [genreId], references: [id])
-  style        String?
+  styleId      String?
+  style        Style?     @relation(fields: [styleId], references: [id])
   condition    Condition?
   coverImage   String?
   purchaseDate DateTime?
@@ -51,6 +52,14 @@ model Genre {
   id           String        @id @default(uuid())
   name         String        @unique
   vinylRecords VinylRecord[]
+}
+
+model Style {
+  id        String     @id @default(uuid())
+  name      String     @unique
+  vinyls    VinylRecord[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
 }
 
 model Track {
