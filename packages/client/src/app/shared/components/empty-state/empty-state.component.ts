@@ -14,5 +14,5 @@ export class EmptyStateComponent {
   buttonText = input<string>('Add');
   iconName = input<string>('phosphorVinylRecord');
 
-  create = output();
+  create = output<void>();
 }

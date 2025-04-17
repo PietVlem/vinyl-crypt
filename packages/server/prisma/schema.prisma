@@ -52,6 +52,7 @@ model Genre {
   id           String        @id @default(uuid())
   name         String        @unique
   vinylRecords VinylRecord[]
+  artists      Artist[]
 }
 
 model Style {
@@ -79,7 +80,8 @@ model Artist {
   id        String        @id @default(uuid())
   name      String        @unique
   bio       String?
-  genre     String?
+  genreId   String?
+  genre     Genre?        @relation(fields: [genreId], references: [id])
   country   String?
   birthDate DateTime?
   deathDate DateTime?

@@ -64,20 +64,20 @@
                         <div class="ml-4">
                           <div class="font-medium text-gray-900">{{ record.title }}</div>
                           <div class="mt-1 text-gray-500">
-                            Artist
+                            {{ record.artist?.name ?? 'Unknown artist' }}
                           </div>
                         </div>
                       </div>
                     </td>
                     <td class="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
-                      <div class="text-gray-900">Red vinyl</div>
-                      <div class="mt-1 text-gray-500">Added: 19/12/2001</div>
+                      <div class="text-gray-900">Color: {{ record.recordColor }}</div>
+                      <div class="mt-1 text-gray-500">released: {{ record.year }}</div>
                     </td>
                     <td class="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
                       <div class="flex gap-1 items-center">
                         <span
                           class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20"
-                          >Genre</span
+                          >{{ record.genre?.name ?? 'Genre' }}</span
                         >
                         <span
                           class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20"
@@ -86,11 +86,13 @@
                       </div>
                     </td>
                     <td
-                      class="relative whitespace-nowrap py-5 pl-3 pr-4 text-right sm:pr-0"
+                      class="relative whitespace-nowrap py-5 pl-3 pr-4 sm:pr-0"
                     >
-                      <button (click)="deleteVinylRecord(record.id)" type="button" class="rounded-md bg-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 size-8 grid cursor-pointer">
-                        <ng-icon class="place-self-center" size="16" name="phosphorTrash" />
-                      </button>
+                      <div class="flex justify-end">
+                        <button (click)="deleteVinylRecord(record.id)" type="button" class="rounded-md bg-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 size-8 grid cursor-pointer">
+                          <ng-icon class="place-self-center" size="16" name="phosphorTrash" />
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 }
