@@ -5,15 +5,6 @@ import { prisma } from '../../prisma/prismaClient';
 import { protectedProcedure } from '../middleware';
 import { trpc } from '../trpc';
 
-const conditions = [
-    'mint', 
-    'near_mint', 
-    'very_good', 
-    'good', 
-    'fair', 
-    'poor'
-] as const;
-
 export const vinylRouter = trpc.router({
     get: protectedProcedure.query(async ({ ctx }) => {
         const { user } = ctx
@@ -35,7 +26,7 @@ export const vinylRouter = trpc.router({
             title: z.string(),
             year: z.number(),
             genreId: z.string().optional(),
-            style: z.string().optional(),
+            styleId: z.string().optional(),
             condition: z.nativeEnum(Condition).optional(),
             coverImage: z.string().optional(),
             purchaseDate: z.string().optional(),

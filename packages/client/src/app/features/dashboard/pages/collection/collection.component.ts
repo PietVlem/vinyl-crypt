@@ -5,11 +5,12 @@ import { CreateFormComponent } from '@features/dashboard/components/create-form/
 import { VinylRecordService } from '@features/dashboard/data-access';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { phosphorTrash, phosphorVinylRecord } from '@ng-icons/phosphor-icons/regular';
+import { EmptyStateComponent } from '@shared/components';
 
 @Component({
   selector: 'app-protected',
   templateUrl: './collection.component.html',
-  imports: [CommonModule, NgIcon],
+  imports: [CommonModule, NgIcon, EmptyStateComponent],
   viewProviders: [provideIcons({ phosphorVinylRecord, phosphorTrash })]
 })
 export class CollectionComponent {
