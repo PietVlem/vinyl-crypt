@@ -27,7 +27,13 @@
   >
     @if(searchable()) {
       <li class="p-2 flex">
-        <input type="text" appInput placeholder="Search..." #searchInput/>
+        <input 
+          #searchInput 
+          type="text" 
+          appInput 
+          placeholder="Search..." 
+          [(ngModel)]="searchModel"
+        />
       </li>
     } @for(option of options(); track option.id) {
     <li

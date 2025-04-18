@@ -1,5 +1,5 @@
-import { Component, computed, ElementRef, input, signal, ViewChild } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, computed, ElementRef, input, model, signal, ViewChild } from '@angular/core';
+import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { phosphorCaretUpDown, phosphorCheck } from '@ng-icons/phosphor-icons/regular';
 import { ClickOutsideDirective, StylingInputDirective } from '@shared/directives';
@@ -11,7 +11,7 @@ interface Option {
 
 @Component({
   selector: 'app-select',
-  imports: [ClickOutsideDirective, StylingInputDirective, NgIcon],
+  imports: [ClickOutsideDirective, StylingInputDirective, NgIcon, FormsModule],
   templateUrl: './select.component.html',
   providers: [
     provideIcons({ phosphorCaretUpDown, phosphorCheck }),
@@ -24,20 +24,8 @@ interface Option {
 })
 export class SelectComponent implements ControlValueAccessor {
   searchable = input<boolean>(false);
-  options = input<Option[]>([
-    {
-      id: '1',
-      value: 'Option 1',
-    },
-    {
-      id: '2',
-      value: 'Option 2',
-    },
-    {
-      id: '3',
-      value: 'Option 3',
-    }
-  ])
+  options = input<Option[]>([])
+  searchModel = model<string>('');
 
   @ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>;
 

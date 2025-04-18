@@ -55,11 +55,18 @@ export class CreateFormComponent {
     })) ?? []
   )
 
+  styleSelectOptions = computed(() =>
+    this.stylesQuery.data()?.map((style) => ({
+      id: style.id,
+      value: style.name,
+    })) ?? []
+  )
+
   vinylCreationForm = new FormGroup({
     title: new FormControl<string>('', [Validators.required]),
     year: new FormControl<number>(2025, [Validators.required, ...releaseYearValidator]),
     genreId: new FormControl<string>('', [Validators.required]),
-    // styleId: new FormControl<string>(''),
+    styleId: new FormControl<string>(''),
     condition: new FormControl<Condition>(Condition.Mint),
     coverImage: new FormControl<string>('', urlValidator),
     recordColor: new FormControl<string>(''),

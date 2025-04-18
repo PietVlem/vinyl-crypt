@@ -4,7 +4,6 @@
 >
   <ng-container drawer-content>
     <form [formGroup]="vinylCreationForm" class="space-y-6 py-6 sm:space-y-0 sm:divide-y sm:divide-gray-200 sm:py-0" >
-
       <app-horizontal-form-group 
         label="Record name"
         description="The name of the record."
@@ -57,31 +56,20 @@
         </div>
       </app-horizontal-form-group>
 
-      <!-- <div class="space-y-2 px-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:space-y-0 sm:px-6 sm:py-5">
-        <div>
-          <label
-            for="style"
-            class="block text-sm/6 font-medium text-gray-900 sm:mt-1.5"
-          >Style</label>
+      <app-horizontal-form-group 
+        label="Style"
+        description="The style of the record."
+        [required]="false"
+      >
+        <div class="grid grid-cols-1">
+          <app-select
+            [options]="styleSelectOptions()"
+            formControlName="styleId"
+            [searchable]="true"
+            [(searchModel)]="styleSearchValue"
+          />
         </div>
-        <div class="sm:col-span-2">
-          <div class="grid grid-cols-1">
-            <select formControlName="styleId" id="style" name="style" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-slate-600 sm:text-sm/6">
-              
-              @if(stylesQuery.isLoading()) {
-                <option disabled selected>Loading...</option>
-              } @else {
-                @for(style of stylesQuery.data(); track style.id) {
-                  <option value="{{ style.id }}">{{ style.name }}</option>
-                }
-              }
-            </select>
-            <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
-              <path fill-rule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
-            </svg>
-          </div>
-        </div>
-      </div> -->
+      </app-horizontal-form-group>
 
       <app-horizontal-form-group 
         label="Cover image"
@@ -124,7 +112,6 @@
           id="notes"
         ></textarea>
       </app-horizontal-form-group>
-      
     </form>
   </ng-container>
   <ng-container drawer-actions>
@@ -132,15 +119,11 @@
       appButtonSecondary
       type="button"
       (click)="drawerService.hide()"
-      >
-      Cancel creation
-    </button>
+    >Cancel creation</button>
     <button
       appButtonPrimary
       [disabled]="!vinylCreationForm.valid"
       (click)="addVinyl()"
-    >
-      Add record
-    </button>
+    >Add record</button>
   </ng-container>
 </app-layout-drawer-base>
