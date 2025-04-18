@@ -6,11 +6,12 @@ import { VinylRecordService } from '@features/dashboard/data-access';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { phosphorTrash, phosphorVinylRecord } from '@ng-icons/phosphor-icons/regular';
 import { EmptyStateComponent } from '@shared/components';
+import { ButtonPrimaryDirective } from '@shared/directives';
 
 @Component({
   selector: 'app-protected',
   templateUrl: './collection.component.html',
-  imports: [CommonModule, NgIcon, EmptyStateComponent],
+  imports: [CommonModule, NgIcon, EmptyStateComponent, ButtonPrimaryDirective],
   viewProviders: [provideIcons({ phosphorVinylRecord, phosphorTrash })]
 })
 export class CollectionComponent {

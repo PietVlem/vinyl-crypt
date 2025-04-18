@@ -5,7 +5,8 @@ import { Condition } from '@core/models';
 import { DrawerService } from '@core/services';
 import { GenreService, StyleService, VinylRecordService } from '@features/dashboard/data-access';
 import { DrawerBaseComponent } from '@layouts';
-import { StylingInputDirective } from '@shared/directives';
+import { SelectComponent } from '@shared/components';
+import { ButtonPrimaryDirective, ButtonSecondaryDirective, StylingInputDirective } from '@shared/directives';
 import { debouncedSignal } from '@shared/utils/signal-utils';
 import { releaseYearValidator, urlValidator } from '@shared/utils/validators';
 import { HorizontalFormGroupComponent } from '../horizontal-form-group/horizontal-form-group.component';
@@ -18,7 +19,10 @@ import { HorizontalFormGroupComponent } from '../horizontal-form-group/horizonta
     CommonModule, 
     FormsModule, 
     StylingInputDirective,
-    HorizontalFormGroupComponent
+    ButtonPrimaryDirective,
+    ButtonSecondaryDirective,
+    HorizontalFormGroupComponent,
+    SelectComponent
   ],
   templateUrl: './create-form.component.html',
 })
@@ -37,8 +41,18 @@ export class CreateFormComponent {
     () => this.drawerService.hide()
   )
 
-  conditionOptions = computed(() => 
-    Object.entries(Condition).map(([key, value]) => ({ key, value }))
+  conditionSelectOptions = computed(() =>
+    Object.entries(Condition).map(([key, value]) => ({
+      id: value,
+      value: key.replace('_', ' '),
+    }))
+  )
+
+  genreSelectOptions = computed(() =>
+    this.genresQuery.data()?.map((genre) => ({
+      id: genre.id,
+      value: genre.name,
+    })) ?? []
   )
 
   vinylCreationForm = new FormGroup({

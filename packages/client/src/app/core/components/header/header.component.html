@@ -79,11 +79,11 @@
         </div>
       </div>
       <div
-        class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0"
+        class="absolute inset-y-0 right-0 flex items-center gap-2 pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0"
       >
         @if(isAuthenticated()) {
           <!-- Profile dropdown -->
-          <div class="relative ml-3">
+          <div class="relative ml-2">
             <div>
               <button
                 type="button"
@@ -120,7 +120,7 @@
                 >Your Profile</a
               >
               <button
-                (click)="handleLogout()"
+                (click)="coreAuth.handleLogout()"
                 class="px-4 py-2 text-sm text-gray-700 hover:cursor-pointer hover:bg-slate-700 w-full hover:text-white text-left"
                 role="menuitem"
                 tabindex="-1"
@@ -130,8 +130,18 @@
             }
           </div>
         } @else {
-          <app-signup-button />
-          <app-login-button />
+          <button 
+            appButtonPrimary
+            (click)="coreAuth.handleSignUp()"
+          >
+            Sign up
+          </button>
+          <button 
+            appButtonPrimary
+            (click)="coreAuth.handleLogin()"
+          >
+            Login
+          </button>
         }
       </div>
     </div>

@@ -38,20 +38,10 @@
         description="The genre of the record."
         [required]="true"
       >
-        <div class="grid grid-cols-1">
-          <select formControlName="genreId" id="genre" name="genre" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-slate-600 sm:text-sm/6">
-            @if(genresQuery.isLoading()) {
-              <option disabled selected>Loading...</option>
-            } @else {
-              @for(genre of genresQuery.data(); track genre.id) {
-                <option value="{{ genre.id }}">{{ genre.name }}</option>
-              }
-            }
-          </select>
-          <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
-            <path fill-rule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
-          </svg>
-        </div>
+      <app-select
+        [options]="genreSelectOptions()"
+        formControlName="genreId"
+      />
       </app-horizontal-form-group>
 
       <app-horizontal-form-group 
@@ -60,14 +50,10 @@
         [required]="vinylCreationForm.controls['condition'].errors?.['required']"
       >
         <div class="grid grid-cols-1">
-          <select formControlName="condition" id="genre" name="genre" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-slate-600 sm:text-sm/6">
-            @for(condition of conditionOptions(); track condition.key) {
-              <option value="{{ condition.value }}">{{ condition.key.replace('_', ' ') }}</option>
-            }
-          </select>
-          <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
-            <path fill-rule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
-          </svg>
+          <app-select
+            [options]="conditionSelectOptions()"
+            formControlName="condition"
+          />
         </div>
       </app-horizontal-form-group>
 
@@ -143,16 +129,15 @@
   </ng-container>
   <ng-container drawer-actions>
     <button
+      appButtonSecondary
       type="button"
-      class="rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 cursor-pointer"
       (click)="drawerService.hide()"
       >
       Cancel creation
     </button>
     <button
+      appButtonPrimary
       [disabled]="!vinylCreationForm.valid"
-      type="submit"
-      class="inline-flex justify-center rounded-md bg-slate-800 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-slate-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-800 cursor-pointer"
       (click)="addVinyl()"
     >
       Add record
