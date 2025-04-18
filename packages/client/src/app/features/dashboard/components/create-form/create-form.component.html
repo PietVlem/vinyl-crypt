@@ -4,87 +4,72 @@
 >
   <ng-container drawer-content>
     <form [formGroup]="vinylCreationForm" class="space-y-6 py-6 sm:space-y-0 sm:divide-y sm:divide-gray-200 sm:py-0" >
-      <div class="space-y-2 px-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:space-y-0 sm:px-6 sm:py-5">
-        <div>
-          <label
-            for="title"
-            class="block text-sm/6 font-medium text-gray-900 sm:mt-1.5"
-          >Record name</label>
-        </div>
-        <div class="sm:col-span-2">
-          <input
-            formControlName="title"
-            type="text"
-            name="title"
-            id="title"
-            class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-slate-600 sm:text-sm/6"
-          />
-        </div>
-      </div>
 
-      <div class="space-y-2 px-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:space-y-0 sm:px-6 sm:py-5">
-        <div>
-          <label
-            for="year"
-            class="block text-sm/6 font-medium text-gray-900 sm:mt-1.5"
-          >Release year</label>
-        </div>
-        <div class="sm:col-span-2">
-          <input
-            formControlName="year"
-            type="number"
-            name="year"
-            id="year"
-            class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-slate-600 sm:text-sm/6"
-          />
-        </div>
-      </div>
+      <app-horizontal-form-group 
+        label="Record name"
+        description="The name of the record."
+        [required]="true"
+      >
+        <input
+          appInput
+          formControlName="title"
+          type="text"
+          name="title"
+          id="title"
+        />
+      </app-horizontal-form-group>
 
-      <div class="space-y-2 px-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:space-y-0 sm:px-6 sm:py-5">
-        <div>
-          <label
-            for="genre"
-            class="block text-sm/6 font-medium text-gray-900 sm:mt-1.5"
-          >Genre</label>
-        </div>
-        <div class="sm:col-span-2">
-          <div class="grid grid-cols-1">
-            <select formControlName="genreId" id="genre" name="genre" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-slate-600 sm:text-sm/6">
-              @if(genresQuery.isLoading()) {
-                <option disabled selected>Loading...</option>
-              } @else {
-                @for(genre of genresQuery.data(); track genre.id) {
-                  <option value="{{ genre.id }}">{{ genre.name }}</option>
-                }
+      <app-horizontal-form-group 
+        label="Release date"
+        description="The release year of the record."
+        [required]="true"
+      >
+        <input
+          appInput
+          formControlName="year"
+          type="number"
+          name="year"
+          id="year"
+        />
+      </app-horizontal-form-group>
+
+      <app-horizontal-form-group 
+        label="Genre"
+        description="The genre of the record."
+        [required]="true"
+      >
+        <div class="grid grid-cols-1">
+          <select formControlName="genreId" id="genre" name="genre" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-slate-600 sm:text-sm/6">
+            @if(genresQuery.isLoading()) {
+              <option disabled selected>Loading...</option>
+            } @else {
+              @for(genre of genresQuery.data(); track genre.id) {
+                <option value="{{ genre.id }}">{{ genre.name }}</option>
               }
-            </select>
-            <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
-              <path fill-rule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
-            </svg>
-          </div>
+            }
+          </select>
+          <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
+            <path fill-rule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+          </svg>
         </div>
-      </div>
+      </app-horizontal-form-group>
 
-      <div class="space-y-2 px-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:space-y-0 sm:px-6 sm:py-5">
-        <div>
-          <label
-            for="genre"
-            class="block text-sm/6 font-medium text-gray-900 sm:mt-1.5"
-          >Condition</label>
+      <app-horizontal-form-group 
+        label="Condition"
+        description="The condition of the record."
+        [required]="vinylCreationForm.controls['condition'].errors?.['required']"
+      >
+        <div class="grid grid-cols-1">
+          <select formControlName="condition" id="genre" name="genre" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-slate-600 sm:text-sm/6">
+            @for(condition of conditionOptions(); track condition.key) {
+              <option value="{{ condition.value }}">{{ condition.key.replace('_', ' ') }}</option>
+            }
+          </select>
+          <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
+            <path fill-rule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+          </svg>
         </div>
-        <div class="sm:col-span-2">
-          <div class="grid grid-cols-1">
-            <select formControlName="condition" id="genre" name="genre" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-slate-600 sm:text-sm/6">
-              @for(condition of conditionOptions(); track condition.key) {
-                <option value="{{ condition.value }}">{{ condition.key.replace('_', ' ') }}</option>
-              }
-            </select>
-            <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
-              <path fill-rule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
-            </svg>
-          </div>
-        </div>
-      </div>
+      </app-horizontal-form-group>
 
       <!-- <div class="space-y-2 px-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:space-y-0 sm:px-6 sm:py-5">
         <div>
@@ -112,61 +97,48 @@
         </div>
       </div> -->
 
-      <div class="space-y-2 px-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:space-y-0 sm:px-6 sm:py-5">
-        <div>
-          <label
-            for="coverImage"
-            class="block text-sm/6 font-medium text-gray-900 sm:mt-1.5"
-          >Cover image</label>
-        </div>
-        <div class="sm:col-span-2">
-          <input
-            formControlName="coverImage"
-            type="text"
-            name="coverImage"
-            id="coverImage"
-            class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-slate-600 sm:text-sm/6"
-          />
-        </div>
-      </div>
-
-      <div class="space-y-2 px-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:space-y-0 sm:px-6 sm:py-5">
-        <div>
-          <label
-            for="recordColor"
-            class="block text-sm/6 font-medium text-gray-900 sm:mt-1.5"
-          >Record Color</label>
-        </div>
-        <div class="sm:col-span-2">
-          <input
-            formControlName="recordColor"
-            type="text"
-            name="recordColor"
-            id="recordColor"
-            class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-slate-600 sm:text-sm/6"
-          />
-        </div>
-      </div>
-
-      <div
-        class="space-y-2 px-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:space-y-0 sm:px-6 sm:py-5"
+      <app-horizontal-form-group 
+        label="Cover image"
+        description="The URL of the cover image."
+        [required]="false"
       >
-        <div>
-          <label
-            for="notes"
-            class="block text-sm/6 font-medium text-gray-900 sm:mt-1.5"
-          >Notes</label>
-        </div>
-        <div class="sm:col-span-2">
-          <textarea
-            formControlName="notes"
-            rows="3"
-            name="notes"
-            id="notes"
-            class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-slate-600 sm:text-sm/6"
-          ></textarea>
-        </div>
-      </div>
+        <input
+          appInput
+          formControlName="coverImage"
+          type="text"
+          name="coverImage"
+          id="coverImage"
+        />
+      </app-horizontal-form-group>
+
+      <app-horizontal-form-group 
+        label="Record color"
+        description="The color of the record."
+        [required]="false"
+      >
+        <input
+          appInput
+          formControlName="recordColor"
+          type="text"
+          name="recordColor"
+          id="recordColor"
+        />
+      </app-horizontal-form-group>
+
+      <app-horizontal-form-group 
+        label="Notes"
+        description="Any additional notes about the record."
+        [required]="false"
+      >
+        <textarea
+          appInput
+          formControlName="notes"
+          rows="3"
+          name="notes"
+          id="notes"
+        ></textarea>
+      </app-horizontal-form-group>
+      
     </form>
   </ng-container>
   <ng-container drawer-actions>
@@ -178,6 +150,7 @@
       Cancel creation
     </button>
     <button
+      [disabled]="!vinylCreationForm.valid"
       type="submit"
       class="inline-flex justify-center rounded-md bg-slate-800 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-slate-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-800 cursor-pointer"
       (click)="addVinyl()"

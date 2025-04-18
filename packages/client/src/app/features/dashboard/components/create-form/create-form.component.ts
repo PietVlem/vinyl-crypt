@@ -1,17 +1,25 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, effect, inject, signal, Signal } from '@angular/core';
-import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { Component, computed, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Condition } from '@core/models';
 import { DrawerService } from '@core/services';
 import { GenreService, StyleService, VinylRecordService } from '@features/dashboard/data-access';
 import { DrawerBaseComponent } from '@layouts';
+import { StylingInputDirective } from '@shared/directives';
+import { debouncedSignal } from '@shared/utils/signal-utils';
 import { releaseYearValidator, urlValidator } from '@shared/utils/validators';
-import { debounceTime } from 'rxjs';
+import { HorizontalFormGroupComponent } from '../horizontal-form-group/horizontal-form-group.component';
 
 @Component({
   selector: 'app-create-form',
-  imports: [DrawerBaseComponent, ReactiveFormsModule, CommonModule, FormsModule],
+  imports: [
+    DrawerBaseComponent, 
+    ReactiveFormsModule, 
+    CommonModule, 
+    FormsModule, 
+    StylingInputDirective,
+    HorizontalFormGroupComponent
+  ],
   templateUrl: './create-form.component.html',
 })
 export class CreateFormComponent {
@@ -21,7 +29,7 @@ export class CreateFormComponent {
   public drawerService = inject(DrawerService)
 
   styleSearchValue = signal<string>('metal')
-  searchForStyle = this.debouncedSignal(this.styleSearchValue, 500);
+  searchForStyle = debouncedSignal(this.styleSearchValue, 500);
 
   genresQuery = this.genreService.getGenres()
   stylesQuery = this.styleService.getStyles(this.searchForStyle)
@@ -35,8 +43,8 @@ export class CreateFormComponent {
 
   vinylCreationForm = new FormGroup({
     title: new FormControl<string>('', [Validators.required]),
-    year: new FormControl<number>(0, releaseYearValidator),
-    genreId: new FormControl<string>(''),
+    year: new FormControl<number>(2025, [Validators.required, ...releaseYearValidator]),
+    genreId: new FormControl<string>('', [Validators.required]),
     // styleId: new FormControl<string>(''),
     condition: new FormControl<Condition>(Condition.Mint),
     coverImage: new FormControl<string>('', urlValidator),
@@ -44,17 +52,12 @@ export class CreateFormComponent {
     notes: new FormControl<string>(''),
   });
 
-  debouncedSignal<T>(
-    sourceSignal: Signal<T>,
-    debounceTimeInMs = 0,
-  ): Signal<T> {
-    const source$ = toObservable(sourceSignal);
-    const debounced$ = source$.pipe(debounceTime(debounceTimeInMs));
-    return toSignal(debounced$, {
-      initialValue: sourceSignal(),
-    });
-  }
+  addVinyl = () => {
+    if (this.vinylCreationForm.invalid) {
+      this.vinylCreationForm.markAllAsTouched();
+      return;
+    }
 
-  addVinyl = () => 
     this.createVinylRecordMutation.mutate(this.vinylCreationForm.value)
+  }
 }
