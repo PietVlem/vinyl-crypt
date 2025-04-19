@@ -8,7 +8,7 @@ import { DrawerBaseComponent } from '@layouts';
 import { SelectComponent } from '@shared/components';
 import { ButtonPrimaryDirective, ButtonSecondaryDirective, StylingInputDirective } from '@shared/directives';
 import { debouncedSignal } from '@shared/utils/signal-utils';
-import { releaseYearValidator, urlValidator } from '@shared/utils/validators';
+import { imgUrlValidator, releaseYearValidator } from '@shared/utils/validators';
 import { HorizontalFormGroupComponent } from '../horizontal-form-group/horizontal-form-group.component';
 
 @Component({
@@ -81,7 +81,7 @@ export class CreateFormComponent {
     genreId: new FormControl<string>('', [Validators.required]),
     styleId: new FormControl<string>(''),
     condition: new FormControl<Condition>(Condition.Mint),
-    coverImage: new FormControl<string>('', urlValidator),
+    coverImage: new FormControl<string>('', imgUrlValidator),
     recordColor: new FormControl<string>(''),
     artistId: new FormControl<string>(''),
     notes: new FormControl<string>(''),

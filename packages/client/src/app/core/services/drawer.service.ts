@@ -1,5 +1,5 @@
 import { ComponentPortal, ComponentType, Portal } from '@angular/cdk/portal';
-import { ComponentRef, Injectable, InjectionToken, Injector, signal } from '@angular/core';
+import { ComponentRef, effect, EffectRef, Injectable, InjectionToken, Injector, signal } from '@angular/core';
 import { Subject } from 'rxjs';
 
 export const DRAWER_CONTEXT_TOKEN = new InjectionToken('DRAWER_DATA')
@@ -17,6 +17,12 @@ export class DrawerService {
   private componentPortal = new Subject<Portal<ComponentRef<unknown>> | null>();
 
   isShown = signal(false);
+
+  constructor() {
+    effect(() => {
+      document.body.style.overflow = this.isShown() ? 'hidden' : '';
+    });
+  }
 
   getPortal = () => this.componentPortal.asObservable();
 
