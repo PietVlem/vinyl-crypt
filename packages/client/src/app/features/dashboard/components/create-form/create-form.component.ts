@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Condition } from '@core/models';
 import { DrawerService } from '@core/services';
-import { ArtistService, GenreService, StyleService, VinylRecordService } from '@features/dashboard/data-access';
+import { VinylRecordService } from '@features/dashboard/data-access';
+import { SelectsHelpersService } from '@features/dashboard/helpers';
 import { DrawerBaseComponent } from '@layouts';
 import { SelectComponent } from '@shared/components';
 import { ButtonPrimaryDirective, ButtonSecondaryDirective, StylingInputDirective } from '@shared/directives';
-import { debouncedSignal } from '@shared/utils/signal-utils';
 import { imgUrlValidator, releaseYearValidator } from '@shared/utils/validators';
 import { HorizontalFormGroupComponent } from '../horizontal-form-group/horizontal-form-group.component';
 
@@ -28,51 +28,11 @@ import { HorizontalFormGroupComponent } from '../horizontal-form-group/horizonta
 })
 export class CreateFormComponent {
   private vinylRecordService = inject(VinylRecordService)
-  private genreService = inject(GenreService)
-  private styleService = inject(StyleService)
-  private artistService = inject(ArtistService)
+  public selectsHelpersService = inject(SelectsHelpersService)
   public drawerService = inject(DrawerService)
-
-  styleSearchValue = signal<string>('metal')
-  searchForStyle = debouncedSignal(this.styleSearchValue, 500);
-
-  artistSearchValue = signal<string>('')
-  searchForArtist = debouncedSignal(this.artistSearchValue, 500);
-
-  genresQuery = this.genreService.getGenres()
-  stylesQuery = this.styleService.getStyles(this.searchForStyle)
-  artistQuery = this.artistService.getArtists(this.searchForArtist)
 
   createVinylRecordMutation = this.vinylRecordService.createVinylRecord(
     () => this.drawerService.hide()
-  )
-
-  conditionSelectOptions = computed(() =>
-    Object.entries(Condition).map(([key, value]) => ({
-      id: value,
-      value: key.replace('_', ' '),
-    }))
-  )
-
-  genreSelectOptions = computed(() =>
-    this.genresQuery.data()?.map((genre) => ({
-      id: genre.id,
-      value: genre.name,
-    })) ?? []
-  )
-
-  styleSelectOptions = computed(() =>
-    this.stylesQuery.data()?.map((style) => ({
-      id: style.id,
-      value: style.name,
-    })) ?? []
-  )
-
-  artistSelectOptions = computed(() =>
-    this.artistQuery.data()?.map((artist) => ({
-      id: artist.id,
-      value: artist.name,
-    })) ?? []
   )
 
   vinylCreationForm = new FormGroup({

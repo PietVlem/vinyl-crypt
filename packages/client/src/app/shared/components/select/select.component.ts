@@ -4,7 +4,7 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { phosphorCaretUpDown, phosphorCheck } from '@ng-icons/phosphor-icons/regular';
 import { ClickOutsideDirective, StylingInputDirective } from '@shared/directives';
 
-interface Option {
+export interface SelectOption {
   id: string;
   value: string;
 }
@@ -24,7 +24,7 @@ interface Option {
 })
 export class SelectComponent implements ControlValueAccessor {
   searchable = input<boolean>(false);
-  options = input<Option[]>([])
+  options = input<SelectOption[]>([])
   loading = input<boolean>(false);
   searchModel = model<string>('');
 
@@ -48,7 +48,7 @@ export class SelectComponent implements ControlValueAccessor {
     }
   }
 
-  selectOption = (option: Option) => {
+  selectOption = (option: SelectOption) => {
     this.selectedId.set(option.id);
     this.onChange(option.id);
     this.close();

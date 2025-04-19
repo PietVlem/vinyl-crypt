@@ -1,5 +1,5 @@
 import { ComponentPortal, ComponentType, Portal } from '@angular/cdk/portal';
-import { ComponentRef, effect, EffectRef, Injectable, InjectionToken, Injector, signal } from '@angular/core';
+import { ComponentRef, effect, Injectable, InjectionToken, Injector, signal } from '@angular/core';
 import { Subject } from 'rxjs';
 
 export const DRAWER_CONTEXT_TOKEN = new InjectionToken('DRAWER_DATA')

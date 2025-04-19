@@ -29,9 +29,9 @@
           <app-select
             formControlName="artistId"
             [searchable]="true"
-            [options]="artistSelectOptions()"
-            [loading]="artistQuery.isLoading()"
-            [(searchModel)]="artistSearchValue"
+            [options]="selectsHelpersService.artistSelectOptions()"
+            [loading]="selectsHelpersService.artistQuery.isLoading()"
+            [(searchModel)]="selectsHelpersService.artistSearchValue"
           />
         </div>
       </app-horizontal-form-group>
@@ -58,7 +58,7 @@
         [required]="true"
       >
       <app-select
-        [options]="genreSelectOptions()"
+        [options]="selectsHelpersService.genreSelectOptions()"
         formControlName="genreId"
       />
       </app-horizontal-form-group>
@@ -71,7 +71,7 @@
       >
         <div class="grid grid-cols-1">
           <app-select
-            [options]="conditionSelectOptions()"
+            [options]="selectsHelpersService.conditionSelectOptions()"
             formControlName="condition"
           />
         </div>
@@ -87,9 +87,9 @@
           <app-select
             formControlName="styleId"
             [searchable]="true"
-            [options]="styleSelectOptions()"
-            [loading]="stylesQuery.isLoading()"
-            [(searchModel)]="styleSearchValue"
+            [options]="selectsHelpersService.styleSelectOptions()"
+            [loading]="selectsHelpersService.stylesQuery.isLoading()"
+            [(searchModel)]="selectsHelpersService.styleSearchValue"
           />
         </div>
       </app-horizontal-form-group>
