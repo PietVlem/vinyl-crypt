@@ -4,16 +4,16 @@ import { DrawerService } from '@core/services';
 import { CreateFormComponent } from '@features/dashboard/components/create-form/create-form.component';
 import { VinylRecordService } from '@features/dashboard/data-access';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { phosphorTrash, phosphorVinylRecord } from '@ng-icons/phosphor-icons/regular';
+import { phosphorMusicNotesPlus, phosphorShare, phosphorTrash, phosphorVinylRecord } from '@ng-icons/phosphor-icons/regular';
 import { DialogService } from '@ngneat/dialog';
 import { DialogConfirmComponent, EmptyStateComponent } from '@shared/components';
-import { ButtonPrimaryDirective } from '@shared/directives';
+import { ButtonPrimaryDirective, ButtonSecondaryDirective } from '@shared/directives';
 
 @Component({
   selector: 'app-protected',
   templateUrl: './collection.component.html',
-  imports: [CommonModule, NgIcon, EmptyStateComponent, ButtonPrimaryDirective],
-  viewProviders: [provideIcons({ phosphorVinylRecord, phosphorTrash })]
+  imports: [CommonModule, NgIcon, EmptyStateComponent, ButtonPrimaryDirective, ButtonSecondaryDirective],
+  viewProviders: [provideIcons({ phosphorVinylRecord, phosphorTrash, phosphorMusicNotesPlus, phosphorShare })]
 })
 export class CollectionComponent {
   private drawerService = inject(DrawerService)
@@ -26,7 +26,7 @@ export class CollectionComponent {
   OpenAddRecordDrawer = () => this.drawerService.show(CreateFormComponent, {})
 
   deleteVinylRecord = (id: string) => {
-    const dialogRef = this.dialog.open(DialogConfirmComponent, {
+    this.dialog.open(DialogConfirmComponent, {
       data: {
         title: 'Delete Record',
         description: 'Are you sure you want to delete this record? This action cannot be undone.',

@@ -16,6 +16,7 @@ export const vinylRouter = trpc.router({
             include: {
                 artist: true,
                 genre: true,
+                style: true,
             }
         })
 

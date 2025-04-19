@@ -9,17 +9,19 @@
     @if(vinylRecordsQuery.data()?.length) {
       <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none flex gap-4">
         <button
-          appButtonPrimary
+          appButtonSecondary
           type="button"
-          (click)="OpenAddRecordDrawer()"
         >
-          Add vinyl record
+          <ng-icon name="phosphorShare" size="16"/>
+          <span>Share collection</span>
         </button>
         <button
           appButtonPrimary
           type="button"
+          (click)="OpenAddRecordDrawer()"
         >
-          Share collection
+          <ng-icon name="phosphorMusicNotesPlus" size="16"/>
+          <span>Add vinyl record</span>
         </button>
       </div>
     }
@@ -79,10 +81,11 @@
                           class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20"
                           >{{ record.genre?.name ?? 'Genre' }}</span
                         >
-                        <span
-                          class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20"
-                          >Subgenre</span
-                        >
+                        @if(record.style?.name) {
+                          <span
+                            class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20"
+                          >{{ record.style?.name }}</span>
+                        }
                       </div>
                     </td>
                     <td
