@@ -25,6 +25,7 @@ interface Option {
 export class SelectComponent implements ControlValueAccessor {
   searchable = input<boolean>(false);
   options = input<Option[]>([])
+  loading = input<boolean>(false);
   searchModel = model<string>('');
 
   @ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>;

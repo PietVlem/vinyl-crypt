@@ -9,7 +9,7 @@ type RouterOutput = inferRouterOutputs<AppRouter>;
 @Injectable({
     providedIn: 'root'
 })
-export class GenresApiService {
+export class GenreApiService {
     trpcUtils = inject(trpcUtils);
 
     getGenres = async () : Promise<RouterOutput['genre']['get']> =>

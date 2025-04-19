@@ -6,6 +6,7 @@
     <form [formGroup]="vinylCreationForm" class="space-y-6 py-6 sm:space-y-0 sm:divide-y sm:divide-gray-200 sm:py-0" >
       <app-horizontal-form-group 
         label="Record name"
+        labelFor="title"
         description="The name of the record."
         [required]="true"
       >
@@ -19,7 +20,25 @@
       </app-horizontal-form-group>
 
       <app-horizontal-form-group 
+        label="Artist"
+        labelFor="artist"
+        description="The artist of the record."
+        [required]="false"
+      >
+        <div class="grid grid-cols-1">
+          <app-select
+            formControlName="artistId"
+            [searchable]="true"
+            [options]="artistSelectOptions()"
+            [loading]="artistQuery.isLoading()"
+            [(searchModel)]="artistSearchValue"
+          />
+        </div>
+      </app-horizontal-form-group>
+
+      <app-horizontal-form-group 
         label="Release date"
+        labelFor="year"
         description="The release year of the record."
         [required]="true"
       >
@@ -34,6 +53,7 @@
 
       <app-horizontal-form-group 
         label="Genre"
+        labelFor="genre"
         description="The genre of the record."
         [required]="true"
       >
@@ -45,6 +65,7 @@
 
       <app-horizontal-form-group 
         label="Condition"
+        labelFor="condition"
         description="The condition of the record."
         [required]="vinylCreationForm.controls['condition'].errors?.['required']"
       >
@@ -58,14 +79,16 @@
 
       <app-horizontal-form-group 
         label="Style"
+        labelFor="style"
         description="The style of the record."
         [required]="false"
       >
         <div class="grid grid-cols-1">
           <app-select
-            [options]="styleSelectOptions()"
             formControlName="styleId"
             [searchable]="true"
+            [options]="styleSelectOptions()"
+            [loading]="stylesQuery.isLoading()"
             [(searchModel)]="styleSearchValue"
           />
         </div>
@@ -73,6 +96,7 @@
 
       <app-horizontal-form-group 
         label="Cover image"
+        labelFor="coverImage"
         description="The URL of the cover image."
         [required]="false"
       >
@@ -87,6 +111,7 @@
 
       <app-horizontal-form-group 
         label="Record color"
+        labelFor="recordColor"
         description="The color of the record."
         [required]="false"
       >
@@ -101,6 +126,7 @@
 
       <app-horizontal-form-group 
         label="Notes"
+        labelFor="notes"
         description="Any additional notes about the record."
         [required]="false"
       >

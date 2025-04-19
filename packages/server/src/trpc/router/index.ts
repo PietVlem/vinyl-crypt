@@ -1,4 +1,5 @@
 import { trpc } from "../trpc";
+import { artistRouter } from "./artist";
 import { genreRouter } from "./genre";
 import { styleRouter } from "./style";
 import { userRouter } from "./user";
@@ -9,6 +10,7 @@ export const appRouter = trpc.router({
     vinyl: vinylRouter,
     genre: genreRouter,
     style: styleRouter,
+    artist: artistRouter,
 })
 
 export type AppRouter = typeof appRouter

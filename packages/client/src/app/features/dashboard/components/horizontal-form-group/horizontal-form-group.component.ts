@@ -7,6 +7,7 @@ import { Component, input } from '@angular/core';
 })
 export class HorizontalFormGroupComponent {
   label = input.required<string>()
-  description = input<string>()
-  required = input<boolean>()
+  labelFor = input<string>('')
+  description = input<string>('')
+  required = input<boolean>(false)
 }

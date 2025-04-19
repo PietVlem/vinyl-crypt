@@ -3,7 +3,7 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Condition } from '@core/models';
 import { DrawerService } from '@core/services';
-import { GenreService, StyleService, VinylRecordService } from '@features/dashboard/data-access';
+import { ArtistService, GenreService, StyleService, VinylRecordService } from '@features/dashboard/data-access';
 import { DrawerBaseComponent } from '@layouts';
 import { SelectComponent } from '@shared/components';
 import { ButtonPrimaryDirective, ButtonSecondaryDirective, StylingInputDirective } from '@shared/directives';
@@ -30,13 +30,19 @@ export class CreateFormComponent {
   private vinylRecordService = inject(VinylRecordService)
   private genreService = inject(GenreService)
   private styleService = inject(StyleService)
+  private artistService = inject(ArtistService)
   public drawerService = inject(DrawerService)
 
   styleSearchValue = signal<string>('metal')
   searchForStyle = debouncedSignal(this.styleSearchValue, 500);
 
+  artistSearchValue = signal<string>('')
+  searchForArtist = debouncedSignal(this.artistSearchValue, 500);
+
   genresQuery = this.genreService.getGenres()
   stylesQuery = this.styleService.getStyles(this.searchForStyle)
+  artistQuery = this.artistService.getArtists(this.searchForArtist)
+
   createVinylRecordMutation = this.vinylRecordService.createVinylRecord(
     () => this.drawerService.hide()
   )
@@ -62,6 +68,13 @@ export class CreateFormComponent {
     })) ?? []
   )
 
+  artistSelectOptions = computed(() =>
+    this.artistQuery.data()?.map((artist) => ({
+      id: artist.id,
+      value: artist.name,
+    })) ?? []
+  )
+
   vinylCreationForm = new FormGroup({
     title: new FormControl<string>('', [Validators.required]),
     year: new FormControl<number>(2025, [Validators.required, ...releaseYearValidator]),
@@ -70,6 +83,7 @@ export class CreateFormComponent {
     condition: new FormControl<Condition>(Condition.Mint),
     coverImage: new FormControl<string>('', urlValidator),
     recordColor: new FormControl<string>(''),
+    artistId: new FormControl<string>(''),
     notes: new FormControl<string>(''),
   });
 
