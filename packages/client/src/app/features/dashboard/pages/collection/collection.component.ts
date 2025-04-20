@@ -1,18 +1,25 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { DrawerService } from '@core/services';
 import { CreateFormComponent } from '@features/dashboard/components/create-form/create-form.component';
 import { VinylRecordService } from '@features/dashboard/data-access';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { phosphorMusicNotesPlus, phosphorShare, phosphorTrash, phosphorVinylRecord } from '@ng-icons/phosphor-icons/regular';
 import { DialogService } from '@ngneat/dialog';
-import { DialogConfirmComponent, EmptyStateComponent } from '@shared/components';
+import { DialogConfirmComponent, EmptyStateComponent, PaginationComponent } from '@shared/components';
 import { ButtonPrimaryDirective, ButtonSecondaryDirective } from '@shared/directives';
 
 @Component({
   selector: 'app-protected',
   templateUrl: './collection.component.html',
-  imports: [CommonModule, NgIcon, EmptyStateComponent, ButtonPrimaryDirective, ButtonSecondaryDirective],
+  imports: [
+    CommonModule, 
+    NgIcon, 
+    EmptyStateComponent, 
+    ButtonPrimaryDirective, 
+    ButtonSecondaryDirective,
+    PaginationComponent,
+  ],
   viewProviders: [provideIcons({ phosphorVinylRecord, phosphorTrash, phosphorMusicNotesPlus, phosphorShare })]
 })
 export class CollectionComponent {
@@ -20,8 +27,12 @@ export class CollectionComponent {
   private vinylRecordService = inject(VinylRecordService)
   private dialog = inject(DialogService);
 
-  vinylRecordsQuery = this.vinylRecordService.getVinylRecords()
+  currentPage = signal<number>(1)
+
+  vinylRecordsQuery = this.vinylRecordService.getVinylRecords(this.currentPage)
   vinylRecordDeleteMutation = this.vinylRecordService.deleteVinylRecords()
+
+  goToPage = (page: number) => this.currentPage.set(page)
 
   OpenAddRecordDrawer = () => this.drawerService.show(CreateFormComponent, {})
 

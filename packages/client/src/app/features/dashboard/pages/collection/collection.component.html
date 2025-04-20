@@ -6,7 +6,7 @@
         A list of all the Vinyl records in your collection.
       </p>
     </div>
-    @if(vinylRecordsQuery.data()?.length) {
+    @if(vinylRecordsQuery.data()?.meta?.totalRecords) {
       <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none flex gap-4">
         <button
           appButtonSecondary
@@ -31,7 +31,7 @@
   { 
     loading... 
   } @else {
-    @if(vinylRecordsQuery.data()?.length === 0) {
+    @if(vinylRecordsQuery.data()?.meta?.totalRecords === 0) {
       <app-empty-state 
         title="No vinyl records found"
         description="You don't have any vinyl records in your collection yet."
@@ -44,7 +44,7 @@
           <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
             <table class="min-w-full divide-y divide-gray-300">
               <tbody class="divide-y divide-gray-200 bg-white">
-                @for(record of vinylRecordsQuery.data(); track record.id) {
+                @for(record of vinylRecordsQuery.data()?.data; track record.id) {
                   <tr>
                     <td class="whitespace-nowrap py-5 pl-4 pr-3 text-sm sm:pl-0">
                       <div class="flex items-center">
@@ -104,6 +104,14 @@
           </div>
         </div>
       </div>
+      @let pageMetaData = vinylRecordsQuery.data()?.meta;
+      <app-pagination 
+        [currentPage]="pageMetaData?.currentPage ?? 1"
+        [totalPages]="pageMetaData?.totalPages ?? 1"
+        [totalRecords]="pageMetaData?.totalRecords ?? 0"
+        [pageSize]="pageMetaData?.pageSize ?? 50"
+        (updatePage)="goToPage($event)"
+      />
     }
   }
 </div>

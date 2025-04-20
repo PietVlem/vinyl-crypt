@@ -13,8 +13,10 @@ type RouterOutput = inferRouterOutputs<AppRouter>;
 export class VinylRecordApiService {
     trpcUtils = inject(trpcUtils);
 
-    getVinylRecords = async () : Promise<RouterOutput['vinyl']['get']> =>
-        this.trpcUtils.client.vinyl.get.query()
+    getVinylRecords = async (
+        input : RouterInput['vinyl']['get']
+    ) : Promise<RouterOutput['vinyl']['get']> =>
+        this.trpcUtils.client.vinyl.get.query(input)
 
     createVinylRecord = async (
         input : RouterInput['vinyl']['create']

@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, Signal } from '@angular/core';
 import { VinylRecordApiService } from '@api';
 import {
   injectMutation,
@@ -13,9 +13,11 @@ export class VinylRecordService {
   private vinylRecordApiService = inject(VinylRecordApiService)
   private queryClient = inject(QueryClient)
 
-  getVinylRecords = () => injectQuery(() => ({
-    queryKey: ['vinylRecords'],
-    queryFn: () => this.vinylRecordApiService.getVinylRecords(),
+  getVinylRecords = (
+    page: Signal<number>
+  ) => injectQuery(() => ({
+    queryKey: ['vinylRecords', page()],
+    queryFn: () => this.vinylRecordApiService.getVinylRecords({ page: page() }),
   }))
 
   createVinylRecord = (successCallback: () => void) => injectMutation(() => ({

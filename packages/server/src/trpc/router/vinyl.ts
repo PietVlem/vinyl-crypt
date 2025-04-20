@@ -6,21 +6,46 @@ import { protectedProcedure } from '../middleware';
 import { trpc } from '../trpc';
 
 export const vinylRouter = trpc.router({
-    get: protectedProcedure.query(async ({ ctx }) => {
+    get: protectedProcedure.input(
+        z.object({
+            page: z.number().optional(),
+        })
+    )
+    .query(async ({ ctx, input }) => {
         const { user } = ctx
+        const { page: pageInput } = input
 
-        const records = await prisma.vinylRecord.findMany({
+        const pageSize = 12
+
+        const baseQueryParam = {
             where: {
                 userId: user.id,
             },
+        }
+
+        const extendedQueryParam = {
+            ...baseQueryParam,
             include: {
                 artist: true,
                 genre: true,
                 style: true,
-            }
-        })
+            },
+            take: pageSize,
+            skip: pageInput ? (pageInput - 1) * pageSize : 0,
+        }
 
-        return records
+        const records = await prisma.vinylRecord.findMany(extendedQueryParam)
+        const totalRecords = await prisma.vinylRecord.count(baseQueryParam)
+
+        return {
+            data: records,
+            meta: {
+                totalRecords,
+                totalPages: Math.ceil(totalRecords / pageSize),
+                currentPage: pageInput || 1,
+                pageSize,
+            }
+        }
     }),
     create: protectedProcedure.input(
         z.object({
