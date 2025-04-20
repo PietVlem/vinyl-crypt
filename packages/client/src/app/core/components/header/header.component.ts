@@ -4,8 +4,6 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '@auth0/auth0-angular';
 import { CoreAuthService } from '@core/services';
-import { NgIcon, provideIcons } from '@ng-icons/core';
-import { phosphorMusicNotes } from '@ng-icons/phosphor-icons/regular';
 import { ButtonPrimaryDirective } from '@shared/directives';
 
 @Component({
@@ -14,10 +12,8 @@ import { ButtonPrimaryDirective } from '@shared/directives';
     RouterLink, 
     RouterLinkActive, 
     CommonModule, 
-    NgIcon, 
     ButtonPrimaryDirective
   ],
-  providers: [provideIcons({ phosphorMusicNotes })],
   templateUrl: './header.component.html',
 })
 export class HeaderComponent {

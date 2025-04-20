@@ -1,0 +1,23 @@
+import { inject, Injectable } from '@angular/core';
+import type { inferRouterInputs, inferRouterOutputs } from '@trpc/server';
+import { trpcUtils } from 'app/api/utils/trpc';
+
+import { AppRouter } from '../../../../../server/src';
+ 
+type RouterInput = inferRouterInputs<AppRouter>;
+type RouterOutput = inferRouterOutputs<AppRouter>;
+
+@Injectable({
+    providedIn: 'root'
+})
+export class ShareLinkApiService {
+    trpcUtils = inject(trpcUtils);
+
+    getShareLinks = async () : Promise<RouterOutput['shareLink']['get']> =>
+        this.trpcUtils.client.shareLink.get.query()
+
+    createShareLink = async (
+        input : RouterInput['shareLink']['create']
+    ) : Promise<RouterOutput['shareLink']['create']> =>
+        this.trpcUtils.client.shareLink.create.mutate(input)
+}

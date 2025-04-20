@@ -1,5 +1,20 @@
 <app-layout-base>
-    <p>settings works!</p>
-
-    <router-outlet></router-outlet>
+    <div class="grid grid-cols-4 gap-12">
+        <div class="col-span-1">
+            <nav class="flex flex-1 flex-col" aria-label="Sidebar">
+                <ul role="list" class="-mx-2 space-y-1">
+                  <li>
+                    <!-- Current: "bg-gray-50 text-indigo-600", Default: "text-gray-700 hover:text-indigo-600 hover:bg-gray-50" -->
+                    <a href="#" class="group flex gap-x-3 rounded-md bg-slate-800 p-2 pl-3 text-sm/6 font-semibold text-white">Profile</a>
+                  </li>
+                  <li>
+                    <div class="group flex gap-x-3 rounded-md p-2 pl-3 text-sm/6 font-semibold text-gray-700 hover:bg-gray-50 hover:text-slate-800">Other setting</div>
+                  </li>
+                </ul>
+              </nav>
+        </div>
+        <div class="col-span-3">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
 </app-layout-base>

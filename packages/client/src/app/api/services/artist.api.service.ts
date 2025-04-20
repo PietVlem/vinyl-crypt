@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import type { inferRouterInputs, inferRouterOutputs } from '@trpc/server';
 import { trpcUtils } from 'app/api/utils/trpc';
 
-import { AppRouter } from '../../../../server/src';
+import { AppRouter } from '../../../../../server/src';
  
 type RouterInput = inferRouterInputs<AppRouter>;
 type RouterOutput = inferRouterOutputs<AppRouter>;
@@ -10,11 +10,11 @@ type RouterOutput = inferRouterOutputs<AppRouter>;
 @Injectable({
     providedIn: 'root'
 })
-export class UserApiService {
+export class ArtistApiService {
     trpcUtils = inject(trpcUtils);
 
-    getOrCreateUser = async ( 
-        input : RouterInput['user']['getOrCreate']
-    ) : Promise<RouterOutput['user']['getOrCreate']> => 
-        this.trpcUtils.client.user.getOrCreate.query(input)
+    getArtists = async (
+        input : RouterInput['artist']['get']
+    ) : Promise<RouterOutput['artist']['get']> =>
+        this.trpcUtils.client.artist.get.query(input)
 }

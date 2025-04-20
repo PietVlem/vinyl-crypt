@@ -1,5 +1,6 @@
-export * from './artist.service';
-export * from './genre.service';
-export * from './style.service';
-export * from './vinyl-record.service';
+export * from './services/artist.service';
+export * from './services/genre.service';
+export * from './services/share-link.service';
+export * from './services/style.service';
+export * from './services/vinyl-record.service';
 

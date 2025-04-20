@@ -105,13 +105,15 @@
         </div>
       </div>
       @let pageMetaData = vinylRecordsQuery.data()?.meta;
-      <app-pagination 
-        [currentPage]="pageMetaData?.currentPage ?? 1"
-        [totalPages]="pageMetaData?.totalPages ?? 1"
-        [totalRecords]="pageMetaData?.totalRecords ?? 0"
-        [pageSize]="pageMetaData?.pageSize ?? 50"
-        (updatePage)="goToPage($event)"
-      />
+      @if(pageMetaData && pageMetaData.totalRecords > pageMetaData.pageSize) {
+        <app-pagination 
+          [currentPage]="pageMetaData?.currentPage ?? 1"
+          [totalPages]="pageMetaData?.totalPages ?? 1"
+          [totalRecords]="pageMetaData?.totalRecords ?? 0"
+          [pageSize]="pageMetaData?.pageSize ?? 50"
+          (updatePage)="goToPage($event)"
+        />
+      }
     }
   }
 </div>

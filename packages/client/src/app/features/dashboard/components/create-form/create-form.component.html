@@ -16,6 +16,7 @@
           type="text"
           name="title"
           id="title"
+          placeholder="The Tortured Poets Department"
         />
       </app-horizontal-form-group>
 
@@ -32,6 +33,7 @@
             [options]="selectsHelpersService.artistSelectOptions()"
             [loading]="selectsHelpersService.artistQuery.isLoading()"
             [(searchModel)]="selectsHelpersService.artistSearchValue"
+            placeholder="Taylor Swift"
           />
         </div>
       </app-horizontal-form-group>
@@ -59,6 +61,7 @@
       >
       <app-select
         [options]="selectsHelpersService.genreSelectOptions()"
+        placeholder="Country"
         formControlName="genreId"
       />
       </app-horizontal-form-group>
@@ -90,6 +93,7 @@
             [options]="selectsHelpersService.styleSelectOptions()"
             [loading]="selectsHelpersService.stylesQuery.isLoading()"
             [(searchModel)]="selectsHelpersService.styleSearchValue"
+            placeholder="Indie Pop"
           />
         </div>
       </app-horizontal-form-group>
@@ -106,6 +110,7 @@
           type="text"
           name="coverImage"
           id="coverImage"
+          placeholder="https://example.com/cover.jpg"
         />
       </app-horizontal-form-group>
 
@@ -121,6 +126,7 @@
           type="text"
           name="recordColor"
           id="recordColor"
+          placeholder="Black"
         />
       </app-horizontal-form-group>
 

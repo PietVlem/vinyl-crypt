@@ -7,9 +7,15 @@
     aria-expanded="true"
     aria-labelledby="listbox-label"
   >
-    <span 
-      class="col-start-1 row-start-1 truncate pr-6"
-    >{{ selectedLabel() ?? "" }}</span>
+    @if(selectedLabel()) {
+      <span 
+        class="col-start-1 row-start-1 truncate pr-6"
+      >{{ selectedLabel() }}</span>
+    } @else if(placeholder()) {
+      <span 
+        class="col-start-1 row-start-1 truncate pr-6 text-gray-400"
+      >{{ placeholder() }}</span>
+    }
     <ng-icon
       class="col-start-1 row-start-1 self-center justify-self-end text-gray-500 sm:size-4"
       size="14"

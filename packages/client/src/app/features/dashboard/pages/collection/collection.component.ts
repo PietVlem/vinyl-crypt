@@ -20,7 +20,14 @@ import { ButtonPrimaryDirective, ButtonSecondaryDirective } from '@shared/direct
     ButtonSecondaryDirective,
     PaginationComponent,
   ],
-  viewProviders: [provideIcons({ phosphorVinylRecord, phosphorTrash, phosphorMusicNotesPlus, phosphorShare })]
+  viewProviders: [
+    provideIcons({ 
+      phosphorVinylRecord, 
+      phosphorTrash, 
+      phosphorMusicNotesPlus, 
+      phosphorShare 
+    })
+  ],
 })
 export class CollectionComponent {
   private drawerService = inject(DrawerService)
@@ -32,7 +39,11 @@ export class CollectionComponent {
   vinylRecordsQuery = this.vinylRecordService.getVinylRecords(this.currentPage)
   vinylRecordDeleteMutation = this.vinylRecordService.deleteVinylRecords()
 
-  goToPage = (page: number) => this.currentPage.set(page)
+  goToPage = (page: number) => {
+    const totalPages = this.vinylRecordsQuery.data()?.meta?.totalPages ?? 1;
+    if (page < 1 || page > totalPages) return
+    this.currentPage.set(page)
+  }
 
   OpenAddRecordDrawer = () => this.drawerService.show(CreateFormComponent, {})
 
