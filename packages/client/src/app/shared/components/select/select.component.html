@@ -2,7 +2,7 @@
   <button
     (click)="toggleOpen()"
     type="button"
-    class="h-9 grid w-full cursor-default grid-cols-1 rounded-md bg-white py-1.5 pl-3 pr-2 text-left text-slate-800 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-slate-800 sm:text-sm/6"
+    class="h-9 grid w-full cursor-default grid-cols-1 rounded-md bg-white py-1.5 pl-3 pr-2 text-left text-app-primary outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-app-primary sm:text-sm/6"
     aria-haspopup="listbox"
     aria-expanded="true"
     aria-labelledby="listbox-label"
@@ -49,7 +49,7 @@
     } @else {
       @for(option of options(); track option.id) {
         <li
-          class="relative cursor-pointer select-none py-2 pl-3 pr-9 text-slate-800 hover:bg-slate-800 hover:text-white hover:outline-none"
+          class="relative cursor-pointer select-none py-2 pl-3 pr-9 text-app-primary hover:bg-app-primary hover:text-white hover:outline-none"
           id="listbox-option-0"
           role="option"
           (click)="selectOption(option)"

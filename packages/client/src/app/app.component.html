@@ -1,6 +1,8 @@
-@if(isAuth0Loading()) {
-  loading...
-} @else {
-  <router-outlet></router-outlet>
-  <app-drawer />
-}
+<app-layout-base class="font-display">
+  @if(isAuth0Loading()) {
+    loading...
+  } @else {
+    <router-outlet></router-outlet>
+    <app-drawer />
+  }
+</app-layout-base>

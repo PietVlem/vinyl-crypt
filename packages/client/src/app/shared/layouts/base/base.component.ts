@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
-import { FooterComponent, HeaderComponent } from '@core/components/index';
+import { SidebarNavComponent } from '@core/components/index';
 
 @Component({
   selector: 'app-layout-base',
-  imports: [HeaderComponent, FooterComponent],
+  imports: [SidebarNavComponent],
   templateUrl: './base.component.html',
 })
-export class BaseComponent {
-
-}
+export class BaseComponent {}

@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '@auth0/auth0-angular';
-import { dashboardRoutes } from '@features/dashboard/routes';
+import { collectionRoutes } from '@features/collection/routes';
 import { settingsRoutes } from '@features/settings/routes';
 
 export const routePaths = {
-  DASHBOARD: 'dashboard',
+  COLLECTION: 'collection',
   SETTINGS: 'settings',
   CALLBACK: 'callback',
   ERROR: 'error',
@@ -18,10 +18,9 @@ const routes: Routes = [
     loadComponent: () => import('@features/home/home.component').then(c => c.HomeComponent)
   },
   {
-    path: routePaths.DASHBOARD,
-    loadComponent: () => import('@features/dashboard/dashboard.component').then(c => c.DashboardComponent),
+    path: routePaths.COLLECTION,
     canActivate: [AuthGuard],
-    children: [...dashboardRoutes]
+    children: [...collectionRoutes]
   },
   {
     path: routePaths.SETTINGS,

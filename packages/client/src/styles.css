@@ -1,2 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+@font-face {
+    font-family: 'Space Grotesk';
+    src: url('assets/fonts/SpaceGrotesk-VariableFont_wght.ttf') format('truetype');
+}
+
 @import "tailwindcss";
+
+@theme {
+    --color-app-primary: #141414;
+    --color-app-secondary: #d0e4f3;
+    --color-app-gold: #f2e0b5;
+    --color-app-grey: #f3f3f3;
+
+    --font-display: 'Space Grotesk', sans-serif;
+}

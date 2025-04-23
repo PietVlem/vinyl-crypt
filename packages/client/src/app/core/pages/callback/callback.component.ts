@@ -2,13 +2,13 @@ import { Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { UserApiService } from '@api';
+import { routePaths } from '@app/routes';
 import { AuthService } from '@auth0/auth0-angular';
-import { BaseComponent } from '@layouts';
+import { settingsRoutePaths } from '@features/settings/routes';
 
 @Component({
   selector: 'app-callback',
   templateUrl: './callback.component.html',
-  imports: [BaseComponent],
 })
 export class CallbackComponent {
   private auth = inject(AuthService);
@@ -29,14 +29,17 @@ export class CallbackComponent {
           })
 
           if(user) {
-            this.router.navigate(['/settings/profile']);
+            this.router.navigate([
+              routePaths.SETTINGS,
+              settingsRoutePaths.PROFILE
+            ]);
             return
           }
         }
-        this.router.navigate(['/error'], { queryParams: { errorCode: 500 } });
+        this.router.navigate([routePaths.ERROR], { queryParams: { errorCode: 500 } });
       },
       error: (err) => { 
-        this.router.navigate(['/error'], { queryParams: { errorCode: 500 } });
+        this.router.navigate([routePaths.ERROR], { queryParams: { errorCode: 500 } });
       }
     })
   }

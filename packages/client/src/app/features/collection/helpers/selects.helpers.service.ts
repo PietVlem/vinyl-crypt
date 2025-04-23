@@ -1,6 +1,6 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { Condition } from '@core/models';
-import { ArtistService, GenreService, StyleService } from '@features/dashboard/data-access';
+import { ArtistService, GenreService, StyleService } from '@features/collection/data-access';
 import { debouncedSignal } from '@shared/utils/signal-utils';
 
 @Injectable({

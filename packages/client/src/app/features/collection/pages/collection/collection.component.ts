@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { DrawerService } from '@core/services';
-import { CreateFormComponent } from '@features/dashboard/components/create-form/create-form.component';
-import { VinylRecordService } from '@features/dashboard/data-access';
+import { CreateFormComponent } from '@features/collection/components/create-form/create-form.component';
+import { VinylRecordService } from '@features/collection/data-access';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { phosphorMusicNotesPlus, phosphorShare, phosphorTrash, phosphorVinylRecord } from '@ng-icons/phosphor-icons/regular';
 import { DialogService } from '@ngneat/dialog';

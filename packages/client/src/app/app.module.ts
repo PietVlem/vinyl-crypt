@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AuthHttpInterceptor, AuthModule } from '@auth0/auth0-angular';
 import { DrawerComponent } from '@components';
+import { BaseComponent } from '@shared/layouts';
 import {
   provideTanStackQuery,
   QueryClient,
@@ -15,6 +16,7 @@ import { SharedModule } from './shared';
     declarations: [AppComponent],
     bootstrap: [AppComponent],
     imports: [
+      BaseComponent,
       DrawerComponent,
       BrowserModule,
       AppRoutingModule,
