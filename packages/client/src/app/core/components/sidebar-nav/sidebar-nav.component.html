@@ -124,33 +124,35 @@
         <li>
           <ul role="list" class="-mx-2 space-y-1">
             @for(page of navigationItems(); track $index) {
-              <li>
-                <a
-                  routerLink="{{ page.uri }}"
-                  class="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold"
-                >
-                  <ng-icon
-                    class="shrink-0"
-                    size="24"
-                    name="{{ page.icon }}"
-                  />
-                  {{ page.label }}
-                </a>
-                <ul>
-                  @for(page of page.children; track $index) {
-                    <li class="border-gray-200 border-l-2 ml-[1.125rem] pl-6">
-                      <a
-                        routerLink="{{ page.uri }}"
-                        routerLinkActive="bg-gray-50 relative after:content-[''] after:absolute after:w-[6px] after:h-[6px] after:bg-app-primary after:rounded-full after:right-5 after:top-1/2 after:-translate-y-1/2"
-                        [routerLinkActiveOptions]="{ exact: true }"
-                        class="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold"
-                      >
-                        {{ page.label }}
-                      </a>
-                    </li>
-                  }
-                </ul>
-              </li>
+              @if(page.guarded && isAuthenticated() || !page.guarded) {
+                <li>
+                  <a
+                    routerLink="{{ page.uri }}"
+                    class="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold"
+                  >
+                    <ng-icon
+                      class="shrink-0"
+                      size="24"
+                      name="{{ page.icon }}"
+                    />
+                    {{ page.label }}
+                  </a>
+                  <ul>
+                    @for(page of page.children; track $index) {
+                      <li class="border-gray-200 border-l-2 ml-[1.125rem] pl-6">
+                        <a
+                          routerLink="{{ page.uri }}"
+                          routerLinkActive="bg-gray-50 relative after:content-[''] after:absolute after:w-[6px] after:h-[6px] after:bg-app-primary after:rounded-full after:right-5 after:top-1/2 after:-translate-y-1/2"
+                          [routerLinkActiveOptions]="{ exact: true }"
+                          class="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold"
+                        >
+                          {{ page.label }}
+                        </a>
+                      </li>
+                    }
+                  </ul>
+                </li>
+              }
             }
           </ul>
         </li>

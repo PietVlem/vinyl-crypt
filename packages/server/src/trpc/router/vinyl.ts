@@ -20,11 +20,16 @@ export const vinylRouter = trpc.router({
         const baseQueryParam = {
             where: {
                 userId: user.id,
-            },
+            }
         }
 
         const extendedQueryParam = {
-            ...baseQueryParam,
+            where: {
+                userId: user.id,
+            },
+            orderBy: {
+                createdAt: 'desc' as const,
+            },
             include: {
                 artist: true,
                 genre: true,

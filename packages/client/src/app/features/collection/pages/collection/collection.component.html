@@ -105,7 +105,7 @@
         </div>
       </div>
       @let pageMetaData = vinylRecordsQuery.data()?.meta;
-      @if(pageMetaData && (pageMetaData.totalRecords ?? 0) > (pageMetaData.pageSize ?? 0)) {
+      @if(pageMetaData && pageMetaData.totalRecords > pageMetaData.pageSize) {
         <app-pagination 
           [currentPage]="pageMetaData?.currentPage ?? 1"
           [totalPages]="pageMetaData?.totalPages ?? 1"

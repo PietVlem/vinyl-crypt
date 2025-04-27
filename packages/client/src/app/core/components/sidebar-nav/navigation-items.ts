@@ -5,6 +5,7 @@ export type NavItem = {
     icon?: string
     label: string
     uri: string
+    guarded?: boolean
     children?: NavItem[]
 }
 
@@ -13,6 +14,7 @@ export const navItems: NavItem[] = [
         icon: 'phosphorVinylRecord',
         label: 'Collection',
         uri: `/${routePaths.COLLECTION}`,
+        guarded: true,
         children: [
             {
                 label: 'Records',
