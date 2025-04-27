@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Condition } from '@core/models';
-import { DrawerService } from '@core/services';
+import { DrawerService, NotificationService } from '@core/services';
 import { VinylRecordService } from '@features/collection/data-access';
 import { SelectsHelpersService } from '@features/collection/helpers';
 import { DrawerBaseComponent } from '@layouts';
@@ -28,11 +28,18 @@ import { HorizontalFormGroupComponent } from '../horizontal-form-group/horizonta
 })
 export class CreateFormComponent {
   private vinylRecordService = inject(VinylRecordService)
+  private notificationService = inject(NotificationService)
   public selectsHelpersService = inject(SelectsHelpersService)
   public drawerService = inject(DrawerService)
 
   createVinylRecordMutation = this.vinylRecordService.createVinylRecord(
-    () => this.drawerService.hide()
+    () => {
+      this.drawerService.hide()
+      this.notificationService.success(
+        'Successfully created!',
+        'Your vinyl record has been successfully created.',
+      )
+    }
   )
 
   vinylCreationForm = new FormGroup({

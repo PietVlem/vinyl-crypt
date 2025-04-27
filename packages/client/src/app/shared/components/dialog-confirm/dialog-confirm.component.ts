@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, inject, OnInit } from '@angular/core';
+import { NotificationService } from '@core/services';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { phosphorWarning, phosphorX } from '@ng-icons/phosphor-icons/regular';
 import { DialogRef } from '@ngneat/dialog';
@@ -19,6 +20,8 @@ interface Data {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DialogConfirmComponent {
+  private notificationService = inject(NotificationService);
+
   ref: DialogRef<Data, boolean> = inject(DialogRef);
 
   title = computed(() => this.ref.data?.title);
@@ -27,6 +30,10 @@ export class DialogConfirmComponent {
 
   confirmFn = async () => {
     await this.ref.data?.confirmFn();
+    this.notificationService.success(
+      'Successfully deleted!',
+      'The record has been removed from your collection.'
+    );
     this.ref.close();
   }
 
