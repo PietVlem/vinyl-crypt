@@ -20,4 +20,9 @@ export class ShareLinkApiService {
         input : RouterInput['shareLink']['create']
     ) : Promise<RouterOutput['shareLink']['create']> =>
         this.trpcUtils.client.shareLink.create.mutate(input)
+
+    deleteShareLink = async (
+        input : RouterInput['shareLink']['delete']
+    ) : Promise<RouterOutput['shareLink']['delete']> =>
+        this.trpcUtils.client.shareLink.delete.mutate(input)
 }

@@ -47,7 +47,7 @@ export class CollectionComponent {
 
   OpenAddRecordDrawer = () => this.drawerService.show(CreateFormComponent, {})
 
-  deleteVinylRecord = (id: string) => {
+  deleteVinylRecord = (id: string) => 
     this.dialog.open(DialogConfirmComponent, {
       data: {
         title: 'Delete Record',
@@ -56,5 +56,4 @@ export class CollectionComponent {
         confirmFn: () => this.vinylRecordDeleteMutation.mutate({ ids: [id] })
       },
     });
-  }
 }

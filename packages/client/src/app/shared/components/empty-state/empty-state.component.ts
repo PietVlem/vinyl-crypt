@@ -1,12 +1,15 @@
 import { Component, input, output } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { phosphorVinylRecord } from '@ng-icons/phosphor-icons/regular';
+import { phosphorLink, phosphorVinylRecord } from '@ng-icons/phosphor-icons/regular';
 import { ButtonPrimaryDirective } from '@shared/directives';
 
 @Component({
   selector: 'app-empty-state',
   imports: [NgIcon, ButtonPrimaryDirective],
-  viewProviders: [provideIcons({ phosphorVinylRecord })],
+  viewProviders: [provideIcons({ 
+    phosphorVinylRecord,
+    phosphorLink
+  })],
   templateUrl: './empty-state.component.html',
 })
 export class EmptyStateComponent {

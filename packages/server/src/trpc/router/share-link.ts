@@ -8,8 +8,7 @@ import { protectedProcedure } from '../middleware';
 import { trpc } from '../trpc';
 
 export const shareLinkRouter = trpc.router({
-   get: protectedProcedure.query(async (opts) => {
-        const { ctx } = opts;
+   get: protectedProcedure.query(async ({ ctx }) => {
         const { user } = ctx;
 
         const shareLinks = await prisma.collectionShare.findMany({
@@ -26,24 +25,25 @@ export const shareLinkRouter = trpc.router({
     create: protectedProcedure
         .input(
             z.object({
-                userId: z.string(),
                 shareType: z.nativeEnum(ShareType),
                 password: z.string().optional(),
+                expiresAt: z.date().optional(),
             })
         )
-        .mutation(async (opts) => {
-            const { input } = opts;
-            const { userId, shareType, password } = input;
+        .mutation(async ({ input, ctx }) => {
+            const { shareType, password, expiresAt } = input;
+            const { user } = ctx;
 
             const shareToken = randomBytes(16).toString('hex');
             const hashedPassword = password ? await bcrypt.hash(password, 10) : null;
 
             const shareLink = await prisma.collectionShare.create({
                 data: {
-                    userId,
+                    userId: user.id,
                     shareType,
                     shareToken,
                     password: hashedPassword,
+                    expiresAt
                 },
             });
 
@@ -55,5 +55,34 @@ export const shareLinkRouter = trpc.router({
             }
 
             return { 'shareToken': shareLink.shareToken };
+        }),
+    delete: protectedProcedure
+        .input(
+            z.object({
+                id: z.string()
+            })
+        ).mutation(async ({ input, ctx }) => {
+            const { id } = input;
+
+            const shareLink = await prisma.collectionShare.findUnique({
+                where: {
+                    id,
+                },
+            });
+
+            if (!shareLink) {
+                throw new TRPCError({
+                    code: 'NOT_FOUND',
+                    message: 'Requested share link has not been found',
+                });
+            }
+
+            await prisma.collectionShare.delete({
+                where: {
+                    id,
+                },
+            });
+
+            return { message: `share link ${id} has been deleted` };
         })
 })

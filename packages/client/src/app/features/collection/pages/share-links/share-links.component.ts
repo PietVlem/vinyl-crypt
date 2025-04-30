@@ -1,11 +1,60 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, inject } from '@angular/core';
+import { NotificationService } from '@core/services';
+import { ShareLinkService } from '@features/collection/data-access';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { phosphorCopy, phosphorTrash } from '@ng-icons/phosphor-icons/regular';
+import { DialogService } from '@ngneat/dialog';
+import { DialogConfirmComponent, EmptyStateComponent } from '@shared/components';
 import { ButtonPrimaryDirective } from '@shared/directives';
+import { formatDate } from '@shared/utils/dayjs';
+import { ShareLinksHelperService } from './share-links.service';
 
 @Component({
   selector: 'app-share-links',
-  imports: [ButtonPrimaryDirective],
+  imports: [
+    ButtonPrimaryDirective,
+    CommonModule,
+    EmptyStateComponent,
+    NgIcon
+  ],
+  providers: [
+    provideIcons({ phosphorTrash, phosphorCopy })
+  ],
   templateUrl: './share-links.component.html',
 })
 export class ShareLinksComponent {
+  private shareLinksHelperService = inject(ShareLinksHelperService);
+  private dialog = inject(DialogService);
+  private shareLinkService = inject(ShareLinkService);
+  private notificationService = inject(NotificationService);
 
+  shareLinksQuery = this.shareLinkService.getShareLinks();
+  deleteShareLinkMutation = this.shareLinkService.deleteShareLink();
+
+  formatLinkDate = (date: string) => formatDate(date);
+
+  openShareLinkCreationDialog = () => 
+    this.shareLinksHelperService.openShareLinkCreationDialog();
+
+  copyShareLink = (token: string) => {
+    const host = window.location.host;
+    const url = `https://${host}/share/${token}`;
+
+    navigator.clipboard.writeText(url);
+
+    this.notificationService.success(
+      'Link Copied',
+      'The shareable link has been copied to your clipboard.',
+    )
+  }
+
+  deleteShareLink = (id: string) => this.dialog.open(DialogConfirmComponent, {
+    data: {
+      title: 'Delete Shareable Link',
+      description: 'Are you sure you want to delete this shareable link? This action cannot be undone.',
+      confirmText: 'Delete Link',
+      confirmFn: () => this.deleteShareLinkMutation.mutate({id})
+    },
+  });
 }
