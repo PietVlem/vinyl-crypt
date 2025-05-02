@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AuthModule } from '@auth0/auth0-angular';
-import { DrawerComponent } from '@components';
 import { NotificationsContainerComponent } from '@core/components';
-import { BaseComponent } from '@shared/layouts';
+import { DrawerComponent } from '@shared/components';
 import {
   provideTanStackQuery,
   QueryClient,
@@ -17,12 +16,11 @@ import { SharedModule } from './shared';
     declarations: [AppComponent],
     bootstrap: [AppComponent],
     imports: [
-      BaseComponent,
       NotificationsContainerComponent,
-      DrawerComponent,
       BrowserModule,
       AppRoutingModule,
       SharedModule,
+      DrawerComponent,
       AuthModule.forRoot({
         ...env.auth0,
       }),

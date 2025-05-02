@@ -1,2 +1,3 @@
-export * from './base/base.component';
+export * from './dashboard/dashboard.component';
 export * from './drawer-base/drawer-base.component';
+

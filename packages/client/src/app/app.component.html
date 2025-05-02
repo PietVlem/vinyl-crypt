@@ -1,9 +1,5 @@
-<app-notifications-container />
-<app-layout-base class="font-display">
-  @if(isAuth0Loading()) {
-    loading...
-  } @else {
-    <router-outlet></router-outlet>
-    <app-drawer />
-  }
-</app-layout-base>
+<div class="font-display">
+  <app-notifications-container />
+  <app-drawer />
+  <router-outlet />
+</div>
