@@ -1,5 +1,5 @@
-import { Component, computed, ElementRef, input, model, signal, ViewChild } from '@angular/core';
-import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, computed, ElementRef, input, model, OnInit, signal, ViewChild } from '@angular/core';
+import { FormControl, FormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { phosphorCaretUpDown, phosphorCheck } from '@ng-icons/phosphor-icons/regular';
 import { ClickOutsideDirective, StylingInputDirective } from '@shared/directives';
@@ -14,15 +14,11 @@ export interface SelectOption {
   imports: [ClickOutsideDirective, StylingInputDirective, NgIcon, FormsModule],
   templateUrl: './select.component.html',
   providers: [
-    provideIcons({ phosphorCaretUpDown, phosphorCheck }),
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: SelectComponent,
-      multi: true,
-    }
+    provideIcons({ phosphorCaretUpDown, phosphorCheck })
   ],
 })
-export class SelectComponent implements ControlValueAccessor {
+export class SelectComponent implements OnInit {
+  control = input.required<FormControl<string | null>>();
   searchable = input<boolean>(false);
   options = input<SelectOption[]>([])
   loading = input<boolean>(false);
@@ -32,16 +28,24 @@ export class SelectComponent implements ControlValueAccessor {
   @ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>;
 
   open = signal<boolean>(false);
-  selectedId = signal<string | null>(null);
+  selectedLabel = signal<string>('');
 
-  selectedLabel = computed(() => 
-    this.options().find((option) => option.id === this.selectedId())?.value
-  )
+  ngOnInit(): void {
+    this.setSelectedLabel()
+    this.control().statusChanges.subscribe(() => this.setSelectedLabel())
+  }
+
+  setSelectedLabel = () => {
+    this.selectedLabel.set(this.options().find(
+      option => option.id === this.control().value)?.value || ''
+    );
+  }
 
   close = () => this.open.set(false);
+
   toggleOpen = () => {
     this.open.update((prev) => !prev);
-    this.onTouched();
+    this.control().markAsTouched();
     if (this.open() && this.searchable() && this.searchInput) {
       setTimeout(() => {
         this.searchInput.nativeElement.focus();
@@ -50,14 +54,8 @@ export class SelectComponent implements ControlValueAccessor {
   }
 
   selectOption = (option: SelectOption) => {
-    this.selectedId.set(option.id);
-    this.onChange(option.id);
+    this.control().setValue(option.id);
+    this.control().markAsDirty();
     this.close();
   };
-
-  onChange: (value: string) => void = () => {};
-  onTouched: () => void = () => {};
-  writeValue = (obj: string): void => this.selectedId.set(obj);
-  registerOnChange = (fn: any): void => this.onChange = fn
-  registerOnTouched = (fn: any): void => this.onTouched = fn
 }

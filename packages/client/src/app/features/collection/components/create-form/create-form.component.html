@@ -28,7 +28,7 @@
       >
         <div class="grid grid-cols-1">
           <app-select
-            formControlName="artistId"
+            [control]="vinylCreationForm.controls.artistId"
             [searchable]="true"
             [options]="selectsHelpersService.artistSelectOptions()"
             [loading]="selectsHelpersService.artistQuery.isLoading()"
@@ -62,7 +62,7 @@
       <app-select
         [options]="selectsHelpersService.genreSelectOptions()"
         placeholder="Country"
-        formControlName="genreId"
+        [control]="vinylCreationForm.controls.genreId"
       />
       </app-horizontal-form-group>
 
@@ -74,8 +74,8 @@
       >
         <div class="grid grid-cols-1">
           <app-select
+            [control]="vinylCreationForm.controls.condition"
             [options]="selectsHelpersService.conditionSelectOptions()"
-            formControlName="condition"
           />
         </div>
       </app-horizontal-form-group>
@@ -88,7 +88,7 @@
       >
         <div class="grid grid-cols-1">
           <app-select
-            formControlName="styleId"
+            [control]="vinylCreationForm.controls.styleId"
             [searchable]="true"
             [options]="selectsHelpersService.styleSelectOptions()"
             [loading]="selectsHelpersService.stylesQuery.isLoading()"
