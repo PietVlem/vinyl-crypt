@@ -1,4 +1,4 @@
-import { Component, computed, ElementRef, input, model, OnInit, signal, ViewChild } from '@angular/core';
+import { Component, DestroyRef, ElementRef, inject, input, model, OnInit, signal, ViewChild } from '@angular/core';
 import { FormControl, FormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { phosphorCaretUpDown, phosphorCheck } from '@ng-icons/phosphor-icons/regular';
@@ -18,6 +18,8 @@ export interface SelectOption {
   ],
 })
 export class SelectComponent implements OnInit {
+  destroyRef = inject(DestroyRef);
+
   control = input.required<FormControl<string | null>>();
   searchable = input<boolean>(false);
   options = input<SelectOption[]>([])
@@ -32,7 +34,11 @@ export class SelectComponent implements OnInit {
 
   ngOnInit(): void {
     this.setSelectedLabel()
-    this.control().statusChanges.subscribe(() => this.setSelectedLabel())
+    
+    const controlSubscription = this.control().statusChanges
+      .subscribe(() => this.setSelectedLabel())
+
+    this.destroyRef.onDestroy(() => controlSubscription.unsubscribe());
   }
 
   setSelectedLabel = () => {
