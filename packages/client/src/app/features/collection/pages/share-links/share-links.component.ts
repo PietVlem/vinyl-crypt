@@ -5,8 +5,9 @@ import { ShareLinkService } from '@features/collection/data-access';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { phosphorCopy, phosphorTrash } from '@ng-icons/phosphor-icons/regular';
 import { DialogService } from '@ngneat/dialog';
-import { DialogConfirmComponent, EmptyStateComponent } from '@shared/components';
-import { ButtonPrimaryDirective } from '@shared/directives';
+import { BadgeComponent, DialogConfirmComponent, EmptyStateComponent } from '@shared/components';
+import { TitleTextActionComponent } from '@shared/components/title-text-action/title-text-action.component';
+import { ButtonPrimaryDirective, StylingInputDirective } from '@shared/directives';
 import { formatDate } from '@shared/utils/dayjs';
 import { ShareLinksHelperService } from './share-links.service';
 
@@ -16,8 +17,11 @@ import { ShareLinksHelperService } from './share-links.service';
     ButtonPrimaryDirective,
     CommonModule,
     EmptyStateComponent,
-    NgIcon
-  ],
+    NgIcon,
+    TitleTextActionComponent,
+    BadgeComponent,
+    StylingInputDirective,
+],
   providers: [
     provideIcons({ phosphorTrash, phosphorCopy })
   ],
