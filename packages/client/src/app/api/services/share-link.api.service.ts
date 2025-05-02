@@ -25,4 +25,14 @@ export class ShareLinkApiService {
         input : RouterInput['shareLink']['delete']
     ) : Promise<RouterOutput['shareLink']['delete']> =>
         this.trpcUtils.client.shareLink.delete.mutate(input)
+
+    checkToken = async (
+        input : RouterInput['shareLink']['checkToken']
+    ) : Promise<RouterOutput['shareLink']['checkToken']> =>
+        this.trpcUtils.client.shareLink.checkToken.query(input)
+
+    getSharedData = async (
+        input : RouterInput['shareLink']['getSharedData']
+    ) : Promise<RouterOutput['shareLink']['getSharedData']> =>
+        this.trpcUtils.client.shareLink.getSharedData.query(input)
 }

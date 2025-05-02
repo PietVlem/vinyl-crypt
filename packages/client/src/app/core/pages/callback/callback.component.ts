@@ -36,10 +36,10 @@ export class CallbackComponent {
             return
           }
         }
-        this.router.navigate([routePaths.ERROR], { queryParams: { errorCode: 500 } });
+        this.router.navigate([routePaths.ERROR], { queryParams: { code: 500 } });
       },
       error: (err) => { 
-        this.router.navigate([routePaths.ERROR], { queryParams: { errorCode: 500 } });
+        this.router.navigate([routePaths.ERROR], { queryParams: { code: 500 } });
       }
     })
   }

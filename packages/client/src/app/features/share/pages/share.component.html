@@ -1,0 +1,11 @@
+<div class="max-w-7xl">
+    @if(SharedLinkDataQuery.isLoading()) {
+        loading...
+    } @else {
+        @if(SharedLinkDataQuery.data()) {
+            <pre>
+                {{ SharedLinkDataQuery.data() | json }}
+            </pre>
+        }
+    }
+</div>

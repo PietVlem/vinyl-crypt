@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt';
 import { randomBytes } from 'crypto';
 import { z } from 'zod';
 import { prisma } from '../../prisma/prismaClient';
-import { protectedProcedure } from '../middleware';
+import { protectedProcedure, publicProcedure } from '../middleware';
 import { trpc } from '../trpc';
 
 export const shareLinkRouter = trpc.router({
@@ -84,5 +84,100 @@ export const shareLinkRouter = trpc.router({
             });
 
             return { message: `share link ${id} has been deleted` };
+        }),
+    checkToken: publicProcedure
+        .input(
+            z.object({
+                token: z.string(),
+            })
+        ).query(async ({ input }) => {
+            const { token } = input;
+
+            const shareLink = await prisma.collectionShare.findUnique({
+                where: {
+                    shareToken: token,
+                },
+            });
+
+            const isExpired = shareLink?.expiresAt ? shareLink.expiresAt < new Date() : false;
+
+            return { 
+                isValid: !!shareLink,
+                isExpired,
+                hasPassword: !!shareLink?.password,
+            };
+        }),
+    getSharedData: publicProcedure
+        .input(
+            z.object({
+                token: z.string(),
+                password: z.string().optional()
+            })
+        ).query(async ({ input }) => {
+            const { token, password } = input;
+
+            const shareLink = await prisma.collectionShare.findUnique({
+                where: {
+                    shareToken: token,
+                },
+            });
+
+            if (!shareLink) {
+                throw new TRPCError({
+                    code: 'NOT_FOUND',
+                    message: 'Requested share link has not been found',
+                });
+            }
+
+            if (shareLink.password && !password) {
+                throw new TRPCError({
+                    code: 'UNAUTHORIZED',
+                    message: 'Password is required to access this share link',
+                });
+            }
+
+            if (shareLink.password && password) {
+                const isPasswordValid = await bcrypt.compare(password, shareLink.password);
+
+                if (!isPasswordValid) {
+                    throw new TRPCError({
+                        code: 'UNAUTHORIZED',
+                        message: 'Invalid password',
+                    });
+                }
+            }
+
+            const getCollection = () => prisma.vinylRecord.findMany({
+                where: {
+                    userId: shareLink.userId,
+                }
+            })
+
+            const getWishList = () => {
+                // TODO: implement wishlist
+            }
+
+
+            let collection = null
+            let wishList = null
+
+            switch (shareLink.shareType) {
+                case ShareType.collection:
+                    collection = await getCollection()
+                    break;
+                case ShareType.wishlist:
+                    wishList = await getWishList()
+                    break;
+                case ShareType.both:
+                    collection = await getCollection()
+                    wishList = await getWishList()
+                    break;
+            }
+
+
+            return {
+                collection,
+                wishList,
+            };
         })
 })

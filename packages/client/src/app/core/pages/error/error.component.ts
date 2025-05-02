@@ -1,11 +1,9 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DashboardComponent } from "@layouts";
 import ERROR_DATA from './errorData';
 
 @Component({
   selector: 'app-error',
-  imports: [DashboardComponent],
   templateUrl: './error.component.html',
 })
 

@@ -3,11 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '@auth0/auth0-angular';
 import { collectionRoutes } from '@features/collection/routes';
 import { settingsRoutes } from '@features/settings/routes';
+import { shareRoutes } from '@features/share/routes';
 
 export const routePaths = {
+  CALLBACK: 'callback',
   COLLECTION: 'collection',
   SETTINGS: 'settings',
-  CALLBACK: 'callback',
+  SHARE: 'share',
   ERROR: 'error',
 }
 
@@ -16,6 +18,10 @@ const routes: Routes = [
     path: '',
     pathMatch: 'full',
     loadComponent: () => import('@features/home/home.component').then(c => c.HomeComponent)
+  },
+  {
+    path: routePaths.CALLBACK,
+    loadComponent: () => import('@core/pages/callback/callback.component').then(c => c.CallbackComponent),
   },
   {
     path: routePaths.COLLECTION,
@@ -29,12 +35,12 @@ const routes: Routes = [
     children: [...settingsRoutes]
   },
   {
-    path: routePaths.CALLBACK,
-    loadComponent: () => import('@core/pages/callback/callback.component').then(c => c.CallbackComponent),
-  },
-  {
     path: routePaths.ERROR,
     loadComponent: () => import('@core/pages/error/error.component').then(c => c.ErrorComponent)
+  },
+  {
+    path: routePaths.SHARE,
+    children: [...shareRoutes]
   },
   {
     path: '**',

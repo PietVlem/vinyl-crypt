@@ -15,6 +15,11 @@ export default [
         description: 'You do not have permission to access this page.',
     },
     {
+        code: 410,
+        title: 'Gone',
+        description: 'The page you are looking for is no longer available.',
+    },
+    {
         code: 500,
         title: 'Internal Server Error',
         description: 'An unexpected error occurred. Please try again later.',

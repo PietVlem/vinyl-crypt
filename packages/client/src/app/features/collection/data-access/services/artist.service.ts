@@ -10,7 +10,7 @@ export class ArtistService {
 
   getArtists = (
     searchQuery: Signal<string>,
-) => injectQuery(() => ({
+  ) => injectQuery(() => ({
     enabled: searchQuery().length > 2,
     queryKey: ['styles', searchQuery()],
     queryFn: () => this.artistApiService.getArtists({ searchQuery: searchQuery() }),
