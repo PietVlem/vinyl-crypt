@@ -1,10 +1,12 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import ERROR_DATA from './errorData';
+import { ButtonPrimaryDirective } from '@shared/directives';
 
 @Component({
   selector: 'app-error',
   templateUrl: './error.component.html',
+  imports: [ButtonPrimaryDirective],
 })
 
 export class ErrorComponent {

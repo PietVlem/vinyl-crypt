@@ -3,10 +3,11 @@ import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { routePaths } from '@app/routes';
 import { ShareLinksService } from '@features/share/data-access';
+import { BaseContentTableComponent, RecordRowComponent } from '@shared/components';
 
 @Component({
   selector: 'app-share',
-  imports: [CommonModule],
+  imports: [CommonModule, BaseContentTableComponent, RecordRowComponent],
   templateUrl: './share.component.html',
 })
 export class ShareComponent implements OnInit {
@@ -30,8 +31,6 @@ export class ShareComponent implements OnInit {
 
 
     const metaDataSubscription = this.activateRoute.data.subscribe((res: any) => {
-      console.log(res.metaData);
-
       if(!res.metaData) return
 
       if(!res.metaData.isValid) {

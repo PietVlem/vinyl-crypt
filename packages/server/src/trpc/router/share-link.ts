@@ -90,7 +90,7 @@ export const shareLinkRouter = trpc.router({
             z.object({
                 token: z.string(),
             })
-        ).query(async ({ input }) => {
+    ).query(async ({ input }) => {
             const { token } = input;
 
             const shareLink = await prisma.collectionShare.findUnique({
@@ -150,6 +150,11 @@ export const shareLinkRouter = trpc.router({
             const getCollection = () => prisma.vinylRecord.findMany({
                 where: {
                     userId: shareLink.userId,
+                },
+                include: {
+                    artist: true,
+                    genre: true,
+                    style: true,
                 }
             })
 

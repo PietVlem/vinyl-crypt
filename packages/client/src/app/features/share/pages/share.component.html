@@ -1,11 +1,13 @@
-<div class="max-w-7xl">
+<div class="max-w-7xl mx-auto py-12">
     @if(SharedLinkDataQuery.isLoading()) {
         loading...
     } @else {
         @if(SharedLinkDataQuery.data()) {
-            <pre>
-                {{ SharedLinkDataQuery.data() | json }}
-            </pre>
+            <app-base-content-table>
+                @for(record of SharedLinkDataQuery.data()?.collection; track record.id) {
+                  <tr app-record-row [record]="record"></tr>
+                }
+              </app-base-content-table>
         }
     }
 </div>

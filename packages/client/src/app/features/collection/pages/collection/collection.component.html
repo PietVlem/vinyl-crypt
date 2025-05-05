@@ -27,73 +27,23 @@
       <div class="mt-8 flow-root">
         <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-            <table class="min-w-full divide-y divide-gray-300">
-              <tbody class="divide-y divide-gray-200 bg-white">
-                @for(record of vinylRecordsQuery.data()?.data; track record.id) {
-                <tr>
-                  <td class="whitespace-nowrap py-5 pl-4 pr-3 text-sm sm:pl-0">
-                    <div class="flex items-center">
-                      <div class="size-11 shrink-0">
-                        @if(record.coverImage) {
-                        <img
-                          class="size-11 rounded"
-                          src="{{ record.coverImage }}"
-                          alt="record-image"
-                        />
-                        } @else {
-                        <div class="size-11 grid rounded bg-gray-100">
-                          <ng-icon
-                            size="24"
-                            class="place-self-center"
-                            name="phosphorVinylRecord"
-                          />
-                        </div>
-                        }
-                      </div>
-                      <div class="ml-4">
-                        <div class="font-medium text-gray-900">
-                          {{ record.title }}
-                        </div>
-                        <div class="mt-1 text-gray-500">
-                          {{ record.artist?.name ?? "Unknown artist" }}
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                  <td class="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
-                    <div class="text-gray-900">Color: {{ record.recordColor }}</div>
-                    <div class="mt-1 text-gray-500">
-                      released: {{ record.year }}
-                    </div>
-                  </td>
-                  <td class="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
-                    <div class="flex gap-1 items-center">
-                      @if(record.genre?.name; as genreName) {
-                      <app-badge [label]="genreName" color="green" />
-                      } @if(record.style?.name; as styleName) {
-                      <app-badge [label]="styleName" color="green" />
-                      }
-                    </div>
-                  </td>
-                  <td class="relative whitespace-nowrap py-5 pl-3 pr-4 sm:pr-0">
-                    <div class="flex justify-end">
-                      <button
-                        (click)="deleteVinylRecord(record.id)"
-                        type="button"
-                        class="rounded-md bg-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 size-8 grid cursor-pointer"
-                      >
-                        <ng-icon
-                          class="place-self-center"
-                          size="16"
-                          name="phosphorTrash"
-                        />
-                      </button>
-                    </div>
-                  </td>
+            <app-base-content-table>
+              @for(record of vinylRecordsQuery.data()?.data; track record.id) {
+                <tr app-record-row [record]="record">
+                  <button
+                    (click)="deleteVinylRecord(record.id)"
+                    type="button"
+                    class="rounded-md bg-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 size-8 grid cursor-pointer"
+                  >
+                    <ng-icon
+                      class="place-self-center"
+                      size="16"
+                      name="phosphorTrash"
+                    />
+                  </button>
                 </tr>
-                }
-              </tbody>
-            </table>
+              }
+            </app-base-content-table>
           </div>
         </div>
       </div>
