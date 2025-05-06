@@ -1,13 +1,27 @@
 import { CommonModule } from '@angular/common';
 import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { routePaths } from '@app/routes';
 import { ShareLinksService } from '@features/share/data-access';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { phosphorArrowRight } from '@ng-icons/phosphor-icons/regular';
 import { BaseContentTableComponent, RecordRowComponent } from '@shared/components';
+import { ButtonPrimaryDirective, StylingInputDirective } from '@shared/directives';
 
 @Component({
   selector: 'app-share',
-  imports: [CommonModule, BaseContentTableComponent, RecordRowComponent],
+  imports: [
+    CommonModule, 
+    BaseContentTableComponent,
+    RecordRowComponent, 
+    StylingInputDirective, 
+    ButtonPrimaryDirective,
+    NgIcon,
+    FormsModule,
+    ReactiveFormsModule
+  ],
+  providers: [provideIcons({ phosphorArrowRight })],
   templateUrl: './share.component.html',
 })
 export class ShareComponent implements OnInit {
@@ -19,8 +33,19 @@ export class ShareComponent implements OnInit {
   data = signal<any>(null);
   token = signal<string>('');
   queryEnabled = signal<boolean>(false);
+  hasPassword = signal<boolean>(false);
 
-  SharedLinkDataQuery = this.shareLinkService.getSharedData(this.token, this.queryEnabled);
+  passwordForm = new FormGroup({
+    password: new FormControl<string>('', [
+      Validators.required,
+    ])
+  })
+
+  SharedLinkDataQuery = this.shareLinkService.getSharedData(
+    this.token, 
+    this.queryEnabled, 
+    this.passwordForm.controls.password
+  );
 
   ngOnInit(): void {
     const routeSubscription = this.activateRoute.paramMap
@@ -29,28 +54,37 @@ export class ShareComponent implements OnInit {
         token && this.token.set(token);
       });
 
+    const metaDataSubscription = this.activateRoute.data.subscribe((res: any): void => {
+      const metaData = res.metaData;
+      if (!metaData) return;
 
-    const metaDataSubscription = this.activateRoute.data.subscribe((res: any) => {
-      if(!res.metaData) return
-
-      if(!res.metaData.isValid) {
+      if (!metaData.isValid) {
         this.router.navigate([routePaths.ERROR], { queryParams: { code: 404 } });
+        return
       }
 
-      if(res.metaData.isExpired) {
+      if (metaData.isExpired) {
         this.router.navigate([routePaths.ERROR], { queryParams: { code: 410 } });
+        return
       }
 
-      if(res.metaData.hasPassword) {
-        // password Logic
-      }
-
-      this.queryEnabled.set(true);
+      this.hasPassword.set(metaData.hasPassword);
+      this.queryEnabled.set(!metaData.hasPassword);
     });
 
     this.destroyRef.onDestroy(() => {
       routeSubscription.unsubscribe()
       metaDataSubscription.unsubscribe()
     })
+  }
+
+  onPasswordSubmit = () => {
+    const queryEnabled = this.queryEnabled()
+
+    if(!queryEnabled) {
+      return this.queryEnabled.set(true);
+    }
+    
+    this.SharedLinkDataQuery.refetch()
   }
 }

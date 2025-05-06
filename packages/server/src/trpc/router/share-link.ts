@@ -20,7 +20,10 @@ export const shareLinkRouter = trpc.router({
             },
         });
 
-        return shareLinks;
+        return shareLinks.map(({ password, ...link }) => ({
+            ...link,
+            hasPassword: !!password,
+        }));
     }),
     create: protectedProcedure
         .input(
@@ -129,14 +132,14 @@ export const shareLinkRouter = trpc.router({
                 });
             }
 
-            if (shareLink.password && !password) {
-                throw new TRPCError({
-                    code: 'UNAUTHORIZED',
-                    message: 'Password is required to access this share link',
-                });
-            }
+            if (shareLink.password) {
+                if(!password) {
+                    throw new TRPCError({
+                        code: 'UNAUTHORIZED',
+                        message: 'Password is required to access this share link',
+                    });
+                }
 
-            if (shareLink.password && password) {
                 const isPasswordValid = await bcrypt.compare(password, shareLink.password);
 
                 if (!isPasswordValid) {
