@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthModule } from '@auth0/auth0-angular';
 import { NotificationsContainerComponent } from '@core/components';
 import { DrawerComponent } from '@shared/components';
@@ -21,6 +22,7 @@ import { SharedModule } from './shared';
       AppRoutingModule,
       SharedModule,
       DrawerComponent,
+      BrowserAnimationsModule,
       AuthModule.forRoot({
         ...env.auth0,
       }),

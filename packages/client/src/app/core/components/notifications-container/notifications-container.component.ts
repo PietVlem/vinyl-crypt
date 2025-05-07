@@ -22,6 +22,17 @@ import { NotificationService } from '@core/services';
       flex-direction: column;
       gap: 1rem;
     }`,
+  animations: [
+    trigger('fadeInOut', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateX(20px)' }),
+        animate('300ms ease-out', style({ opacity: 1, transform: 'translateX(0)' })),
+      ]),
+      transition(':leave', [
+        animate('300ms ease-in', style({ opacity: 0, transform: 'translateX(20px)' })),
+      ]),
+    ]),
+  ],
 })
 export class NotificationsContainerComponent {
   private notificationService = inject(NotificationService);
