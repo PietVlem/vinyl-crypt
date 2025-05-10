@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { routePaths } from '@app/routes';
@@ -30,7 +31,6 @@ export class ShareComponent implements OnInit {
   private router = inject(Router);
   private shareLinkService = inject(ShareLinksService);
 
-  data = signal<any>(null);
   token = signal<string>('');
   queryEnabled = signal<boolean>(false);
   hasPassword = signal<boolean>(false);
@@ -48,34 +48,32 @@ export class ShareComponent implements OnInit {
   );
 
   ngOnInit(): void {
-    const routeSubscription = this.activateRoute.paramMap
+    this.activateRoute.paramMap
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((params) => {
         const token = params.get('token');
         token && this.token.set(token);
       });
 
-    const metaDataSubscription = this.activateRoute.data.subscribe((res: any): void => {
-      const metaData = res.metaData;
-      if (!metaData) return;
+    this.activateRoute.data
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((res: any): void => {
+        const metaData = res.metaData;
+        if (!metaData) return;
 
-      if (!metaData.isValid) {
-        this.router.navigate([routePaths.ERROR], { queryParams: { code: 404 } });
-        return
-      }
+        if (!metaData.isValid) {
+          this.router.navigate([routePaths.ERROR], { queryParams: { code: 404 } });
+          return
+        }
 
-      if (metaData.isExpired) {
-        this.router.navigate([routePaths.ERROR], { queryParams: { code: 410 } });
-        return
-      }
+        if (metaData.isExpired) {
+          this.router.navigate([routePaths.ERROR], { queryParams: { code: 410 } });
+          return
+        }
 
-      this.hasPassword.set(metaData.hasPassword);
-      this.queryEnabled.set(!metaData.hasPassword);
-    });
-
-    this.destroyRef.onDestroy(() => {
-      routeSubscription.unsubscribe()
-      metaDataSubscription.unsubscribe()
-    })
+        this.hasPassword.set(metaData.hasPassword);
+        this.queryEnabled.set(!metaData.hasPassword);
+      });
   }
 
   onPasswordSubmit = () => {

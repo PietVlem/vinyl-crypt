@@ -6,7 +6,7 @@ import { VinylRecordService } from '@features/collection/data-access';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { phosphorMusicNotesPlus, phosphorShare, phosphorTrash, phosphorVinylRecord } from '@ng-icons/phosphor-icons/regular';
 import { DialogService } from '@ngneat/dialog';
-import { BadgeComponent, BaseContentTableComponent, DialogConfirmComponent, EmptyStateComponent, PaginationComponent, RecordRowComponent, TitleTextActionComponent } from '@shared/components';
+import { BaseContentTableComponent, DialogConfirmComponent, EmptyStateComponent, PaginationComponent, RecordRowComponent, TitleTextActionComponent } from '@shared/components';
 import { ButtonPrimaryDirective, ButtonSecondaryDirective } from '@shared/directives';
 
 @Component({
@@ -19,7 +19,6 @@ import { ButtonPrimaryDirective, ButtonSecondaryDirective } from '@shared/direct
     ButtonPrimaryDirective,
     ButtonSecondaryDirective,
     PaginationComponent,
-    BadgeComponent,
     TitleTextActionComponent,
     BaseContentTableComponent,
     RecordRowComponent

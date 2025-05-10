@@ -28,9 +28,10 @@ export const shareLinkRouter = trpc.router({
     create: protectedProcedure
         .input(
             z.object({
+                name: z.string(),
                 shareType: z.nativeEnum(ShareType),
                 password: z.string().optional(),
-                expiresAt: z.date().optional(),
+                expiresAt: z.string().optional(),
             })
         )
         .mutation(async ({ input, ctx }) => {
@@ -43,6 +44,7 @@ export const shareLinkRouter = trpc.router({
             const shareLink = await prisma.collectionShare.create({
                 data: {
                     userId: user.id,
+                    name: input.name,
                     shareType,
                     shareToken,
                     password: hashedPassword,
@@ -93,7 +95,7 @@ export const shareLinkRouter = trpc.router({
             z.object({
                 token: z.string(),
             })
-    ).query(async ({ input }) => {
+        ).query(async ({ input }) => {
             const { token } = input;
 
             const shareLink = await prisma.collectionShare.findUnique({

@@ -26,8 +26,11 @@ export class BadgeComponent {
       case 'green': 
         classesArray.push('bg-green-50', 'text-green-700', 'ring-green-600/20');
         break;
+      case 'yellow':
+        classesArray.push('bg-yellow-50', 'text-yellow-800', 'ring-yellow-600/20');
+        break;
       default:
-        classesArray.push('bg-app-primary', 'text-app-primary', 'ring-app-primary/20');
+        classesArray.push('bg-app-primary', 'text-app-primary', 'ring-app-primary/20', 'text-white');
         break;
     }
 

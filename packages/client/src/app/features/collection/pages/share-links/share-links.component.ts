@@ -43,7 +43,7 @@ export class ShareLinksComponent {
 
   copyShareLink = (token: string) => {
     const host = window.location.host;
-    const url = `https://${host}/share/${token}`;
+    const url = `http://${host}/share/${token}`;
 
     navigator.clipboard.writeText(url);
 
@@ -51,6 +51,17 @@ export class ShareLinksComponent {
       'Link Copied',
       'The shareable link has been copied to your clipboard.',
     )
+  }
+
+  checkActive = (linkObj: any) => {
+    if (linkObj.expiresAt === null) {
+      return true;
+    }
+
+    const currentDate = new Date();
+    const expirationDate = new Date(linkObj.expiresAt);
+
+    return linkObj?.expiresAt && (linkObj.expiresAt === null || expirationDate > currentDate);
   }
 
   deleteShareLink = (id: string) => this.dialog.open(DialogConfirmComponent, {

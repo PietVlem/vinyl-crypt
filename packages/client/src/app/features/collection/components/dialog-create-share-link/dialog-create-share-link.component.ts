@@ -5,7 +5,9 @@ import { ShareLinkService } from '@features/collection/data-access';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { phosphorEye, phosphorEyeSlash, phosphorX } from '@ng-icons/phosphor-icons/regular';
 import { DialogRef } from '@ngneat/dialog';
-import { ButtonPrimaryDirective, ButtonSecondaryDirective } from '@shared/directives';
+import { ButtonPrimaryDirective, ButtonSecondaryDirective, StylingInputDirective } from '@shared/directives';
+import { futureDateValidator } from '@shared/utils/validators';
+import dayjs from 'dayjs';
 import { ShareTypeEnum, shareTypeOptions } from './share-type-options';
 
 @Component({
@@ -16,7 +18,8 @@ import { ShareTypeEnum, shareTypeOptions } from './share-type-options';
     NgIcon,
     FormsModule,
     ReactiveFormsModule,
-    CommonModule
+    CommonModule,
+    StylingInputDirective
   ],
   providers: [provideIcons({ phosphorX, phosphorEye, phosphorEyeSlash })],
   templateUrl: './dialog-create-share-link.component.html',
@@ -27,13 +30,20 @@ export class DialogCreateShareLinkComponent {
   ref: DialogRef<{}, boolean> = inject(DialogRef);
 
   shareTypeOptions = signal(shareTypeOptions);
-  passwordFieldShown = signal(false);
-  passwordInputShown = signal(false);
+  todaysDate = signal<string>(dayjs().format('YYYY-MM-DD'));
+  passwordFieldShown = signal<boolean>(false);
+  passwordInputShown = signal<boolean>(false);
+  expirationDateShown = signal<boolean>(false);
 
   createShareLinkForm = new FormGroup({
+    name: new FormControl<string>('', [
+      Validators.required
+    ]),
     shareType: new FormControl<ShareTypeEnum>(ShareTypeEnum.COLLECTION),
     password: new FormControl<string>(''),
-    // expiresAt: new FormControl<Date | null>(null),
+    expiresAt: new FormControl<Date | null>(null, [
+      futureDateValidator
+    ]),
   })
 
   createShareLinkMutation = this.shareLinkService.createShareLink(
@@ -52,9 +62,17 @@ export class DialogCreateShareLinkComponent {
   togglePasswordInput = () => 
     this.passwordInputShown.update((prev) => !prev)
 
-  createShareLink = () =>
-    this.createShareLinkMutation.mutate(this.createShareLinkForm.value)
-  
+  toggleExpirationDate = () =>
+    this.expirationDateShown.update((prev) => !prev)
+
+  createShareLink = () => {
+    const { expiresAt, ...formValues } = this.createShareLinkForm.value;
+    
+    this.createShareLinkMutation.mutate({ 
+      ...formValues, 
+      ...(expiresAt && { expiresAt: dayjs(expiresAt).toDate() }) 
+    });
+  }
 
   constructor() {
     this.ref.updateConfig({

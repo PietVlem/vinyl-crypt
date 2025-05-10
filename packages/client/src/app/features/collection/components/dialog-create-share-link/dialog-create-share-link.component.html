@@ -1,5 +1,5 @@
 <div
-  class="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:w-full sm:max-w-lg sm:p-6"
+  class="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left sm:p-6"
 >
   <div class="absolute right-0 top-0 hidden pr-4 pt-4 sm:block">
     <button
@@ -21,8 +21,14 @@
         share this link with anyone, and they will be able to view your
         collection. This can be with or without a password.
       </p>
-      {{ createShareLinkForm.value | json }}
       <form class="mt-6 mb-12 space-y-8" [formGroup]="createShareLinkForm">
+        <div>
+          <label for="email" class="block text-sm/6 font-medium text-gray-900">Name *</label>
+          <div class="mt-2">
+            <input appInput formControlName="name">
+          </div>
+        </div>
+        
         <fieldset aria-label="share type">
           <legend class="text-sm/6 font-semibold text-gray-900">
             What do you want to share?
@@ -110,6 +116,52 @@
           </div>
           }
         </div>
+        <div class="flex flex-col gap-6">
+          <div class="flex items-center">
+            <button
+              type="button"
+              class="group relative inline-flex h-5 w-10 shrink-0 cursor-pointer items-center justify-center rounded-full focus:outline-none focus:ring-2 focus:ring-app-primary focus:ring-offset-2"
+              role="switch"
+              aria-checked="false"
+              (click)="toggleExpirationDate()"
+            >
+              <span class="sr-only">Use setting</span>
+              <span
+                aria-hidden="true"
+                class="pointer-events-none absolute size-full rounded-md bg-white"
+              ></span>
+              <span
+                aria-hidden="true"
+                class="pointer-events-none absolute mx-auto h-4 w-9 rounded-full transition-colors duration-200 ease-in-out"
+                [class.bg-app-primary]="expirationDateShown()"
+                [class.bg-gray-200]="!expirationDateShown()"
+              ></span>
+              <span
+                aria-hidden="true"
+                class="pointer-events-none absolute left-0 inline-block size-5 transform rounded-full border border-gray-200 bg-white shadow ring-0 transition-transform duration-200 ease-in-out"
+                [class.translate-x-5]="expirationDateShown()"
+                [class.translate-x-0]="!expirationDateShown()"
+              ></span>
+            </button>
+            <span class="ml-3 text-sm" id="annual-billing-label">
+              <span class="font-medium text-gray-900"
+                >Set an expiration date</span
+              >
+            </span>
+          </div>
+          @if(expirationDateShown()) {
+          <div class="grid grid-cols-1">
+            <input
+              type="date"
+              [min]="todaysDate()"
+              name="expiresAt"
+              id="expiresAt"
+              appInput
+              formControlName="expiresAt"
+            />
+          </div>
+          }
+        </div>
       </form>
     </div>
   </div>
@@ -118,6 +170,7 @@
       appButtonPrimary
       type="button"
       class="w-full sm:w-auto"
+      [disabled]="!createShareLinkForm.valid"
       (click)="createShareLink()"
     >
       Create
