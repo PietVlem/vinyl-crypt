@@ -38,6 +38,13 @@ export const shareLinkRouter = trpc.router({
             const { shareType, password, expiresAt } = input;
             const { user } = ctx;
 
+            if(expiresAt && new Date(expiresAt) < new Date()) {
+                throw new TRPCError({
+                    code: 'BAD_REQUEST',
+                    message: 'Expiration date must be in the future',
+                });
+            }
+
             const shareToken = randomBytes(16).toString('hex');
             const hashedPassword = password ? await bcrypt.hash(password, 10) : null;
 
@@ -66,7 +73,7 @@ export const shareLinkRouter = trpc.router({
             z.object({
                 id: z.string()
             })
-        ).mutation(async ({ input, ctx }) => {
+        ).mutation(async ({ input }) => {
             const { id } = input;
 
             const shareLink = await prisma.collectionShare.findUnique({
