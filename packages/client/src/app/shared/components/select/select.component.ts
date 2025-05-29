@@ -1,4 +1,5 @@
-import { Component, DestroyRef, ElementRef, inject, input, model, OnInit, signal, ViewChild } from '@angular/core';
+import { Component, computed, DestroyRef, ElementRef, inject, input, model, OnInit, output, signal, viewChild } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { phosphorCaretUpDown, phosphorCheck } from '@ng-icons/phosphor-icons/regular';
@@ -18,16 +19,18 @@ export interface SelectOption {
   ],
 })
 export class SelectComponent implements OnInit {
-  destroyRef = inject(DestroyRef);
+  private destroyRef = inject(DestroyRef);
 
   control = input.required<FormControl<string | null>>();
   searchable = input<boolean>(false);
   options = input<SelectOption[]>([])
   loading = input<boolean>(false);
   placeholder = input<string>('');
+  createFn = input<((data: { value: string }) => void) | undefined>(undefined);
+
   searchModel = model<string>('');
 
-  @ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>;
+  searchInput = viewChild<ElementRef<HTMLInputElement>>('searchInput');
 
   open = signal<boolean>(false);
   selectedLabel = signal<string>('');
@@ -35,10 +38,9 @@ export class SelectComponent implements OnInit {
   ngOnInit(): void {
     this.setSelectedLabel()
     
-    const controlSubscription = this.control().statusChanges
+    this.control().statusChanges
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => this.setSelectedLabel())
-
-    this.destroyRef.onDestroy(() => controlSubscription.unsubscribe());
   }
 
   setSelectedLabel = () => {
@@ -52,10 +54,10 @@ export class SelectComponent implements OnInit {
   toggleOpen = () => {
     this.open.update((prev) => !prev);
     this.control().markAsTouched();
-    if (this.open() && this.searchable() && this.searchInput) {
-      setTimeout(() => {
-        this.searchInput.nativeElement.focus();
-      }, 50);
+
+    const searchInput = this.searchInput();
+    if (this.open() && this.searchable() && searchInput) {
+      setTimeout(() => searchInput.nativeElement.focus(), 50);
     }
   }
 
@@ -64,4 +66,12 @@ export class SelectComponent implements OnInit {
     this.control().markAsDirty();
     this.close();
   };
+
+  createEmit = async() => {
+    const fn = this.createFn();
+    if(!fn) return;
+
+    const value = this.searchModel();
+    fn({ value });
+  }
 }

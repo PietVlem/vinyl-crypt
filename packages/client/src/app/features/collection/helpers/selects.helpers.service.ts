@@ -22,7 +22,7 @@ export class SelectsHelpersService {
   /* Styles */
   private styleService = inject(StyleService)
 
-  styleSearchValue = signal<string>('metal')
+  styleSearchValue = signal<string>('')
   searchForStyle = debouncedSignal(this.styleSearchValue, 500);
 
   stylesQuery = this.styleService.getStyles(this.searchForStyle)
@@ -41,6 +41,7 @@ export class SelectsHelpersService {
   searchForArtist = debouncedSignal(this.artistSearchValue, 500);
 
   artistQuery = this.artistService.getArtists(this.searchForArtist)
+  createArtistMutation = this.artistService.createArtist()
 
   artistSelectOptions = computed(() =>
     this.artistQuery.data()?.map((artist) => ({
@@ -48,6 +49,9 @@ export class SelectsHelpersService {
       value: artist.name,
     })) ?? []
   )
+
+  createArtist = (data : { value: string }) => 
+    this.createArtistMutation.mutateAsync(data);
 
   /* Conditions */
   conditionSelectOptions = computed(() =>

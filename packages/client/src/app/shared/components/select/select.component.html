@@ -2,7 +2,7 @@
   <button
     (click)="toggleOpen()"
     type="button"
-    class="h-9 grid w-full cursor-default grid-cols-1 rounded-md bg-white py-1.5 pl-3 pr-2 text-left text-app-primary outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-app-primary sm:text-sm/6"
+    class="h-9 grid w-full cursor-default grid-cols-1 rounded-md bg-white py-1.5 pl-3 pr-2 text-left text-app-primary outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-app-primary sm:text-sm/6"
     aria-haspopup="listbox"
     aria-expanded="true"
     aria-labelledby="listbox-label"
@@ -67,7 +67,24 @@
         </li>
       } @empty {
         <li class="relative cursor-default select-none py-2 pl-3 pr-9 text-slate-500">
-          <span class="block truncate font-normal">No options found</span>
+          @if(searchable()) {
+            @if(!searchModel()) {
+              <span class="block truncate font-normal">Type to start searching</span>
+            } @else {
+              @if(createFn()) {
+                <button
+                  (click)="createEmit()"
+                  class="block truncate font-normal text-app-primary hover:text-app-primary/80"
+                >
+                  Create "{{ searchModel() }}"
+                </button>
+              } @else {
+                <span class="block truncate font-normal">No options found</span>
+              }
+            }
+          } @else {
+            <span class="block truncate font-normal">No options found</span>
+          }
         </li>
       }
     }

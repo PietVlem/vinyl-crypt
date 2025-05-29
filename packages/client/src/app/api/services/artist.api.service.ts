@@ -17,4 +17,9 @@ export class ArtistApiService {
         input : RouterInput['artist']['get']
     ) : Promise<RouterOutput['artist']['get']> =>
         this.trpcUtils.client.artist.get.query(input)
+
+    createArtist = async (
+        input : RouterInput['artist']['create']
+    ) : Promise<RouterOutput['artist']['create']> =>
+        this.trpcUtils.client.artist.create.mutate(input)
 }

@@ -3,7 +3,10 @@
   description="Get started by filling in the information below to add your new vinyl."
 >
   <ng-container drawer-content>
-    <form [formGroup]="vinylCreationForm" class="space-y-6 py-6 sm:space-y-0 sm:divide-y sm:divide-gray-200 sm:py-0" >
+    <form 
+      [formGroup]="vinylCreationForm" 
+      class="space-y-6 py-6 sm:space-y-0 sm:divide-y sm:divide-gray-200 sm:py-0"
+    >
       <app-horizontal-form-group 
         label="Record name"
         labelFor="title"
@@ -28,12 +31,13 @@
       >
         <div class="grid grid-cols-1">
           <app-select
+            placeholder="Taylor Swift"
             [control]="vinylCreationForm.controls.artistId"
             [searchable]="true"
             [options]="selectsHelpersService.artistSelectOptions()"
             [loading]="selectsHelpersService.artistQuery.isLoading()"
+            [createFn]="selectsHelpersService.createArtist"
             [(searchModel)]="selectsHelpersService.artistSearchValue"
-            placeholder="Taylor Swift"
           />
         </div>
       </app-horizontal-form-group>
@@ -59,11 +63,11 @@
         description="The genre of the record."
         [required]="true"
       >
-      <app-select
-        [options]="selectsHelpersService.genreSelectOptions()"
-        placeholder="Country"
-        [control]="vinylCreationForm.controls.genreId"
-      />
+        <app-select
+          [options]="selectsHelpersService.genreSelectOptions()"
+          placeholder="Country"
+          [control]="vinylCreationForm.controls.genreId"
+        />
       </app-horizontal-form-group>
 
       <app-horizontal-form-group 
