@@ -12,79 +12,77 @@ export const vinylRouter = trpc.router({
         })
     )
     .query(async ({ ctx, input }) => {
-        const { user } = ctx
-        const { page: pageInput } = input
+        // const { user } = ctx
+        // const { page: pageInput } = input
 
-        const pageSize = 12
+        // const pageSize = 12
 
-        const baseQueryParam = {
-            where: {
-                userId: user.id,
-            }
-        }
+        // const baseQueryParam = {
+        //     where: {
+        //         userId: user.id,
+        //     }
+        // }
 
-        const extendedQueryParam = {
-            where: {
-                userId: user.id,
-            },
-            orderBy: {
-                createdAt: 'desc' as const,
-            },
-            include: {
-                artist: true,
-                genre: true,
-                style: true,
-            },
-            take: pageSize,
-            skip: pageInput ? (pageInput - 1) * pageSize : 0,
-        }
+        // const extendedQueryParam = {
+        //     where: {
+        //         userId: user.id,
+        //     },
+        //     orderBy: {
+        //         createdAt: 'desc' as const,
+        //     },
+        //     include: {
+        //         artist: true,
+        //         genre: true,
+        //         style: true,
+        //         variants: true,
+        //     },
+        //     take: pageSize,
+        //     skip: pageInput ? (pageInput - 1) * pageSize : 0,
+        // }
 
-        const records = await prisma.vinylRecord.findMany(extendedQueryParam)
-        const totalRecords = await prisma.vinylRecord.count(baseQueryParam)
+        // const records = await prisma.vinylRecord.findMany(extendedQueryParam)
+        // const totalRecords = await prisma.vinylRecord.count(baseQueryParam)
 
-        return {
-            data: records,
-            meta: {
-                totalRecords,
-                totalPages: Math.ceil(totalRecords / pageSize),
-                currentPage: pageInput || 1,
-                pageSize,
-            }
-        }
+        // return {
+        //     data: records,
+        //     meta: {
+        //         totalRecords,
+        //         totalPages: Math.ceil(totalRecords / pageSize),
+        //         currentPage: pageInput || 1,
+        //         pageSize,
+        //     }
+        // }
     }),
     create: protectedProcedure.input(
         z.object({
             title: z.string(),
-            year: z.number(),
             genreId: z.string().optional(),
             styleId: z.string().optional(),
             condition: z.nativeEnum(Condition).optional(),
-            coverImage: z.string().optional(),
             purchaseDate: z.string().optional(),
             recordColor: z.string().optional(),
             artistId: z.string().optional(),
-            notes: z.string().optional(),
         })
     ).mutation(async ({ input, ctx }) => {
         const { user } = ctx
 
         /* TODO: create tracks in db */
 
-        const record = await prisma.vinylRecord.create({
-            data: {
-                ...input,
-                userId: user.id,
-            }
-        })
+        // const record = await prisma.vinylRecord.create({
+        //     data: {
+        //         ...input,
+        //         userId: user.id,
+        //     }
+        // })
 
-        if(!record) {
-            throw new TRPCError({
-                code: 'INTERNAL_SERVER_ERROR',
-                message: 'Failed to create the record.',
-            });
-        }
+        // if(!record) {
+        //     throw new TRPCError({
+        //         code: 'INTERNAL_SERVER_ERROR',
+        //         message: 'Failed to create the record.',
+        //     });
+        // }
 
-        return record
+        // return record
     }),
     delete: protectedProcedure.input(
         z.object({

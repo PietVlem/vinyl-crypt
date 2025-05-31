@@ -126,75 +126,75 @@ export const shareLinkRouter = trpc.router({
                 password: z.string().optional()
             })
         ).query(async ({ input }) => {
-            const { token, password } = input;
+            // const { token, password } = input;
 
-            const shareLink = await prisma.collectionShare.findUnique({
-                where: {
-                    shareToken: token,
-                },
-            });
+            // const shareLink = await prisma.collectionShare.findUnique({
+            //     where: {
+            //         shareToken: token,
+            //     },
+            // });
 
-            if (!shareLink) {
-                throw new TRPCError({
-                    code: 'NOT_FOUND',
-                    message: 'Requested share link has not been found',
-                });
-            }
+            // if (!shareLink) {
+            //     throw new TRPCError({
+            //         code: 'NOT_FOUND',
+            //         message: 'Requested share link has not been found',
+            //     });
+            // }
 
-            if (shareLink.password) {
-                if(!password) {
-                    throw new TRPCError({
-                        code: 'UNAUTHORIZED',
-                        message: 'Password is required to access this share link',
-                    });
-                }
+            // if (shareLink.password) {
+            //     if(!password) {
+            //         throw new TRPCError({
+            //             code: 'UNAUTHORIZED',
+            //             message: 'Password is required to access this share link',
+            //         });
+            //     }
 
-                const isPasswordValid = await bcrypt.compare(password, shareLink.password);
+            //     const isPasswordValid = await bcrypt.compare(password, shareLink.password);
 
-                if (!isPasswordValid) {
-                    throw new TRPCError({
-                        code: 'UNAUTHORIZED',
-                        message: 'Invalid password',
-                    });
-                }
-            }
+            //     if (!isPasswordValid) {
+            //         throw new TRPCError({
+            //             code: 'UNAUTHORIZED',
+            //             message: 'Invalid password',
+            //         });
+            //     }
+            // }
 
-            const getCollection = () => prisma.vinylRecord.findMany({
-                where: {
-                    userId: shareLink.userId,
-                },
-                include: {
-                    artist: true,
-                    genre: true,
-                    style: true,
-                }
-            })
+            // const getCollection = () => prisma.vinylRecord.findMany({
+            //     where: {
+            //         userId: shareLink.userId,
+            //     },
+            //     include: {
+            //         artist: true,
+            //         genre: true,
+            //         style: true,
+            //     }
+            // })
 
-            const getWishList = () => {
-                // TODO: implement wishlist
-            }
-
-
-            let collection = null
-            let wishList = null
-
-            switch (shareLink.shareType) {
-                case ShareType.collection:
-                    collection = await getCollection()
-                    break;
-                case ShareType.wishlist:
-                    wishList = await getWishList()
-                    break;
-                case ShareType.both:
-                    collection = await getCollection()
-                    wishList = await getWishList()
-                    break;
-            }
+            // const getWishList = () => {
+            //     // TODO: implement wishlist
+            // }
 
 
-            return {
-                collection,
-                wishList,
-            };
+            // let collection = null
+            // let wishList = null
+
+            // switch (shareLink.shareType) {
+            //     case ShareType.collection:
+            //         collection = await getCollection()
+            //         break;
+            //     case ShareType.wishlist:
+            //         wishList = await getWishList()
+            //         break;
+            //     case ShareType.both:
+            //         collection = await getCollection()
+            //         wishList = await getWishList()
+            //         break;
+            // }
+
+
+            // return {
+            //     collection,
+            //     wishList,
+            // };
         })
 })

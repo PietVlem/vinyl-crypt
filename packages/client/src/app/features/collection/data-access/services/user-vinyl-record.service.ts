@@ -1,0 +1,24 @@
+import { inject, Injectable, Signal } from '@angular/core';
+import { UserVinylRecordApiService } from '@api';
+import { NotificationService } from '@core/services';
+import {
+    injectMutation,
+    injectQuery,
+    QueryClient
+} from '@tanstack/angular-query-experimental';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class UserVinylRecordService {
+  private userVinylRecordApiService = inject(UserVinylRecordApiService)
+//   private queryClient = inject(QueryClient)
+//   private notificationService = inject(NotificationService);
+
+  getVinylRecords = (
+    page: Signal<number>
+  ) => injectQuery(() => ({
+    queryKey: ['userVinylRecords', page()],
+    queryFn: () => this.userVinylRecordApiService.getVinylRecords({ page: page() }),
+  }))
+}

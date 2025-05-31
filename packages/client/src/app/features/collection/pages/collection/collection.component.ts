@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { DrawerService } from '@core/services';
 import { CreateFormComponent } from '@features/collection/components/create-form/create-form.component';
-import { VinylRecordService } from '@features/collection/data-access';
+import { UserVinylRecordService } from '@features/collection/data-access';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { phosphorMusicNotesPlus, phosphorShare, phosphorTrash, phosphorVinylRecord } from '@ng-icons/phosphor-icons/regular';
 import { DialogService } from '@ngneat/dialog';
@@ -34,29 +34,29 @@ import { ButtonPrimaryDirective, ButtonSecondaryDirective } from '@shared/direct
 })
 export class CollectionComponent {
   private drawerService = inject(DrawerService)
-  private vinylRecordService = inject(VinylRecordService)
+  private userVinylRecordService = inject(UserVinylRecordService)
   private dialog = inject(DialogService);
 
   currentPage = signal<number>(1)
 
-  vinylRecordsQuery = this.vinylRecordService.getVinylRecords(this.currentPage)
-  vinylRecordDeleteMutation = this.vinylRecordService.deleteVinylRecords()
+  userVinylRecordsQuery = this.userVinylRecordService.getVinylRecords(this.currentPage)
+  // vinylRecordDeleteMutation = this.vinylRecordService.deleteVinylRecords()
 
-  goToPage = (page: number) => {
-    const totalPages = this.vinylRecordsQuery.data()?.meta?.totalPages ?? 1;
-    if (page < 1 || page > totalPages) return
-    this.currentPage.set(page)
-  }
+  // goToPage = (page: number) => {
+  //   const totalPages = this.userVinylRecordService.data()?.meta?.totalPages ?? 1;
+  //   if (page < 1 || page > totalPages) return
+  //   this.currentPage.set(page)
+  // }
 
   OpenAddRecordDrawer = () => this.drawerService.show(CreateFormComponent, {})
 
-  deleteVinylRecord = (id: string) => 
-    this.dialog.open(DialogConfirmComponent, {
-      data: {
-        title: 'Delete Record',
-        description: 'Are you sure you want to delete this record? This action cannot be undone.',
-        confirmText: 'Delete Record',
-        confirmFn: () => this.vinylRecordDeleteMutation.mutate({ ids: [id] })
-      },
-    });
+  // deleteVinylRecord = (id: string) => 
+  //   this.dialog.open(DialogConfirmComponent, {
+  //     data: {
+  //       title: 'Delete Record',
+  //       description: 'Are you sure you want to delete this record? This action cannot be undone.',
+  //       confirmText: 'Delete Record',
+  //       confirmFn: () => this.vinylRecordDeleteMutation.mutate({ ids: [id] })
+  //     },
+  //   });
 }

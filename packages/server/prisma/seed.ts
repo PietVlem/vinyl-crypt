@@ -1,21 +1,26 @@
 import { PrismaClient } from '@prisma/client'
 import {
+    createArtistWithAliases,
     createGenres,
     createStyles,
+    createVinyls,
+    deleteArtists,
     deleteGenres,
     deleteStyles,
+    deleteVinyls,
 } from './seeds'
 
 const prisma = new PrismaClient()
 
 async function main() {
-    /* Delete current data */
     await deleteGenres(prisma)
     await deleteStyles(prisma)
+    await deleteArtists(prisma)
 
-    /* Create new data */
-    await createGenres(prisma)
-    await createStyles(prisma)
+    // await createGenres(prisma)
+    // await createStyles(prisma)
+    await createArtistWithAliases(prisma)
+    await createVinyls(prisma)
 }
 main()
     .then(async () => {

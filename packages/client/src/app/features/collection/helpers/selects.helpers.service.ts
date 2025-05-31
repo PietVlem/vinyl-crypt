@@ -43,11 +43,11 @@ export class SelectsHelpersService {
   artistQuery = this.artistService.getArtists(this.searchForArtist)
   createArtistMutation = this.artistService.createArtist()
 
-  artistSelectOptions = computed(() =>
-    this.artistQuery.data()?.map((artist) => ({
-      id: artist.id,
-      value: artist.name,
-    })) ?? []
+  artistSelectOptions = computed(() => []
+    // this.artistQuery.data()?.map((artist) => ({
+    //   id: artist.id,
+    //   value: artist.name,
+    // })) ?? []
   )
 
   createArtist = (data : { value: string }) => 
