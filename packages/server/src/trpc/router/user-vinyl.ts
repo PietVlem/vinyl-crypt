@@ -83,43 +83,12 @@ export const userVinylRouter = trpc.router({
             }
         }
     }),
-    create: protectedProcedure.input(
-        z.object({
-            title: z.string(),
-            genreId: z.string().optional(),
-            styleId: z.string().optional(),
-            condition: z.nativeEnum(Condition).optional(),
-            purchaseDate: z.string().optional(),
-            recordColor: z.string().optional(),
-            artistId: z.string().optional(),
-        })
-    ).mutation(async ({ input, ctx }) => {
-        const { user } = ctx
-
-        /* TODO: create tracks in db */
-
-        const record = await prisma.vinylRecord.create({
-            data: {
-                ...input,
-                // userId: user.id,
-            }
-        })
-
-        if(!record) {
-            throw new TRPCError({
-                code: 'INTERNAL_SERVER_ERROR',
-                message: 'Failed to create the record.',
-            });
-        }
-
-        return record
-    }),
     delete: protectedProcedure.input(
         z.object({
             ids: z.array(z.string()),
         })
     ).mutation(async ({ input }) => {
-        const records = await prisma.vinylRecord.deleteMany({
+        const records = await prisma.userVinyl.deleteMany({
             where: {
                 id: {
                     in: input.ids,

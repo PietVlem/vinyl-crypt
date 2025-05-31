@@ -6,53 +6,6 @@ import { protectedProcedure } from '../middleware';
 import { trpc } from '../trpc';
 
 export const vinylRouter = trpc.router({
-    get: protectedProcedure.input(
-        z.object({
-            page: z.number().optional(),
-        })
-    )
-    .query(async ({ ctx, input }) => {
-        // const { user } = ctx
-        // const { page: pageInput } = input
-
-        // const pageSize = 12
-
-        // const baseQueryParam = {
-        //     where: {
-        //         userId: user.id,
-        //     }
-        // }
-
-        // const extendedQueryParam = {
-        //     where: {
-        //         userId: user.id,
-        //     },
-        //     orderBy: {
-        //         createdAt: 'desc' as const,
-        //     },
-        //     include: {
-        //         artist: true,
-        //         genre: true,
-        //         style: true,
-        //         variants: true,
-        //     },
-        //     take: pageSize,
-        //     skip: pageInput ? (pageInput - 1) * pageSize : 0,
-        // }
-
-        // const records = await prisma.vinylRecord.findMany(extendedQueryParam)
-        // const totalRecords = await prisma.vinylRecord.count(baseQueryParam)
-
-        // return {
-        //     data: records,
-        //     meta: {
-        //         totalRecords,
-        //         totalPages: Math.ceil(totalRecords / pageSize),
-        //         currentPage: pageInput || 1,
-        //         pageSize,
-        //     }
-        // }
-    }),
     create: protectedProcedure.input(
         z.object({
             title: z.string(),
@@ -84,22 +37,4 @@ export const vinylRouter = trpc.router({
 
         // return record
     }),
-    delete: protectedProcedure.input(
-        z.object({
-            ids: z.array(z.string()),
-        })
-    ).mutation(async ({ input }) => {
-        const records = await prisma.vinylRecord.deleteMany({
-            where: {
-                id: {
-                    in: input.ids,
-                }
-            }
-        })
-
-        return {
-            message: `${records.count} records have been deleted successfully`,
-        }
-    }
-    )
 })

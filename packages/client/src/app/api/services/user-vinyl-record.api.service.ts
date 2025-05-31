@@ -23,8 +23,8 @@ export class UserVinylRecordApiService {
     // ) : Promise<RouterOutput['vinyl']['create']> => 
     //     this.trpcUtils.client.vinyl.create.mutate(input)
 
-    // deleteVinylRecords = async (
-    //     input : RouterInput['vinyl']['delete']
-    // ) : Promise<RouterOutput['vinyl']['delete']> =>
-    //     this.trpcUtils.client.vinyl.delete.mutate(input)
+    deleteVinylRecords = async (
+        input : RouterInput['userVinyl']['delete']
+    ) : Promise<RouterOutput['userVinyl']['delete']> =>
+        this.trpcUtils.client.userVinyl.delete.mutate(input)
 }

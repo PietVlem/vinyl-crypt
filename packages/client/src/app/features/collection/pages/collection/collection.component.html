@@ -30,8 +30,8 @@
             <app-base-content-table>
               @for(record of userVinylRecordsQuery.data()?.data; track record.id) {
                 <tr app-record-row [record]="record">
-                  <!-- <button
-                    (click)="deleteVinylRecord(record.id)"
+                  <button
+                    (click)="deleteUserVinylRecord(record.id)"
                     type="button"
                     class="rounded-md bg-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 size-8 grid cursor-pointer"
                   >
@@ -40,14 +40,14 @@
                       size="16"
                       name="phosphorTrash"
                     />
-                  </button> -->
+                  </button>
                 </tr>
               }
             </app-base-content-table>
           </div>
         </div>
       </div>
-    <!-- @let pageMetaData = vinylRecordsQuery.data()?.meta; 
+    @let pageMetaData = userVinylRecordsQuery.data()?.meta; 
     @if(pageMetaData && pageMetaData.totalRecords > pageMetaData.pageSize) {
       <app-pagination
         [currentPage]="pageMetaData?.currentPage ?? 1"
@@ -56,6 +56,6 @@
         [pageSize]="pageMetaData?.pageSize ?? 50"
         (updatePage)="goToPage($event)"
       />
-    }  -->
+    } 
   } 
 }

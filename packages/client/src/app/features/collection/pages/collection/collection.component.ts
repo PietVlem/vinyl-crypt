@@ -40,23 +40,23 @@ export class CollectionComponent {
   currentPage = signal<number>(1)
 
   userVinylRecordsQuery = this.userVinylRecordService.getVinylRecords(this.currentPage)
-  // vinylRecordDeleteMutation = this.vinylRecordService.deleteVinylRecords()
+  userVinylRecordDeleteMutation = this.userVinylRecordService.deleteVinylRecords()
 
-  // goToPage = (page: number) => {
-  //   const totalPages = this.userVinylRecordService.data()?.meta?.totalPages ?? 1;
-  //   if (page < 1 || page > totalPages) return
-  //   this.currentPage.set(page)
-  // }
+  goToPage = (page: number) => {
+    const totalPages = this.userVinylRecordsQuery.data()?.meta?.totalPages ?? 1;
+    if (page < 1 || page > totalPages) return
+    this.currentPage.set(page)
+  }
 
   OpenAddRecordDrawer = () => this.drawerService.show(CreateFormComponent, {})
 
-  // deleteVinylRecord = (id: string) => 
-  //   this.dialog.open(DialogConfirmComponent, {
-  //     data: {
-  //       title: 'Delete Record',
-  //       description: 'Are you sure you want to delete this record? This action cannot be undone.',
-  //       confirmText: 'Delete Record',
-  //       confirmFn: () => this.vinylRecordDeleteMutation.mutate({ ids: [id] })
-  //     },
-  //   });
+  deleteUserVinylRecord = (id: string) => 
+    this.dialog.open(DialogConfirmComponent, {
+      data: {
+        title: 'Delete Record',
+        description: 'Are you sure you want to delete this record? This action cannot be undone.',
+        confirmText: 'Delete Record',
+        confirmFn: () => this.userVinylRecordDeleteMutation.mutate({ ids: [id] })
+      },
+    });
 }
