@@ -16,7 +16,7 @@ export class UserVinylRecordApiService {
     getVinylRecords = async (
         input : RouterInput['userVinyl']['get']
     ) : Promise<RouterOutput['userVinyl']['get']> =>
-        this.trpcUtils.client.vinyl.get.query(input)
+        this.trpcUtils.client.userVinyl.get.query(input)
 
     // createVinylRecord = async (
     //     input : RouterInput['vinyl']['create']

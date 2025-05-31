@@ -1,5 +1,6 @@
 import { Condition } from '@prisma/client';
 import { TRPCError } from '@trpc/server';
+import { title } from 'process';
 import { z } from 'zod';
 import { prisma } from '../../prisma/prismaClient';
 import { protectedProcedure } from '../middleware';
@@ -27,11 +28,32 @@ export const userVinylRouter = trpc.router({
             where: {
                 userId: user.id,
             },
-            // orderBy: {
-            //     createdAt: 'desc' as const,
-            // },
+            orderBy: {
+                createdAt: 'desc' as const,
+            },
             include: {
-                variant: true
+                variant: {
+                    include: {
+                        vinyl: {
+                            include: {
+                                artist: {
+                                    select: {
+                                        aliases: {
+                                            select: {
+                                                name: true
+                                            },
+                                            where: {
+                                                isPrimary: true,
+                                            }
+                                        },
+                                    }
+                                },
+                                genre: true,
+                                style: true,
+                            }
+                        }
+                    }
+                }
             },
             take: pageSize,
             skip: pageInput ? (pageInput - 1) * pageSize : 0,
@@ -40,8 +62,19 @@ export const userVinylRouter = trpc.router({
         const records = await prisma.userVinyl.findMany(extendedQueryParam)
         const totalRecords = await prisma.userVinyl.count(baseQueryParam)
 
+        const flattenedRecords = records.map(record => ({
+            id: record.id,
+            releaseDate: record.variant.releaseDate,
+            coverImage: record.variant.coverImage,
+            recordColor: record.variant.recordColor,
+            vinylTitle: record.variant.vinyl.title,
+            artistName: record.variant.vinyl.artist?.aliases[0]?.name || null,
+            genre: record.variant.vinyl.genre,
+            style: record.variant.vinyl.style,
+        }));
+
         return {
-            data: records,
+            data: flattenedRecords,
             meta: {
                 totalRecords,
                 totalPages: Math.ceil(totalRecords / pageSize),

@@ -36,7 +36,6 @@ CREATE TABLE "VinylRecord" (
 CREATE TABLE "VinylVariant" (
     "id" TEXT NOT NULL,
     "vinylId" TEXT NOT NULL,
-    "isPrimary" BOOLEAN NOT NULL DEFAULT false,
     "releaseDate" TIMESTAMP(3) NOT NULL,
     "coverImage" TEXT,
     "recordColor" TEXT,
@@ -81,8 +80,9 @@ CREATE TABLE "Style" (
 -- CreateTable
 CREATE TABLE "Track" (
     "id" TEXT NOT NULL,
-    "side" TEXT NOT NULL,
     "title" TEXT NOT NULL,
+    "durationInSeconds" INTEGER,
+    "side" TEXT,
     "mixedBy" TEXT,
     "engineeredBy" TEXT,
     "writtenBy" TEXT,
@@ -96,7 +96,6 @@ CREATE TABLE "Track" (
 -- CreateTable
 CREATE TABLE "Artist" (
     "id" TEXT NOT NULL,
-    "name" TEXT NOT NULL,
     "bio" TEXT,
     "genreId" TEXT,
     "country" TEXT,
@@ -202,7 +201,7 @@ ALTER TABLE "VinylRecord" ADD CONSTRAINT "VinylRecord_styleId_fkey" FOREIGN KEY 
 ALTER TABLE "VinylRecord" ADD CONSTRAINT "VinylRecord_artistId_fkey" FOREIGN KEY ("artistId") REFERENCES "Artist"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "VinylVariant" ADD CONSTRAINT "VinylVariant_vinylId_fkey" FOREIGN KEY ("vinylId") REFERENCES "VinylRecord"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "VinylVariant" ADD CONSTRAINT "VinylVariant_vinylId_fkey" FOREIGN KEY ("vinylId") REFERENCES "VinylRecord"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "UserVinyl" ADD CONSTRAINT "UserVinyl_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

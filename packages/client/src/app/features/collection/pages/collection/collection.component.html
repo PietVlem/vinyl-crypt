@@ -29,8 +29,7 @@
           <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
             <app-base-content-table>
               @for(record of userVinylRecordsQuery.data()?.data; track record.id) {
-                {{ record }}
-                <!-- <tr app-record-row [record]="record"> -->
+                <tr app-record-row [record]="record">
                   <!-- <button
                     (click)="deleteVinylRecord(record.id)"
                     type="button"
@@ -42,7 +41,7 @@
                       name="phosphorTrash"
                     />
                   </button> -->
-                <!-- </tr> -->
+                </tr>
               }
             </app-base-content-table>
           </div>

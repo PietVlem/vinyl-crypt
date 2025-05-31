@@ -1,4 +1,4 @@
 export * from './artists';
 export * from './genres';
 export * from './style';
-export * from './vinyls';
+export * from './users';

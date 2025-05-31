@@ -6,14 +6,12 @@ export const deleteArtists = async (prismaClient: PrismaClient) => {
     prismaClient.artist.deleteMany();
 } 
 
-export const createArtistWithAliases = async (prismaClient: PrismaClient) => {
+export const createArtistWithAliases = async (prismaClient: PrismaClient, user) => {
     for (const artist of artists) {
         const createdArtist = await prismaClient.artist.create({
             data: {
                 bio: artist.bio,
                 country: artist.country,
-                birthDate: artist.birthDate,
-                deathDate: artist.deathDate,
             }
         });
 
@@ -25,6 +23,42 @@ export const createArtistWithAliases = async (prismaClient: PrismaClient) => {
                     isPrimary: alias.isPrimary,
                 },
             });
+        }
+
+        for (const record of artist.records) {
+            const recordEntry = await prismaClient.vinylRecord.create({
+                data: {
+                    title: record.title,
+                    artist: { connect: { id: createdArtist.id } },
+                },
+            });
+
+            for (const variant of record.variants) {
+                const variantEntry = await prismaClient.vinylVariant.create({
+                    data: {
+                        vinyl: { connect: { id: recordEntry.id } },
+                        recordColor: variant.recordColor,
+                        releaseDate: variant.releaseDate
+                    },
+                });
+
+                for (const track of variant.tracks) {
+                    await prismaClient.track.create({
+                        data: {
+                            variant: { connect: { id: variantEntry.id } },
+                            title: track.title,
+                            side: track.side,
+                        },
+                    });
+                }
+
+                await prismaClient.userVinyl.create({
+                    data: {
+                        variant: { connect: { id: variantEntry.id } },
+                        user: { connect: { id: user.id } },
+                    }
+                })
+            }
         }
     }
 }
