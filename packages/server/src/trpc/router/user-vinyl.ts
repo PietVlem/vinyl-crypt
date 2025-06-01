@@ -69,8 +69,8 @@ export const userVinylRouter = trpc.router({
             recordColor: record.variant.recordColor,
             vinylTitle: record.variant.vinyl.title,
             artistName: record.variant.vinyl.artist?.aliases[0]?.name || null,
-            genre: record.variant.vinyl.genre,
-            style: record.variant.vinyl.style,
+            genre: record.variant.vinyl.genre?.name || null,
+            style: record.variant.vinyl.style?.name || null,
         }));
 
         return {
@@ -99,6 +99,77 @@ export const userVinylRouter = trpc.router({
         return {
             message: `${records.count} records have been deleted successfully`,
         }
-    }
-    )
+    }),
+    create: protectedProcedure.input(
+        z.object({
+            condition: z.nativeEnum(Condition),
+            purchaseDate: z.string().optional(),
+            notes: z.string().optional(),
+            title: z.string(),
+            artistId: z.string().optional(),
+            styleId: z.string().optional(),
+            genreId: z.string().optional(),
+            releaseDate: z.string(),
+            coverImage: z.string().optional(),
+            recordColor: z.string().optional(),
+        })
+    ).mutation(async ({ ctx, input }) => {
+        const { user } = ctx;
+
+        // 1. Create vinyl if not exists
+        const vinyl = await prisma.vinylRecord.create({
+            data: {
+                title: input.title,
+                artist: input.artistId ? { connect: { id: input.artistId } } : undefined,
+                style: input.styleId ? { connect: { id: input.styleId } } : undefined,
+                genre: input.genreId ? { connect: { id: input.genreId } } : undefined,
+            }
+        })
+
+        if (!vinyl) {
+            throw new TRPCError({
+                code: 'INTERNAL_SERVER_ERROR',
+                message: 'Failed to create vinyl record in the database.',
+            });
+        }
+
+        // 2. Create variant if not exists
+        const variant = await prisma.vinylVariant.create({
+            data: {
+                vinyl: { connect: { id: vinyl.id } },
+                releaseDate: input.releaseDate,
+                coverImage: input.coverImage || null,
+                recordColor: input.recordColor || null,
+            }
+        })
+
+        if (!variant) {
+            throw new TRPCError({
+                code: 'INTERNAL_SERVER_ERROR',
+                message: 'Failed to create vinyl variant in the database.',
+            });
+        }
+
+        // 3. create userVinyl if not exists
+        const userVinyl = await prisma.userVinyl.create({
+            data: {
+                user: { connect: { id: user.id } },
+                variant: { connect: { id: variant.id } },
+                condition: input.condition,
+                purchaseDate: input.purchaseDate || null,
+                notes: input.notes || null,
+            }
+        })
+
+        if(!userVinyl) {
+            throw new TRPCError({
+                code: 'INTERNAL_SERVER_ERROR',
+                message: 'Failed to create user vinyl in the database.',
+            });
+        }   
+
+        return {
+            message: 'Vinyl record has been created successfully',
+        }
+    })
 })

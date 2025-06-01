@@ -33,4 +33,17 @@ export class UserVinylRecordService {
       );
     },
   }))
+
+  createVinylRecord = (successCallback: () => void) => injectMutation(() => ({
+    mutationFn: (vinylRecord: any) => 
+      this.userVinylRecordApiService.createVinylRecord(vinylRecord),
+    onSuccess: () => {
+      this.queryClient.invalidateQueries({ queryKey: ['userVinylRecords'] })
+      this.notificationService.success(
+        'Successfully created!',
+        'Your vinyl record has been successfully added.',
+      )
+      successCallback()
+    },
+  }))
 }

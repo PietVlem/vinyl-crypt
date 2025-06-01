@@ -4,10 +4,22 @@ import { DrawerService } from '@core/services';
 import { CreateFormComponent } from '@features/collection/components/create-form/create-form.component';
 import { UserVinylRecordService } from '@features/collection/data-access';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { phosphorMusicNotesPlus, phosphorShare, phosphorTrash, phosphorVinylRecord } from '@ng-icons/phosphor-icons/regular';
+import {
+  phosphorMusicNotesPlus,
+  phosphorShare,
+  phosphorTrash,
+  phosphorVinylRecord
+} from '@ng-icons/phosphor-icons/regular';
 import { DialogService } from '@ngneat/dialog';
-import { BaseContentTableComponent, DialogConfirmComponent, EmptyStateComponent, PaginationComponent, RecordRowComponent, TitleTextActionComponent } from '@shared/components';
-import { ButtonPrimaryDirective, ButtonSecondaryDirective } from '@shared/directives';
+import {
+  BaseContentTableComponent,
+  DialogConfirmComponent,
+  EmptyStateComponent,
+  PaginationComponent,
+  RecordRowComponent,
+  TitleTextActionComponent
+} from '@shared/components';
+import { ButtonPrimaryDirective } from '@shared/directives';
 
 @Component({
   selector: 'app-protected',
@@ -17,7 +29,6 @@ import { ButtonPrimaryDirective, ButtonSecondaryDirective } from '@shared/direct
     NgIcon,
     EmptyStateComponent,
     ButtonPrimaryDirective,
-    ButtonSecondaryDirective,
     PaginationComponent,
     TitleTextActionComponent,
     BaseContentTableComponent,

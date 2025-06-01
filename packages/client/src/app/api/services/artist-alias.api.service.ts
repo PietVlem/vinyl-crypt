@@ -10,11 +10,11 @@ type RouterOutput = inferRouterOutputs<AppRouter>;
 @Injectable({
     providedIn: 'root'
 })
-export class VinylRecordApiService {
+export class ArtistAliasApiService {
     trpcUtils = inject(trpcUtils);
 
-    createVinylRecord = async (
-        input : RouterInput['vinyl']['create']
-    ) : Promise<RouterOutput['vinyl']['create']> => 
-        this.trpcUtils.client.vinyl.create.mutate(input)
+    getArtistsAliases = async (
+        input : RouterInput['artistAlias']['get']
+    ) : Promise<RouterOutput['artistAlias']['get']> =>
+        this.trpcUtils.client.artistAlias.get.query(input)
 }

@@ -1,10 +1,9 @@
-import { TRPCError } from '@trpc/server';
 import { z } from 'zod';
 import { prisma } from '../../prisma/prismaClient';
-import { protectedProcedure, publicProcedure } from '../middleware';
+import { publicProcedure } from '../middleware';
 import { trpc } from '../trpc';
 
-export const artistRouter = trpc.router({
+export const artistAliasRouter = trpc.router({
     get: publicProcedure.input(
         z.object({
             searchQuery: z.string(),
@@ -33,27 +32,5 @@ export const artistRouter = trpc.router({
         })
 
         return artists
-    }),
-    create: protectedProcedure.input(
-        z.object({
-            name: z.string(),
-        })
-    ).mutation(async ({ input }) => {
-        // const artist = await prisma.artist.create({
-        //     data: {
-        //         name: input.name,
-        //     },
-        // })
-
-        // if (!artist) {
-        //     throw new TRPCError({
-        //         code: 'INTERNAL_SERVER_ERROR',
-        //         message: 'Failed to create artist in the database.',
-        //     });
-        // }
-
-        // return {
-        //     message: `Artist - ${input.name} created successfully.`,
-        // }
     })
 })

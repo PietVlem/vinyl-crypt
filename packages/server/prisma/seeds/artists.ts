@@ -26,10 +26,24 @@ export const createArtistWithAliases = async (prismaClient: PrismaClient, user) 
         }
 
         for (const record of artist.records) {
+            const genre = await prismaClient.genre.upsert({
+                where: { name: record.genre },
+                update: {},
+                create: { name: record.genre },
+            });
+
+            const style = await prismaClient.style.upsert({
+                where: { name: record.style },
+                update: {},
+                create: { name: record.style },
+            });
+
             const recordEntry = await prismaClient.vinylRecord.create({
                 data: {
                     title: record.title,
                     artist: { connect: { id: createdArtist.id } },
+                    genre: { connect: { id: genre.id } },
+                    style: { connect: { id: style.id } },
                 },
             });
 
@@ -38,7 +52,8 @@ export const createArtistWithAliases = async (prismaClient: PrismaClient, user) 
                     data: {
                         vinyl: { connect: { id: recordEntry.id } },
                         recordColor: variant.recordColor,
-                        releaseDate: variant.releaseDate
+                        releaseDate: variant.releaseDate,
+                        coverImage: variant.coverImage,
                     },
                 });
 

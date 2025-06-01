@@ -1,6 +1,11 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { Condition } from '@core/models';
-import { ArtistService, GenreService, StyleService } from '@features/collection/data-access';
+import {
+  ArtistAliasService,
+  ArtistService,
+  GenreService,
+  StyleService
+} from '@features/collection/data-access';
 import { debouncedSignal } from '@shared/utils/signal-utils';
 
 @Injectable({
@@ -35,19 +40,20 @@ export class SelectsHelpersService {
   )
 
   /* Artists */
+  private artistAliasService = inject(ArtistAliasService)
   private artistService = inject(ArtistService)
 
   artistSearchValue = signal<string>('')
   searchForArtist = debouncedSignal(this.artistSearchValue, 500);
 
-  artistQuery = this.artistService.getArtists(this.searchForArtist)
+  artistQuery = this.artistAliasService.getArtistAliases(this.searchForArtist)
   createArtistMutation = this.artistService.createArtist()
 
-  artistSelectOptions = computed(() => []
-    // this.artistQuery.data()?.map((artist) => ({
-    //   id: artist.id,
-    //   value: artist.name,
-    // })) ?? []
+  artistSelectOptions = computed(() =>
+    this.artistQuery.data()?.map((alias) => ({
+      id: alias.artist.id,
+      value: alias.name,
+    })) ?? []
   )
 
   createArtist = (data : { value: string }) => 

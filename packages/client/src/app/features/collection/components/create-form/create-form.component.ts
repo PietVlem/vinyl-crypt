@@ -3,12 +3,13 @@ import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Condition } from '@core/models';
 import { DrawerService } from '@core/services';
-import { VinylRecordService } from '@features/collection/data-access';
+import { UserVinylRecordService } from '@features/collection/data-access';
 import { SelectsHelpersService } from '@features/collection/helpers';
 import { DrawerBaseComponent } from '@layouts';
 import { SelectComponent } from '@shared/components';
 import { ButtonPrimaryDirective, ButtonSecondaryDirective, StylingInputDirective } from '@shared/directives';
-import { imgUrlValidator, releaseYearValidator } from '@shared/utils/validators';
+import { imgUrlValidator } from '@shared/utils/validators';
+import dayjs from 'dayjs';
 import { HorizontalFormGroupComponent } from '../horizontal-form-group/horizontal-form-group.component';
 
 @Component({
@@ -27,24 +28,28 @@ import { HorizontalFormGroupComponent } from '../horizontal-form-group/horizonta
   templateUrl: './create-form.component.html',
 })
 export class CreateFormComponent {
-  private vinylRecordService = inject(VinylRecordService)
+  private userVinylRecordService = inject(UserVinylRecordService)
   public selectsHelpersService = inject(SelectsHelpersService)
   public drawerService = inject(DrawerService)
 
-  createVinylRecordMutation = this.vinylRecordService.createVinylRecord(
+  createVinylRecordMutation = this.userVinylRecordService.createVinylRecord(
     () => this.drawerService.hide()
   )
 
   vinylCreationForm = new FormGroup({
+    /* user vinyl */
+    condition: new FormControl<Condition>(Condition.Mint),
+    notes: new FormControl<string>(''),
+    purchaseDate: new FormControl<Date | null>(null),
+    /* vinyl */
     title: new FormControl<string>('', [Validators.required]),
-    year: new FormControl<number>(2025, [Validators.required, ...releaseYearValidator]),
+    artistId: new FormControl<string>(''),
     genreId: new FormControl<string>('', [Validators.required]),
     styleId: new FormControl<string>(''),
-    condition: new FormControl<Condition>(Condition.Mint),
+    /* vinyl variant */
+    releaseDate: new FormControl<Date | null>(null, [Validators.required]),
     coverImage: new FormControl<string>('', imgUrlValidator),
     recordColor: new FormControl<string>(''),
-    artistId: new FormControl<string>(''),
-    notes: new FormControl<string>(''),
   });
 
   addVinyl = () => {
@@ -53,6 +58,10 @@ export class CreateFormComponent {
       return;
     }
 
-    this.createVinylRecordMutation.mutate(this.vinylCreationForm.value)
+    this.createVinylRecordMutation.mutate({
+      ...this.vinylCreationForm.value,
+      releaseDate: dayjs(this.vinylCreationForm.value.releaseDate).toDate() ?? undefined,
+      purchaseDate: dayjs(this.vinylCreationForm.value.purchaseDate).toDate() ?? undefined,
+    })
   }
 }

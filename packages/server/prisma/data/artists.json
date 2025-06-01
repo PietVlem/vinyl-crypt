@@ -17,12 +17,14 @@
     "records": [
       {
         "title": "Abbey Road",
+        "genre": "Rock",
+        "style": "Classic Rock",
         "releaseDate": "1969-09-26T00:00:00.000Z",
         "variants": [
           {
             "isPrimary": true,
             "releaseDate": "1969-09-26T00:00:00.000Z",
-            "coverImage": "https://example.com/abbey-road-original.jpg",
+            "coverImage": "https://i.discogs.com/M2yc5OJZPdVoDm2_UlRRXuDlDguamLLSdnbziNmZoQI/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI2MDc0/MjQtMTYzMDYwMTA4/Ny0xMTk5LmpwZWc.jpeg",
             "recordColor": "Black",
             "tracks": [
               {
@@ -115,7 +117,7 @@
           {
             "isPrimary": false,
             "releaseDate": "2019-09-27T00:00:00.000Z",
-            "coverImage": "https://example.com/abbey-road-50th.jpg",
+            "coverImage": "https://i.discogs.com/M2yc5OJZPdVoDm2_UlRRXuDlDguamLLSdnbziNmZoQI/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI2MDc0/MjQtMTYzMDYwMTA4/Ny0xMTk5LmpwZWc.jpeg",
             "recordColor": "White",
             "tracks": []
           }
@@ -123,12 +125,14 @@
       },
       {
         "title": "Sgt. Pepper's Lonely Hearts Club Band",
+        "genre": "Rock",
+        "style": "Psychedelic Rock",
         "releaseDate": "1967-05-26T00:00:00.000Z",
         "variants": [
           {
             "isPrimary": true,
             "releaseDate": "1967-05-26T00:00:00.000Z",
-            "coverImage": "https://example.com/sgt-pepper-original.jpg",
+            "coverImage": "https://i.discogs.com/khXrWmxe4oxYWlYFZCXVxnA4ku8j1fPyGw6HM4m2Eec/rs:fit/g:sm/q:90/h:600/w:598/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM1NTg3/OTItMTM2NTM0ODYz/NS05MTY2LmpwZWc.jpeg",
             "recordColor": "Black",
             "tracks": [
               {
@@ -220,12 +224,14 @@
     "records": [
       {
         "title": "Thriller",
+        "genre": "Pop",
+        "style": "Funk",
         "releaseDate": "1982-11-30T00:00:00.000Z",
         "variants": [
           {
             "isPrimary": true,
             "releaseDate": "1982-11-30T00:00:00.000Z",
-            "coverImage": "https://example.com/thriller-original.jpg",
+            "coverImage": "https://i.discogs.com/dWe2AyguSxJpaaEWbK_mVLL3zs2ejuta0sJCx5BvS8o/rs:fit/g:sm/q:90/h:600/w:597/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI5MTEy/OTMtMTU5NDI0NTgx/Mi03OTMxLmpwZWc.jpeg",
             "recordColor": "Black",
             "tracks": [
               {
@@ -278,7 +284,7 @@
           {
             "isPrimary": false,
             "releaseDate": "2008-02-11T00:00:00.000Z",
-            "coverImage": "https://example.com/thriller-25th.jpg",
+            "coverImage": "https://i.discogs.com/dWe2AyguSxJpaaEWbK_mVLL3zs2ejuta0sJCx5BvS8o/rs:fit/g:sm/q:90/h:600/w:597/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI5MTEy/OTMtMTU5NDI0NTgx/Mi03OTMxLmpwZWc.jpeg",
             "recordColor": "Red",
             "tracks": []
           }
@@ -286,12 +292,14 @@
       },
       {
         "title": "Bad",
+        "genre": "Pop",
+        "style": "Pop Rock",
         "releaseDate": "1987-08-31T00:00:00.000Z",
         "variants": [
           {
             "isPrimary": true,
             "releaseDate": "1987-08-31T00:00:00.000Z",
-            "coverImage": "https://example.com/bad-original.jpg",
+            "coverImage": "https://i.discogs.com/W4bMsFIhfx4xQgX4L1lD7PwtYyaqMgaC30DmSSVu9E4/rs:fit/g:sm/q:90/h:600/w:598/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTQ1OTYw/Ni0xNDUwMzg5NDI1/LTg4NTIuanBlZw.jpeg",
             "recordColor": "Black",
             "tracks": [
               {
@@ -369,12 +377,14 @@
     "records": [
       {
         "title": "ABBA Gold: Greatest Hits",
+        "genre": "Pop",
+        "style": "Europop",
         "releaseDate": "1992-09-21T00:00:00.000Z",
         "variants": [
           {
             "isPrimary": true,
             "releaseDate": "1992-09-21T00:00:00.000Z",
-            "coverImage": "https://example.com/abba-gold.jpg",
+            "coverImage": "https://i.discogs.com/5L6Tf0su42j1X4_C0RwXU4f0mhHcaWH_jSXdCsTY2aY/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEyMTg4/OTAtMTUzMzY2MjU1/Ny0xNjkyLmpwZWc.jpeg",
             "recordColor": "Gold",
             "tracks": [
               {
@@ -478,12 +488,14 @@
       },
       {
         "title": "Arrival",
+        "genre": "Pop",
+        "style": "Disco",
         "releaseDate": "1976-10-11T00:00:00.000Z",
         "variants": [
           {
             "isPrimary": true,
             "releaseDate": "1976-10-11T00:00:00.000Z",
-            "coverImage": "https://example.com/abba-arrival.jpg",
+            "coverImage": "https://i.discogs.com/5RDcR1itMpIuVXFqkg0BtvrWvWopRqpB1Cf7mLjlHwU/rs:fit/g:sm/q:90/h:600/w:598/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTY3NzYy/NzUtMTQyNjM5ODI5/OS01MzY0LmpwZWc.jpeg",
             "recordColor": "Black",
             "tracks": [
               {
@@ -556,12 +568,14 @@
     "records": [
       {
         "title": "A Night at the Opera",
+        "genre": "Rock",
+        "style": "Progressive Rock",
         "releaseDate": "1975-11-21T00:00:00.000Z",
         "variants": [
           {
             "isPrimary": true,
             "releaseDate": "1975-11-21T00:00:00.000Z",
-            "coverImage": "https://example.com/queen-night-opera.jpg",
+            "coverImage": "https://i.discogs.com/2GXnNYolz0ciUnj8-ycSwQ8Uuy0Qu7LCfiZivZ0p_bo/rs:fit/g:sm/q:90/h:594/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTYxMjc4/MC0xNTQxMzY3MTQ1/LTIxMjcuanBlZw.jpeg",
             "recordColor": "Black",
             "tracks": [
               {
@@ -629,7 +643,7 @@
           {
             "isPrimary": false,
             "releaseDate": "2011-11-21T00:00:00.000Z",
-            "coverImage": "https://example.com/queen-night-opera-remaster.jpg",
+            "coverImage": "https://i.discogs.com/8DuLRZDOQgxhVq0375VGK0LhPYU98f8DX78fjmTL9gw/rs:fit/g:sm/q:90/h:569/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTU5NjIy/MjctMTQwNzQ5ODEw/OC00NDk5LmpwZWc.jpeg",
             "recordColor": "Purple",
             "tracks": []
           }
@@ -651,12 +665,14 @@
     "records": [
       {
         "title": "Nevermind",
+        "genre": "Rock",
+        "style": "Grunge",
         "releaseDate": "1991-09-24T00:00:00.000Z",
         "variants": [
           {
             "isPrimary": true,
             "releaseDate": "1991-09-24T00:00:00.000Z",
-            "coverImage": "https://example.com/nirvana-nevermind.jpg",
+            "coverImage": "https://i.discogs.com/XoAXkLe03Vk0Kt-oQqw7V9uW5nBzQdNvZd0zar5mOiQ/rs:fit/g:sm/q:90/h:592/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM2NzA4/NC0xMjYzMDk1NTUz/LmpwZWc.jpeg",
             "recordColor": "Black",
             "tracks": [
               {

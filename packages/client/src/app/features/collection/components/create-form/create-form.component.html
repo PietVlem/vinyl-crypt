@@ -43,21 +43,6 @@
       </app-horizontal-form-group>
 
       <app-horizontal-form-group 
-        label="Release date"
-        labelFor="year"
-        description="The release year of the record."
-        [required]="true"
-      >
-        <input
-          appInput
-          formControlName="year"
-          type="number"
-          name="year"
-          id="year"
-        />
-      </app-horizontal-form-group>
-
-      <app-horizontal-form-group 
         label="Genre"
         labelFor="genre"
         description="The genre of the record."
@@ -68,20 +53,6 @@
           placeholder="Country"
           [control]="vinylCreationForm.controls.genreId"
         />
-      </app-horizontal-form-group>
-
-      <app-horizontal-form-group 
-        label="Condition"
-        labelFor="condition"
-        description="The condition of the record."
-        [required]="vinylCreationForm.controls['condition'].errors?.['required']"
-      >
-        <div class="grid grid-cols-1">
-          <app-select
-            [control]="vinylCreationForm.controls.condition"
-            [options]="selectsHelpersService.conditionSelectOptions()"
-          />
-        </div>
       </app-horizontal-form-group>
 
       <app-horizontal-form-group 
@@ -132,6 +103,50 @@
           id="recordColor"
           placeholder="Black"
         />
+      </app-horizontal-form-group>
+
+      <app-horizontal-form-group 
+        label="Release date"
+        labelFor="year"
+        description="The release year of the record."
+        [required]="true"
+      >
+        <input
+          appInput
+          formControlName="releaseDate"
+          type="date"
+          name="releaseDate"
+          id="releaseDate"
+        />
+      </app-horizontal-form-group>
+
+      <app-horizontal-form-group 
+        label="Purchase date"
+        labelFor="year"
+        description="The release year of the record."
+        [required]="true"
+      >
+        <input
+          appInput
+          formControlName="purchaseDate"
+          type="date"
+          name="purchaseDate"
+          id="purchaseDate"
+        />
+      </app-horizontal-form-group>
+
+      <app-horizontal-form-group 
+        label="Condition"
+        labelFor="condition"
+        description="The condition of the record."
+        [required]="vinylCreationForm.controls['condition'].errors?.['required']"
+      >
+        <div class="grid grid-cols-1">
+          <app-select
+            [control]="vinylCreationForm.controls.condition"
+            [options]="selectsHelpersService.conditionSelectOptions()"
+          />
+        </div>
       </app-horizontal-form-group>
 
       <app-horizontal-form-group 

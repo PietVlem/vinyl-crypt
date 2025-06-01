@@ -12,12 +12,7 @@ type RouterOutput = inferRouterOutputs<AppRouter>;
 })
 export class ArtistApiService {
     trpcUtils = inject(trpcUtils);
-
-    getArtists = async (
-        input : RouterInput['artist']['get']
-    ) : Promise<RouterOutput['artist']['get']> =>
-        this.trpcUtils.client.artist.get.query(input)
-
+    
     createArtist = async (
         input : RouterInput['artist']['create']
     ) : Promise<RouterOutput['artist']['create']> =>

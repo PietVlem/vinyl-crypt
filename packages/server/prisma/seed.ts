@@ -6,16 +6,22 @@ import {
     createStyles,
     deleteArtists,
     deleteGenres,
+    deleteShareLinks,
     deleteStyles,
+    deleteTracks,
     deleteUsers,
+    deleteUserVinylRecords
 } from './seeds'
 
 const prisma = new PrismaClient()
 
 async function main() {
+    await deleteShareLinks(prisma)
+    await deleteUserVinylRecords(prisma)
+    await deleteArtists(prisma)
+    await deleteTracks(prisma)
     await deleteGenres(prisma)
     await deleteStyles(prisma)
-    await deleteArtists(prisma)
     await deleteUsers(prisma)
 
     const user = await createMainUser(prisma)
