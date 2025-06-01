@@ -1,7 +1,6 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { Condition } from '@core/models';
 import {
-  ArtistAliasService,
   ArtistService,
   GenreService,
   StyleService
@@ -40,13 +39,12 @@ export class SelectsHelpersService {
   )
 
   /* Artists */
-  private artistAliasService = inject(ArtistAliasService)
   private artistService = inject(ArtistService)
 
   artistSearchValue = signal<string>('')
   searchForArtist = debouncedSignal(this.artistSearchValue, 500);
 
-  artistQuery = this.artistAliasService.getArtistAliases(this.searchForArtist)
+  artistQuery = this.artistService.getArtists(this.searchForArtist)
   createArtistMutation = this.artistService.createArtist()
 
   artistSelectOptions = computed(() =>

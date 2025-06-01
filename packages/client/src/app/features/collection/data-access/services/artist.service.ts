@@ -1,15 +1,24 @@
 import { inject, Injectable, Signal } from '@angular/core';
-import { ArtistApiService } from '@api';
+import { ArtistAliasApiService, ArtistApiService } from '@api';
 import { NotificationService } from '@core/services';
-import { injectMutation, QueryClient } from '@tanstack/angular-query-experimental';
+import { injectMutation, injectQuery, QueryClient } from '@tanstack/angular-query-experimental';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ArtistService {
   private artistApiService = inject(ArtistApiService)
+  private artistAliasApiService = inject(ArtistAliasApiService)
   private notificationService = inject(NotificationService)
   private queryClient = inject(QueryClient)
+
+  getArtists = (
+    searchQuery: Signal<string>,
+  ) => injectQuery(() => ({
+    enabled: searchQuery().length > 2,
+    queryKey: ['artists', searchQuery()],
+    queryFn: () => this.artistAliasApiService.getArtistsAliases({ searchQuery: searchQuery() }),
+  }))
 
   createArtist = () => injectMutation(() => ({
     mutationFn: (data: { value: string }) => 
